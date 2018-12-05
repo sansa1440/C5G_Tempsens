@@ -63,17 +63,17 @@ module C5G_Tempsens(
 	output		          		SRAM_UB_n,
 	output		          		SRAM_WE_n,
 
-	//////////// LPDDR2 //////////
-	output		     [9:0]		DDR2LP_CA,
-	output		          		DDR2LP_CK_n,
-	output		          		DDR2LP_CK_p,
-	output		     [1:0]		DDR2LP_CKE,
-	output		     [1:0]		DDR2LP_CS_n,
-	output		     [3:0]		DDR2LP_DM,
-	inout 		    [31:0]		DDR2LP_DQ,
-	inout 		     [3:0]		DDR2LP_DQS_n,
-	inout 		     [3:0]		DDR2LP_DQS_p,
-	input 		          		DDR2LP_OCT_RZQ,
+//	//////////// LPDDR2 //////////
+//	output		     [9:0]		DDR2LP_CA,
+//	output		          		DDR2LP_CK_n,
+//	output		          		DDR2LP_CK_p,
+//	output		     [1:0]		DDR2LP_CKE,
+//	output		     [1:0]		DDR2LP_CS_n,
+//	output		     [3:0]		DDR2LP_DM,
+//	inout 		    [31:0]		DDR2LP_DQ,
+//	inout 		     [3:0]		DDR2LP_DQS_n,
+//	inout 		     [3:0]		DDR2LP_DQS_p,
+//	input 		          		DDR2LP_OCT_RZQ,
 
 	//////////// GPIO, GPIO connect to GPIO Default //////////
 	inout 		    [35:0]		GPIO
@@ -85,14 +85,12 @@ module C5G_Tempsens(
 //  REG/WIRE declarations
 //=======================================================
 
-
+wire clk_270kHz;
 
 
 //=======================================================
 //  Structural coding
 //=======================================================
-reg LCD_clk []
-CLOCK_50_B7A
 
 module lcdctrl(
 	.clk(LCD_clk),
@@ -108,10 +106,17 @@ module lcdctrl(
 	.data4,
 	.data5
 	);
-	
-	
-	
-	)
 
+slowClock clock_generate(
+	.clk(CLOCK_50_B7A),
+	.reset(SW[0]),
+	.clk_270kHz(clk_270Hz)
+	);
+
+	
+
+assign LEDG[0] = clk_270kHz;	
+assign LEDG[1] = ~clk_270kHz;
+assign LEDG[2] = 1'b1;
 
 endmodule
