@@ -16,7 +16,7 @@
 // PROGRAM "Quartus Prime"
 // VERSION "Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition"
 
-// DATE "12/05/2018 22:42:15"
+// DATE "12/06/2018 00:34:08"
 
 // 
 // Device: Altera 5CGXFC5C6F27C7 Package FBGA672
@@ -266,13 +266,13 @@ inout 	[35:0] GPIO;
 // GPIO[22]	=>  Location: PIN_AD7,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
 // GPIO[23]	=>  Location: PIN_AD6,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
 // GPIO[24]	=>  Location: PIN_U20,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
+// GPIO[25]	=>  Location: PIN_V22,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
+// GPIO[26]	=>  Location: PIN_V20,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
+// GPIO[27]	=>  Location: PIN_W21,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
 // GPIO[28]	=>  Location: PIN_W20,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
 // GPIO[29]	=>  Location: PIN_Y24,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
 // GPIO[30]	=>  Location: PIN_Y23,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
 // GPIO[31]	=>  Location: PIN_AA23,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
-// GPIO[25]	=>  Location: PIN_V22,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
-// GPIO[26]	=>  Location: PIN_V20,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
-// GPIO[27]	=>  Location: PIN_W21,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
 // GPIO[32]	=>  Location: PIN_AA22,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
 // GPIO[33]	=>  Location: PIN_AC24,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
 // GPIO[34]	=>  Location: PIN_AC23,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 16mA
@@ -361,13 +361,13 @@ wire \GPIO[21]~input_o ;
 wire \GPIO[22]~input_o ;
 wire \GPIO[23]~input_o ;
 wire \GPIO[24]~input_o ;
+wire \GPIO[25]~input_o ;
+wire \GPIO[26]~input_o ;
+wire \GPIO[27]~input_o ;
 wire \GPIO[28]~input_o ;
 wire \GPIO[29]~input_o ;
 wire \GPIO[30]~input_o ;
 wire \GPIO[31]~input_o ;
-wire \GPIO[25]~input_o ;
-wire \GPIO[26]~input_o ;
-wire \GPIO[27]~input_o ;
 wire \GPIO[32]~input_o ;
 wire \GPIO[33]~input_o ;
 wire \GPIO[34]~input_o ;
@@ -2551,70 +2551,6 @@ defparam \GPIO[24]~output .open_drain_output = "true";
 defparam \GPIO[24]~output .shift_series_termination_control = "false";
 // synopsys translate_on
 
-// Location: IOOBUF_X68_Y11_N5
-cyclonev_io_obuf \GPIO[28]~output (
-	.i(vcc),
-	.oe(vcc),
-	.dynamicterminationcontrol(gnd),
-	.seriesterminationcontrol(16'b0000000000000000),
-	.parallelterminationcontrol(16'b0000000000000000),
-	.devoe(devoe),
-	.o(GPIO[28]),
-	.obar());
-// synopsys translate_off
-defparam \GPIO[28]~output .bus_hold = "false";
-defparam \GPIO[28]~output .open_drain_output = "true";
-defparam \GPIO[28]~output .shift_series_termination_control = "false";
-// synopsys translate_on
-
-// Location: IOOBUF_X68_Y13_N56
-cyclonev_io_obuf \GPIO[29]~output (
-	.i(vcc),
-	.oe(vcc),
-	.dynamicterminationcontrol(gnd),
-	.seriesterminationcontrol(16'b0000000000000000),
-	.parallelterminationcontrol(16'b0000000000000000),
-	.devoe(devoe),
-	.o(GPIO[29]),
-	.obar());
-// synopsys translate_off
-defparam \GPIO[29]~output .bus_hold = "false";
-defparam \GPIO[29]~output .open_drain_output = "true";
-defparam \GPIO[29]~output .shift_series_termination_control = "false";
-// synopsys translate_on
-
-// Location: IOOBUF_X68_Y13_N39
-cyclonev_io_obuf \GPIO[30]~output (
-	.i(vcc),
-	.oe(vcc),
-	.dynamicterminationcontrol(gnd),
-	.seriesterminationcontrol(16'b0000000000000000),
-	.parallelterminationcontrol(16'b0000000000000000),
-	.devoe(devoe),
-	.o(GPIO[30]),
-	.obar());
-// synopsys translate_off
-defparam \GPIO[30]~output .bus_hold = "false";
-defparam \GPIO[30]~output .open_drain_output = "true";
-defparam \GPIO[30]~output .shift_series_termination_control = "false";
-// synopsys translate_on
-
-// Location: IOOBUF_X68_Y11_N56
-cyclonev_io_obuf \GPIO[31]~output (
-	.i(vcc),
-	.oe(vcc),
-	.dynamicterminationcontrol(gnd),
-	.seriesterminationcontrol(16'b0000000000000000),
-	.parallelterminationcontrol(16'b0000000000000000),
-	.devoe(devoe),
-	.o(GPIO[31]),
-	.obar());
-// synopsys translate_off
-defparam \GPIO[31]~output .bus_hold = "false";
-defparam \GPIO[31]~output .open_drain_output = "true";
-defparam \GPIO[31]~output .shift_series_termination_control = "false";
-// synopsys translate_on
-
 // Location: IOOBUF_X68_Y12_N5
 cyclonev_io_obuf \GPIO[25]~output (
 	.i(gnd),
@@ -2663,9 +2599,73 @@ defparam \GPIO[27]~output .open_drain_output = "true";
 defparam \GPIO[27]~output .shift_series_termination_control = "false";
 // synopsys translate_on
 
+// Location: IOOBUF_X68_Y11_N5
+cyclonev_io_obuf \GPIO[28]~output (
+	.i(gnd),
+	.oe(vcc),
+	.dynamicterminationcontrol(gnd),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.parallelterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(GPIO[28]),
+	.obar());
+// synopsys translate_off
+defparam \GPIO[28]~output .bus_hold = "false";
+defparam \GPIO[28]~output .open_drain_output = "true";
+defparam \GPIO[28]~output .shift_series_termination_control = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X68_Y13_N56
+cyclonev_io_obuf \GPIO[29]~output (
+	.i(gnd),
+	.oe(vcc),
+	.dynamicterminationcontrol(gnd),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.parallelterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(GPIO[29]),
+	.obar());
+// synopsys translate_off
+defparam \GPIO[29]~output .bus_hold = "false";
+defparam \GPIO[29]~output .open_drain_output = "true";
+defparam \GPIO[29]~output .shift_series_termination_control = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X68_Y13_N39
+cyclonev_io_obuf \GPIO[30]~output (
+	.i(gnd),
+	.oe(vcc),
+	.dynamicterminationcontrol(gnd),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.parallelterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(GPIO[30]),
+	.obar());
+// synopsys translate_off
+defparam \GPIO[30]~output .bus_hold = "false";
+defparam \GPIO[30]~output .open_drain_output = "true";
+defparam \GPIO[30]~output .shift_series_termination_control = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X68_Y11_N56
+cyclonev_io_obuf \GPIO[31]~output (
+	.i(gnd),
+	.oe(vcc),
+	.dynamicterminationcontrol(gnd),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.parallelterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(GPIO[31]),
+	.obar());
+// synopsys translate_off
+defparam \GPIO[31]~output .bus_hold = "false";
+defparam \GPIO[31]~output .open_drain_output = "true";
+defparam \GPIO[31]~output .shift_series_termination_control = "false";
+// synopsys translate_on
+
 // Location: IOOBUF_X68_Y11_N39
 cyclonev_io_obuf \GPIO[32]~output (
-	.i(gnd),
+	.i(vcc),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -2681,7 +2681,7 @@ defparam \GPIO[32]~output .shift_series_termination_control = "false";
 
 // Location: IOOBUF_X68_Y12_N39
 cyclonev_io_obuf \GPIO[33]~output (
-	.i(gnd),
+	.i(vcc),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -2697,7 +2697,7 @@ defparam \GPIO[33]~output .shift_series_termination_control = "false";
 
 // Location: IOOBUF_X68_Y10_N96
 cyclonev_io_obuf \GPIO[34]~output (
-	.i(gnd),
+	.i(vcc),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -2713,7 +2713,7 @@ defparam \GPIO[34]~output .shift_series_termination_control = "false";
 
 // Location: IOOBUF_X68_Y10_N79
 cyclonev_io_obuf \GPIO[35]~output (
-	.i(gnd),
+	.i(vcc),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -3497,6 +3497,39 @@ defparam \GPIO[24]~input .bus_hold = "false";
 defparam \GPIO[24]~input .simulate_z_as = "z";
 // synopsys translate_on
 
+// Location: IOIBUF_X68_Y12_N4
+cyclonev_io_ibuf \GPIO[25]~input (
+	.i(GPIO[25]),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\GPIO[25]~input_o ));
+// synopsys translate_off
+defparam \GPIO[25]~input .bus_hold = "false";
+defparam \GPIO[25]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X68_Y10_N61
+cyclonev_io_ibuf \GPIO[26]~input (
+	.i(GPIO[26]),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\GPIO[26]~input_o ));
+// synopsys translate_off
+defparam \GPIO[26]~input .bus_hold = "false";
+defparam \GPIO[26]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X68_Y11_N21
+cyclonev_io_ibuf \GPIO[27]~input (
+	.i(GPIO[27]),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\GPIO[27]~input_o ));
+// synopsys translate_off
+defparam \GPIO[27]~input .bus_hold = "false";
+defparam \GPIO[27]~input .simulate_z_as = "z";
+// synopsys translate_on
+
 // Location: IOIBUF_X68_Y11_N4
 cyclonev_io_ibuf \GPIO[28]~input (
 	.i(GPIO[28]),
@@ -3539,39 +3572,6 @@ cyclonev_io_ibuf \GPIO[31]~input (
 // synopsys translate_off
 defparam \GPIO[31]~input .bus_hold = "false";
 defparam \GPIO[31]~input .simulate_z_as = "z";
-// synopsys translate_on
-
-// Location: IOIBUF_X68_Y12_N4
-cyclonev_io_ibuf \GPIO[25]~input (
-	.i(GPIO[25]),
-	.ibar(gnd),
-	.dynamicterminationcontrol(gnd),
-	.o(\GPIO[25]~input_o ));
-// synopsys translate_off
-defparam \GPIO[25]~input .bus_hold = "false";
-defparam \GPIO[25]~input .simulate_z_as = "z";
-// synopsys translate_on
-
-// Location: IOIBUF_X68_Y10_N61
-cyclonev_io_ibuf \GPIO[26]~input (
-	.i(GPIO[26]),
-	.ibar(gnd),
-	.dynamicterminationcontrol(gnd),
-	.o(\GPIO[26]~input_o ));
-// synopsys translate_off
-defparam \GPIO[26]~input .bus_hold = "false";
-defparam \GPIO[26]~input .simulate_z_as = "z";
-// synopsys translate_on
-
-// Location: IOIBUF_X68_Y11_N21
-cyclonev_io_ibuf \GPIO[27]~input (
-	.i(GPIO[27]),
-	.ibar(gnd),
-	.dynamicterminationcontrol(gnd),
-	.o(\GPIO[27]~input_o ));
-// synopsys translate_off
-defparam \GPIO[27]~input .bus_hold = "false";
-defparam \GPIO[27]~input .simulate_z_as = "z";
 // synopsys translate_on
 
 // Location: IOIBUF_X68_Y11_N38

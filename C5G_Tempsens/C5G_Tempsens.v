@@ -87,11 +87,26 @@ module C5G_Tempsens(
 
 wire clk_270kHz;
 
-reg [15:0] data = 16'b0000_0001_0010_0100;
 
 //=======================================================
 //  Structural coding
 //=======================================================
+
+//lcdctrl lcdctrl(
+//	.clk(clk_270),
+//	.reset(CPU_RESET_n),
+//	.lcd_e(GPIO[26]),
+//	.lcd_rs(GPIO[25]),
+//	.lcd_rw(GPIO[27]),
+//	.sf_d({GPIO[35:32]}),
+//	.data0(hex_data),
+//	.data1,
+//	.data2,
+//	.data3,
+//	.data4,
+//	.data5
+//	);
+
 
 lcdctrl lcdctrl(
 	.clk(clk_270),
@@ -99,15 +114,9 @@ lcdctrl lcdctrl(
 	.lcd_e(GPIO[26]),
 	.lcd_rs(GPIO[25]),
 	.lcd_rw(GPIO[27]),
-	.sf_d({GPIO[35:32]}),
-	.data0(hex_data),
-	.data1,
-	.data2,
-	.data3,
-	.data4,
-	.data5
+	.sf_d({GPIO[35:28]}),
 	);
-
+	
 slowClock clock_generate(
 	.clk(CLOCK_50_B7A),
 	.reset(SW[0]),

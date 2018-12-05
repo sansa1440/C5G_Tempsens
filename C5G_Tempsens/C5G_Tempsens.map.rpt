@@ -1,5 +1,5 @@
 Analysis & Synthesis report for C5G_Tempsens
-Wed Dec  5 22:40:58 2018
+Thu Dec  6 00:32:52 2018
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
 
 
@@ -47,7 +47,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Wed Dec  5 22:40:58 2018       ;
+; Analysis & Synthesis Status     ; Successful - Thu Dec  6 00:32:52 2018       ;
 ; Quartus Prime Version           ; 18.0.0 Build 614 04/24/2018 SJ Lite Edition ;
 ; Revision Name                   ; C5G_Tempsens                                ;
 ; Top-level Entity Name           ; C5G_Tempsens                                ;
@@ -305,55 +305,19 @@ Encoding Type:  One-Hot
 +------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+------------------------------------------------+
-; Port Connectivity Checks: "lcdctrl:lcdctrl"    ;
-+--------------+-------+----------+--------------+
-; Port         ; Type  ; Severity ; Details      ;
-+--------------+-------+----------+--------------+
-; clk          ; Input ; Info     ; Stuck at GND ;
-; data0[15..9] ; Input ; Info     ; Stuck at GND ;
-; data0[7..6]  ; Input ; Info     ; Stuck at GND ;
-; data0[4..3]  ; Input ; Info     ; Stuck at GND ;
-; data0[1..0]  ; Input ; Info     ; Stuck at GND ;
-; data0[8]     ; Input ; Info     ; Stuck at VCC ;
-; data0[5]     ; Input ; Info     ; Stuck at VCC ;
-; data0[2]     ; Input ; Info     ; Stuck at VCC ;
-; data1[15..9] ; Input ; Info     ; Stuck at GND ;
-; data1[7..6]  ; Input ; Info     ; Stuck at GND ;
-; data1[4..3]  ; Input ; Info     ; Stuck at GND ;
-; data1[1..0]  ; Input ; Info     ; Stuck at GND ;
-; data1[8]     ; Input ; Info     ; Stuck at VCC ;
-; data1[5]     ; Input ; Info     ; Stuck at VCC ;
-; data1[2]     ; Input ; Info     ; Stuck at VCC ;
-; data2[15..9] ; Input ; Info     ; Stuck at GND ;
-; data2[7..6]  ; Input ; Info     ; Stuck at GND ;
-; data2[4..3]  ; Input ; Info     ; Stuck at GND ;
-; data2[1..0]  ; Input ; Info     ; Stuck at GND ;
-; data2[8]     ; Input ; Info     ; Stuck at VCC ;
-; data2[5]     ; Input ; Info     ; Stuck at VCC ;
-; data2[2]     ; Input ; Info     ; Stuck at VCC ;
-; data3[15..9] ; Input ; Info     ; Stuck at GND ;
-; data3[7..6]  ; Input ; Info     ; Stuck at GND ;
-; data3[4..3]  ; Input ; Info     ; Stuck at GND ;
-; data3[1..0]  ; Input ; Info     ; Stuck at GND ;
-; data3[8]     ; Input ; Info     ; Stuck at VCC ;
-; data3[5]     ; Input ; Info     ; Stuck at VCC ;
-; data3[2]     ; Input ; Info     ; Stuck at VCC ;
-; data4[15..9] ; Input ; Info     ; Stuck at GND ;
-; data4[7..6]  ; Input ; Info     ; Stuck at GND ;
-; data4[4..3]  ; Input ; Info     ; Stuck at GND ;
-; data4[1..0]  ; Input ; Info     ; Stuck at GND ;
-; data4[8]     ; Input ; Info     ; Stuck at VCC ;
-; data4[5]     ; Input ; Info     ; Stuck at VCC ;
-; data4[2]     ; Input ; Info     ; Stuck at VCC ;
-; data5[15..9] ; Input ; Info     ; Stuck at GND ;
-; data5[7..6]  ; Input ; Info     ; Stuck at GND ;
-; data5[4..3]  ; Input ; Info     ; Stuck at GND ;
-; data5[1..0]  ; Input ; Info     ; Stuck at GND ;
-; data5[8]     ; Input ; Info     ; Stuck at VCC ;
-; data5[5]     ; Input ; Info     ; Stuck at VCC ;
-; data5[2]     ; Input ; Info     ; Stuck at VCC ;
-+--------------+-------+----------+--------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "lcdctrl:lcdctrl"                                                                                                                                                       ;
++-------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port  ; Type   ; Severity ; Details                                                                                                                                                               ;
++-------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; sf_d  ; Output ; Warning  ; Output or bidir port (4 bits) is smaller than the port expression (8 bits) it drives.  The 4 most-significant bit(s) in the port expression will be connected to GND. ;
+; data0 ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND.                          ;
+; data1 ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND.                          ;
+; data2 ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND.                          ;
+; data3 ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND.                          ;
+; data4 ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND.                          ;
+; data5 ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND.                          ;
++-------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -387,7 +351,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
-    Info: Processing started: Wed Dec  5 22:40:33 2018
+    Info: Processing started: Thu Dec  6 00:32:29 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off C5G_Tempsens -c C5G_Tempsens
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -395,13 +359,16 @@ Info (12021): Found 1 design units, including 1 entities, in source file LCDModu
     Info (12023): Found entity 1: lcdctrl File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule.v Line: 21
 Info (12021): Found 1 design units, including 1 entities, in source file clock_generator.v
     Info (12023): Found entity 1: slowClock File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/clock_generator.v Line: 7
+Warning (10238): Verilog Module Declaration warning at LCDModule_init.v(24): ignored anonymous port(s) indicated by duplicate or dangling comma(s) in the port list for module "lcdctrl_init" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 24
+Info (12021): Found 1 design units, including 1 entities, in source file LCDModule_init.v
+    Info (12023): Found entity 1: lcdctrl_init File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 17
+Warning (10275): Verilog HDL Module Instantiation warning at C5G_Tempsens.v(118): ignored dangling comma in List of Port Connections File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 118
 Warning (12125): Using design file C5G_Tempsens.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
     Info (12023): Found entity 1: C5G_Tempsens File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 6
-Warning (10236): Verilog HDL Implicit Net warning at C5G_Tempsens.v(97): created implicit net for "clk_270" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 97
-Warning (10236): Verilog HDL Implicit Net warning at C5G_Tempsens.v(114): created implicit net for "clk_270Hz" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 114
+Warning (10236): Verilog HDL Implicit Net warning at C5G_Tempsens.v(112): created implicit net for "clk_270" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 112
+Warning (10236): Verilog HDL Implicit Net warning at C5G_Tempsens.v(123): created implicit net for "clk_270Hz" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 123
 Info (12127): Elaborating entity "C5G_Tempsens" for the top level hierarchy
 Warning (10858): Verilog HDL warning at C5G_Tempsens.v(88): object clk_270kHz used but never assigned File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 88
-Warning (10030): Net "clk_270" at C5G_Tempsens.v(97) has no driver or initial value, using a default initial value '0' File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 97
 Warning (10030): Net "clk_270kHz" at C5G_Tempsens.v(88) has no driver or initial value, using a default initial value '0' File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 88
 Warning (10034): Output port "LEDG[7..3]" at C5G_Tempsens.v(16) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
 Warning (10034): Output port "LEDR" at C5G_Tempsens.v(17) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
@@ -424,12 +391,17 @@ Warning (10034): Output port "SRAM_LB_n" at C5G_Tempsens.v(61) has no driver Fil
 Warning (10034): Output port "SRAM_OE_n" at C5G_Tempsens.v(62) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 62
 Warning (10034): Output port "SRAM_UB_n" at C5G_Tempsens.v(63) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 63
 Warning (10034): Output port "SRAM_WE_n" at C5G_Tempsens.v(64) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 64
-Info (12128): Elaborating entity "lcdctrl" for hierarchy "lcdctrl:lcdctrl" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 109
+Info (12128): Elaborating entity "lcdctrl" for hierarchy "lcdctrl:lcdctrl" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 118
 Warning (10230): Verilog HDL assignment warning at LCDModule.v(71): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule.v Line: 71
 Warning (10230): Verilog HDL assignment warning at LCDModule.v(82): truncated value with size 32 to match size of target (3) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule.v Line: 82
-Info (12128): Elaborating entity "slowClock" for hierarchy "slowClock:clock_generate" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 115
+Info (12128): Elaborating entity "slowClock" for hierarchy "slowClock:clock_generate" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 124
 Warning (10230): Verilog HDL assignment warning at clock_generator.v(23): truncated value with size 32 to match size of target (28) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/clock_generator.v Line: 23
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13039): The following bidirectional pins have no drivers
+    Warning (13040): bidirectional pin "GPIO[32]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[33]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[34]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[35]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "I2C_SDA" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 46
     Warning (13040): bidirectional pin "SD_CMD" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 50
     Warning (13040): bidirectional pin "SD_DAT[0]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 51
@@ -477,18 +449,14 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO[22]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[23]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[24]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[28]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[29]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[30]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[31]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
 Warning (13032): The following tri-state nodes are fed by constants
     Warning (13033): The pin "GPIO[25]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13033): The pin "GPIO[26]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13033): The pin "GPIO[27]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13033): The pin "GPIO[32]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13033): The pin "GPIO[33]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13033): The pin "GPIO[34]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13033): The pin "GPIO[35]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[28]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[29]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[30]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[31]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "LEDG[0]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
     Warning (13410): Pin "LEDG[1]" is stuck at VCC File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
@@ -610,10 +578,10 @@ Info (21057): Implemented 170 device resources after synthesis - the final resou
     Info (21058): Implemented 23 input pins
     Info (21059): Implemented 89 output pins
     Info (21060): Implemented 58 bidirectional pins
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 205 warnings
-    Info: Peak virtual memory: 1096 megabytes
-    Info: Processing ended: Wed Dec  5 22:40:58 2018
-    Info: Elapsed time: 00:00:25
-    Info: Total CPU time (on all processors): 00:00:43
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 207 warnings
+    Info: Peak virtual memory: 1097 megabytes
+    Info: Processing ended: Thu Dec  6 00:32:52 2018
+    Info: Elapsed time: 00:00:23
+    Info: Total CPU time (on all processors): 00:00:41
 
 
