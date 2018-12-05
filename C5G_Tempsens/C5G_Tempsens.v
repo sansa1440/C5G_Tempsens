@@ -87,7 +87,7 @@ module C5G_Tempsens(
 
 wire clk_270kHz;
 
-reg [15:0] hex_data = 16'b0000_0001_0010_0100;
+reg [15:0] data = 16'b0000_0001_0010_0100;
 
 //=======================================================
 //  Structural coding
@@ -96,11 +96,11 @@ reg [15:0] hex_data = 16'b0000_0001_0010_0100;
 lcdctrl lcdctrl(
 	.clk(clk_270),
 	.reset(CPU_RESET_n),
-	.lcd_e(GPIO[0]),
-	.lcd_rs(GPIO[1]),
-	.lcd_rw(GPIO[2]),
-	.sf_d(),
-	.data0(hex_data[]),
+	.lcd_e(GPIO[26]),
+	.lcd_rs(GPIO[25]),
+	.lcd_rw(GPIO[27]),
+	.sf_d({GPIO[35:32]}),
+	.data0(hex_data),
 	.data1,
 	.data2,
 	.data3,

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for C5G_Tempsens
-Wed Dec  5 20:14:03 2018
+Wed Dec  5 22:40:58 2018
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
 
 
@@ -13,10 +13,15 @@ Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Post-Synthesis Netlist Statistics for Top Partition
- 10. Elapsed Time Per Partition
- 11. Analysis & Synthesis Messages
+  8. State Machine - |C5G_Tempsens|lcdctrl:lcdctrl|state
+  9. Registers Removed During Synthesis
+ 10. Removed Registers Triggering Further Register Optimizations
+ 11. General Register Statistics
+ 12. Port Connectivity Checks: "slowClock:clock_generate"
+ 13. Port Connectivity Checks: "lcdctrl:lcdctrl"
+ 14. Post-Synthesis Netlist Statistics for Top Partition
+ 15. Elapsed Time Per Partition
+ 16. Analysis & Synthesis Messages
 
 
 
@@ -42,13 +47,13 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Wed Dec  5 20:14:03 2018       ;
+; Analysis & Synthesis Status     ; Successful - Wed Dec  5 22:40:58 2018       ;
 ; Quartus Prime Version           ; 18.0.0 Build 614 04/24/2018 SJ Lite Edition ;
 ; Revision Name                   ; C5G_Tempsens                                ;
 ; Top-level Entity Name           ; C5G_Tempsens                                ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 29                                          ;
+; Total registers                 ; 0                                           ;
 ; Total pins                      ; 170                                         ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0                                           ;
@@ -158,11 +163,10 @@ refer to the applicable agreement for further details.
 ; Maximum allowed            ; 2           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 2           ;
+; Maximum used               ; 1           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -171,47 +175,110 @@ refer to the applicable agreement for further details.
 +----------------------------------+-----------------+------------------------------+------------------------------------------------------------------+---------+
 ; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                     ; Library ;
 +----------------------------------+-----------------+------------------------------+------------------------------------------------------------------+---------+
+; LCDModule.v                      ; yes             ; User Verilog HDL File        ; /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule.v       ;         ;
 ; clock_generator.v                ; yes             ; User Verilog HDL File        ; /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/clock_generator.v ;         ;
 ; C5G_Tempsens.v                   ; yes             ; Auto-Found Verilog HDL File  ; /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v    ;         ;
 +----------------------------------+-----------------+------------------------------+------------------------------------------------------------------+---------+
 
 
-+------------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                      ;
-+---------------------------------------------+--------------------+
-; Resource                                    ; Usage              ;
-+---------------------------------------------+--------------------+
-; Estimate of Logic utilization (ALMs needed) ; 20                 ;
-;                                             ;                    ;
-; Combinational ALUT usage for logic          ; 35                 ;
-;     -- 7 input functions                    ; 0                  ;
-;     -- 6 input functions                    ; 5                  ;
-;     -- 5 input functions                    ; 1                  ;
-;     -- 4 input functions                    ; 1                  ;
-;     -- <=3 input functions                  ; 28                 ;
-;                                             ;                    ;
-; Dedicated logic registers                   ; 29                 ;
-;                                             ;                    ;
-; I/O pins                                    ; 170                ;
-;                                             ;                    ;
-; Total DSP Blocks                            ; 0                  ;
-;                                             ;                    ;
-; Maximum fan-out node                        ; CLOCK_50_B7A~input ;
-; Maximum fan-out                             ; 29                 ;
-; Total fan-out                               ; 439                ;
-; Average fan-out                             ; 0.95               ;
-+---------------------------------------------+--------------------+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimate of Logic utilization (ALMs needed) ; 0              ;
+;                                             ;                ;
+; Combinational ALUT usage for logic          ; 0              ;
+;     -- 7 input functions                    ; 0              ;
+;     -- 6 input functions                    ; 0              ;
+;     -- 5 input functions                    ; 0              ;
+;     -- 4 input functions                    ; 0              ;
+;     -- <=3 input functions                  ; 0              ;
+;                                             ;                ;
+; Dedicated logic registers                   ; 0              ;
+;                                             ;                ;
+; I/O pins                                    ; 170            ;
+;                                             ;                ;
+; Total DSP Blocks                            ; 0              ;
+;                                             ;                ;
+; Maximum fan-out node                        ; I2C_SDA~output ;
+; Maximum fan-out                             ; 1              ;
+; Total fan-out                               ; 228            ;
+; Average fan-out                             ; 0.57           ;
++---------------------------------------------+----------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                           ;
-+-------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------+--------------+--------------+
-; Compilation Hierarchy Node    ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                    ; Entity Name  ; Library Name ;
-+-------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------+--------------+--------------+
-; |C5G_Tempsens                 ; 35 (0)              ; 29 (0)                    ; 0                 ; 0          ; 170  ; 0            ; |C5G_Tempsens                          ; C5G_Tempsens ; work         ;
-;    |slowClock:clock_generate| ; 35 (35)             ; 29 (29)                   ; 0                 ; 0          ; 0    ; 0            ; |C5G_Tempsens|slowClock:clock_generate ; slowClock    ; work         ;
-+-------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------+--------------+--------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                     ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+--------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name  ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+--------------+--------------+
+; |C5G_Tempsens              ; 0 (0)               ; 0 (0)                     ; 0                 ; 0          ; 170  ; 0            ; |C5G_Tempsens       ; C5G_Tempsens ; work         ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+--------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++------------------------------------------------------+
+; State Machine - |C5G_Tempsens|lcdctrl:lcdctrl|state  ;
++----------+----------+----------+----------+----------+
+; Name     ; state.11 ; state.10 ; state.01 ; state.00 ;
++----------+----------+----------+----------+----------+
+; state.00 ; 0        ; 0        ; 0        ; 0        ;
+; state.01 ; 0        ; 0        ; 1        ; 1        ;
+; state.10 ; 0        ; 1        ; 0        ; 1        ;
+; state.11 ; 1        ; 0        ; 0        ; 1        ;
++----------+----------+----------+----------+----------+
+
+
++-------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                            ;
++----------------------------------------+--------------------------------------+
+; Register name                          ; Reason for Removal                   ;
++----------------------------------------+--------------------------------------+
+; lcdctrl:lcdctrl|addr[0..3]             ; Stuck at GND due to stuck port clock ;
+; lcdctrl:lcdctrl|counter[0..31]         ; Stuck at GND due to stuck port clock ;
+; lcdctrl:lcdctrl|index[0..2]            ; Stuck at GND due to stuck port clock ;
+; lcdctrl:lcdctrl|lcd_e                  ; Stuck at GND due to stuck port clock ;
+; lcdctrl:lcdctrl|data[1..15]            ; Stuck at GND due to stuck port clock ;
+; lcdctrl:lcdctrl|data[0]                ; Lost fanout                          ;
+; lcdctrl:lcdctrl|state~7                ; Lost fanout                          ;
+; lcdctrl:lcdctrl|state~8                ; Lost fanout                          ;
+; lcdctrl:lcdctrl|state.00               ; Stuck at GND due to stuck port clock ;
+; lcdctrl:lcdctrl|state.01               ; Stuck at GND due to stuck port clock ;
+; lcdctrl:lcdctrl|state.10               ; Stuck at GND due to stuck port clock ;
+; lcdctrl:lcdctrl|state.11               ; Stuck at GND due to stuck port clock ;
+; Total Number of Removed Registers = 62 ;                                      ;
++----------------------------------------+--------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                               ;
++-------------------------+-------------------------+---------------------------------------------------------------------------------------+
+; Register name           ; Reason for Removal      ; Registers Removed due to This Register                                                ;
++-------------------------+-------------------------+---------------------------------------------------------------------------------------+
+; lcdctrl:lcdctrl|addr[3] ; Stuck at GND            ; lcdctrl:lcdctrl|addr[1], lcdctrl:lcdctrl|counter[31], lcdctrl:lcdctrl|counter[30],    ;
+;                         ; due to stuck port clock ; lcdctrl:lcdctrl|counter[29], lcdctrl:lcdctrl|counter[28],                             ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[27], lcdctrl:lcdctrl|counter[26],                             ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[25], lcdctrl:lcdctrl|counter[24],                             ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[23], lcdctrl:lcdctrl|counter[22],                             ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[21], lcdctrl:lcdctrl|counter[20],                             ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[19], lcdctrl:lcdctrl|counter[18],                             ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[17], lcdctrl:lcdctrl|counter[16],                             ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[15], lcdctrl:lcdctrl|counter[14],                             ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[13], lcdctrl:lcdctrl|counter[12],                             ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[11], lcdctrl:lcdctrl|counter[10], lcdctrl:lcdctrl|counter[9], ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[8], lcdctrl:lcdctrl|counter[7], lcdctrl:lcdctrl|counter[6],   ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[5], lcdctrl:lcdctrl|counter[4], lcdctrl:lcdctrl|counter[3],   ;
+;                         ;                         ; lcdctrl:lcdctrl|counter[2], lcdctrl:lcdctrl|counter[1], lcdctrl:lcdctrl|counter[0],   ;
+;                         ;                         ; lcdctrl:lcdctrl|index[2], lcdctrl:lcdctrl|index[1], lcdctrl:lcdctrl|index[0],         ;
+;                         ;                         ; lcdctrl:lcdctrl|lcd_e, lcdctrl:lcdctrl|data[15], lcdctrl:lcdctrl|data[14],            ;
+;                         ;                         ; lcdctrl:lcdctrl|data[13], lcdctrl:lcdctrl|data[12], lcdctrl:lcdctrl|data[11],         ;
+;                         ;                         ; lcdctrl:lcdctrl|data[10], lcdctrl:lcdctrl|data[9], lcdctrl:lcdctrl|data[8],           ;
+;                         ;                         ; lcdctrl:lcdctrl|data[7], lcdctrl:lcdctrl|data[6], lcdctrl:lcdctrl|data[5],            ;
+;                         ;                         ; lcdctrl:lcdctrl|data[4], lcdctrl:lcdctrl|data[3], lcdctrl:lcdctrl|data[2],            ;
+;                         ;                         ; lcdctrl:lcdctrl|data[1], lcdctrl:lcdctrl|data[0]                                      ;
++-------------------------+-------------------------+---------------------------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -219,14 +286,74 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 29    ;
-; Number of registers using Synchronous Clear  ; 28    ;
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 29    ;
+; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 0     ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "slowClock:clock_generate"                                                                 ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port       ; Type   ; Severity ; Details                                                                             ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
+; clk_270kHz ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++------------------------------------------------+
+; Port Connectivity Checks: "lcdctrl:lcdctrl"    ;
++--------------+-------+----------+--------------+
+; Port         ; Type  ; Severity ; Details      ;
++--------------+-------+----------+--------------+
+; clk          ; Input ; Info     ; Stuck at GND ;
+; data0[15..9] ; Input ; Info     ; Stuck at GND ;
+; data0[7..6]  ; Input ; Info     ; Stuck at GND ;
+; data0[4..3]  ; Input ; Info     ; Stuck at GND ;
+; data0[1..0]  ; Input ; Info     ; Stuck at GND ;
+; data0[8]     ; Input ; Info     ; Stuck at VCC ;
+; data0[5]     ; Input ; Info     ; Stuck at VCC ;
+; data0[2]     ; Input ; Info     ; Stuck at VCC ;
+; data1[15..9] ; Input ; Info     ; Stuck at GND ;
+; data1[7..6]  ; Input ; Info     ; Stuck at GND ;
+; data1[4..3]  ; Input ; Info     ; Stuck at GND ;
+; data1[1..0]  ; Input ; Info     ; Stuck at GND ;
+; data1[8]     ; Input ; Info     ; Stuck at VCC ;
+; data1[5]     ; Input ; Info     ; Stuck at VCC ;
+; data1[2]     ; Input ; Info     ; Stuck at VCC ;
+; data2[15..9] ; Input ; Info     ; Stuck at GND ;
+; data2[7..6]  ; Input ; Info     ; Stuck at GND ;
+; data2[4..3]  ; Input ; Info     ; Stuck at GND ;
+; data2[1..0]  ; Input ; Info     ; Stuck at GND ;
+; data2[8]     ; Input ; Info     ; Stuck at VCC ;
+; data2[5]     ; Input ; Info     ; Stuck at VCC ;
+; data2[2]     ; Input ; Info     ; Stuck at VCC ;
+; data3[15..9] ; Input ; Info     ; Stuck at GND ;
+; data3[7..6]  ; Input ; Info     ; Stuck at GND ;
+; data3[4..3]  ; Input ; Info     ; Stuck at GND ;
+; data3[1..0]  ; Input ; Info     ; Stuck at GND ;
+; data3[8]     ; Input ; Info     ; Stuck at VCC ;
+; data3[5]     ; Input ; Info     ; Stuck at VCC ;
+; data3[2]     ; Input ; Info     ; Stuck at VCC ;
+; data4[15..9] ; Input ; Info     ; Stuck at GND ;
+; data4[7..6]  ; Input ; Info     ; Stuck at GND ;
+; data4[4..3]  ; Input ; Info     ; Stuck at GND ;
+; data4[1..0]  ; Input ; Info     ; Stuck at GND ;
+; data4[8]     ; Input ; Info     ; Stuck at VCC ;
+; data4[5]     ; Input ; Info     ; Stuck at VCC ;
+; data4[2]     ; Input ; Info     ; Stuck at VCC ;
+; data5[15..9] ; Input ; Info     ; Stuck at GND ;
+; data5[7..6]  ; Input ; Info     ; Stuck at GND ;
+; data5[4..3]  ; Input ; Info     ; Stuck at GND ;
+; data5[1..0]  ; Input ; Info     ; Stuck at GND ;
+; data5[8]     ; Input ; Info     ; Stuck at VCC ;
+; data5[5]     ; Input ; Info     ; Stuck at VCC ;
+; data5[2]     ; Input ; Info     ; Stuck at VCC ;
++--------------+-------+----------+--------------+
 
 
 +-----------------------------------------------------+
@@ -234,23 +361,14 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 29                          ;
-;     CLR               ; 1                           ;
-;     CLR SCLR          ; 28                          ;
 ; arriav_io_obuf        ; 58                          ;
-; arriav_lcell_comb     ; 38                          ;
-;     arith             ; 28                          ;
-;         1 data inputs ; 28                          ;
-;     normal            ; 10                          ;
+; arriav_lcell_comb     ; 2                           ;
+;     normal            ; 2                           ;
 ;         0 data inputs ; 2                           ;
-;         1 data inputs ; 1                           ;
-;         4 data inputs ; 1                           ;
-;         5 data inputs ; 1                           ;
-;         6 data inputs ; 5                           ;
 ; boundary_port         ; 170                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 3.70                        ;
-; Average LUT depth     ; 1.64                        ;
+; Max LUT depth         ; 0.00                        ;
+; Average LUT depth     ; 0.00                        ;
 +-----------------------+-----------------------------+
 
 
@@ -259,7 +377,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:00     ;
 +----------------+--------------+
 
 
@@ -269,15 +387,22 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
-    Info: Processing started: Wed Dec  5 20:13:37 2018
+    Info: Processing started: Wed Dec  5 22:40:33 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off C5G_Tempsens -c C5G_Tempsens
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file LCDModule.v
+    Info (12023): Found entity 1: lcdctrl File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule.v Line: 21
 Info (12021): Found 1 design units, including 1 entities, in source file clock_generator.v
     Info (12023): Found entity 1: slowClock File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/clock_generator.v Line: 7
 Warning (12125): Using design file C5G_Tempsens.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
     Info (12023): Found entity 1: C5G_Tempsens File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 6
+Warning (10236): Verilog HDL Implicit Net warning at C5G_Tempsens.v(97): created implicit net for "clk_270" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 97
+Warning (10236): Verilog HDL Implicit Net warning at C5G_Tempsens.v(114): created implicit net for "clk_270Hz" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 114
 Info (12127): Elaborating entity "C5G_Tempsens" for the top level hierarchy
+Warning (10858): Verilog HDL warning at C5G_Tempsens.v(88): object clk_270kHz used but never assigned File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 88
+Warning (10030): Net "clk_270" at C5G_Tempsens.v(97) has no driver or initial value, using a default initial value '0' File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 97
+Warning (10030): Net "clk_270kHz" at C5G_Tempsens.v(88) has no driver or initial value, using a default initial value '0' File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 88
 Warning (10034): Output port "LEDG[7..3]" at C5G_Tempsens.v(16) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
 Warning (10034): Output port "LEDR" at C5G_Tempsens.v(17) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
 Warning (10034): Output port "HEX0" at C5G_Tempsens.v(27) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 27
@@ -299,7 +424,10 @@ Warning (10034): Output port "SRAM_LB_n" at C5G_Tempsens.v(61) has no driver Fil
 Warning (10034): Output port "SRAM_OE_n" at C5G_Tempsens.v(62) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 62
 Warning (10034): Output port "SRAM_UB_n" at C5G_Tempsens.v(63) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 63
 Warning (10034): Output port "SRAM_WE_n" at C5G_Tempsens.v(64) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 64
-Info (12128): Elaborating entity "slowClock" for hierarchy "slowClock:clock_generate" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 99
+Info (12128): Elaborating entity "lcdctrl" for hierarchy "lcdctrl:lcdctrl" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 109
+Warning (10230): Verilog HDL assignment warning at LCDModule.v(71): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule.v Line: 71
+Warning (10230): Verilog HDL assignment warning at LCDModule.v(82): truncated value with size 32 to match size of target (3) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule.v Line: 82
+Info (12128): Elaborating entity "slowClock" for hierarchy "slowClock:clock_generate" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 115
 Warning (10230): Verilog HDL assignment warning at clock_generator.v(23): truncated value with size 32 to match size of target (28) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/clock_generator.v Line: 23
 Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "I2C_SDA" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 46
@@ -349,18 +477,21 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO[22]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[23]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[24]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[25]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[26]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[27]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[28]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[29]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[30]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[31]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[32]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[33]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[34]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[35]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+Warning (13032): The following tri-state nodes are fed by constants
+    Warning (13033): The pin "GPIO[25]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[26]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[27]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[32]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[33]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[34]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[35]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
 Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LEDG[0]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
+    Warning (13410): Pin "LEDG[1]" is stuck at VCC File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
     Warning (13410): Pin "LEDG[2]" is stuck at VCC File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
     Warning (13410): Pin "LEDG[3]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
     Warning (13410): Pin "LEDG[4]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
@@ -448,19 +579,20 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "SRAM_OE_n" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 62
     Warning (13410): Pin "SRAM_UB_n" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 63
     Warning (13410): Pin "SRAM_WE_n" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 64
-Info (286030): Timing-Driven Synthesis is running
+Info (17049): 3 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 21 input pin(s) that do not drive logic
+Warning (21074): Design contains 23 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "CLOCK_125_p" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 9
     Warning (15610): No output dependent on input pin "CLOCK_50_B5B" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 10
     Warning (15610): No output dependent on input pin "CLOCK_50_B6A" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 11
+    Warning (15610): No output dependent on input pin "CLOCK_50_B7A" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 12
     Warning (15610): No output dependent on input pin "CLOCK_50_B8A" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 13
-    Warning (15610): No output dependent on input pin "CPU_RESET_n" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 20
     Warning (15610): No output dependent on input pin "KEY[0]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 21
     Warning (15610): No output dependent on input pin "KEY[1]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 21
     Warning (15610): No output dependent on input pin "KEY[2]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 21
     Warning (15610): No output dependent on input pin "KEY[3]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 21
+    Warning (15610): No output dependent on input pin "SW[0]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
     Warning (15610): No output dependent on input pin "SW[1]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
     Warning (15610): No output dependent on input pin "SW[2]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
     Warning (15610): No output dependent on input pin "SW[3]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
@@ -473,15 +605,15 @@ Warning (21074): Design contains 21 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "HDMI_TX_INT" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 35
     Warning (15610): No output dependent on input pin "ADC_SDO" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 42
     Warning (15610): No output dependent on input pin "UART_RX" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 54
-Info (21057): Implemented 205 device resources after synthesis - the final resource count might be different
+    Warning (15610): No output dependent on input pin "CPU_RESET_n" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 20
+Info (21057): Implemented 170 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 23 input pins
     Info (21059): Implemented 89 output pins
     Info (21060): Implemented 58 bidirectional pins
-    Info (21061): Implemented 35 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 193 warnings
-    Info: Peak virtual memory: 1110 megabytes
-    Info: Processing ended: Wed Dec  5 20:14:03 2018
-    Info: Elapsed time: 00:00:26
-    Info: Total CPU time (on all processors): 00:00:45
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 205 warnings
+    Info: Peak virtual memory: 1096 megabytes
+    Info: Processing ended: Wed Dec  5 22:40:58 2018
+    Info: Elapsed time: 00:00:25
+    Info: Total CPU time (on all processors): 00:00:43
 
 
