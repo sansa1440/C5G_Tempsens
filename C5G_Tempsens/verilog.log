@@ -1,0 +1,171 @@
+Host command: /cad/cadence/INCISIVE/current/tools/verilog/bin/verilog.exe
+Command arguments:
+    C5G_Tempsens.v
+    simurate.sim
+
+Tool:	VERILOG-XL	08.20.001-d log file created Dec  5, 2018  18:04:18
+Tool:	VERILOG-XL	08.20.001-d   Dec  5, 2018  18:04:18
+
+Copyright (c) 1995-2004 Cadence Design Systems, Inc.  All Rights Reserved.
+Unpublished -- rights reserved under the copyright laws of the United States.
+
+Copyright (c) 1995-2004 UNIX Systems Laboratories, Inc.  Reproduced with Permission.
+
+THIS SOFTWARE AND ON-LINE DOCUMENTATION CONTAIN CONFIDENTIAL INFORMATION
+AND TRADE SECRETS OF CADENCE DESIGN SYSTEMS, INC.  USE, DISCLOSURE, OR
+REPRODUCTION IS PROHIBITED WITHOUT THE PRIOR EXPRESS WRITTEN PERMISSION OF
+CADENCE DESIGN SYSTEMS, INC.
+RESTRICTED RIGHTS LEGEND
+
+Use, duplication, or disclosure by the Government is subject to
+restrictions as set forth in subparagraph (c)(1)(ii) of the Rights in
+Technical Data and Computer Software clause at DFARS 252.227-7013 or
+subparagraphs (c)(1) and (2) of Commercial Computer Software -- Restricted
+Rights at 48 CFR 52.227-19, as applicable.
+
+                Cadence Design Systems, Inc.
+                555 River Oaks Parkway
+                San Jose, California  95134
+
+For technical assistance please contact the Cadence Response Center at
+1-877-CDS-4911 or send email to support@cadence.com
+
+For more information on Cadence's Verilog-XL product line send email to
+talkv@cadence.com
+
+Compiling source file "C5G_Tempsens.v"
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 9: input<-
+
+Error!    Input, output or inout (CLOCK_50_B5B) not                            
+          defined in port list                              [Verilog-INOPL]    
+          "C5G_Tempsens.v", 10: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 11: input<-
+
+Error!    Input, output or inout (CLOCK_50_B7A) not                            
+          defined in port list                              [Verilog-INOPL]    
+          "C5G_Tempsens.v", 12: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 13: input<-
+
+Error!    Input, output or inout (LEDG) not defined in                         
+          port list                                         [Verilog-INOPL]    
+          "C5G_Tempsens.v", 16: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 17: output<-
+
+Error!    Input, output or inout (CPU_RESET_n) not defined                     
+          in port list                                      [Verilog-INOPL]    
+          "C5G_Tempsens.v", 20: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 21: input<-
+
+Error!    Input, output or inout (SW) not defined in port                      
+          list                                              [Verilog-INOPL]    
+          "C5G_Tempsens.v", 24: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 27: output<-
+
+Error!    Input, output or inout (HEX1) not defined in                         
+          port list                                         [Verilog-INOPL]    
+          "C5G_Tempsens.v", 28: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 31: output<-
+
+Error!    Input, output or inout (HDMI_TX_D) not defined                       
+          in port list                                      [Verilog-INOPL]    
+          "C5G_Tempsens.v", 32: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 33: output<-
+
+Error!    Input, output or inout (HDMI_TX_HS) not defined                      
+          in port list                                      [Verilog-INOPL]    
+          "C5G_Tempsens.v", 34: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 35: input<-
+
+Error!    Input, output or inout (HDMI_TX_VS) not defined                      
+          in port list                                      [Verilog-INOPL]    
+          "C5G_Tempsens.v", 36: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 39: output<-
+
+Error!    Input, output or inout (ADC_SCK) not defined in                      
+          port list                                         [Verilog-INOPL]    
+          "C5G_Tempsens.v", 40: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 41: output<-
+
+Error!    Input, output or inout (ADC_SDO) not defined in                      
+          port list                                         [Verilog-INOPL]    
+          "C5G_Tempsens.v", 42: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 45: output<-
+
+Error!    Input, output or inout (I2C_SDA) not defined in                      
+          port list                                         [Verilog-INOPL]    
+          "C5G_Tempsens.v", 46: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 49: output<-
+
+Error!    Input, output or inout (SD_CMD) not defined in                       
+          port list                                         [Verilog-INOPL]    
+          "C5G_Tempsens.v", 50: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 51: inout<-
+
+Error!    Input, output or inout (UART_RX) not defined in                      
+          port list                                         [Verilog-INOPL]    
+          "C5G_Tempsens.v", 54: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 55: output<-
+
+Error!    Input, output or inout (SRAM_A) not defined in                       
+          port list                                         [Verilog-INOPL]    
+          "C5G_Tempsens.v", 58: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 59: output<-
+
+Error!    Input, output or inout (SRAM_D) not defined in                       
+          port list                                         [Verilog-INOPL]    
+          "C5G_Tempsens.v", 60: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 61: output<-
+
+Error!    Input, output or inout (SRAM_OE_n) not defined                       
+          in port list                                      [Verilog-INOPL]    
+          "C5G_Tempsens.v", 62: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 63: output<-
+
+Error!    Input, output or inout (SRAM_WE_n) not defined                       
+          in port list                                      [Verilog-INOPL]    
+          "C5G_Tempsens.v", 64: 
+
+Error!    syntax error                                      [Verilog]          
+          "C5G_Tempsens.v", 79: inout<-
+
+Error!    Identifier (KEY) not declared                     [Verilog-IDSND]    
+          "C5G_Tempsens.v", 97: 
+
+System!   Source file "simurate.sim" cannot be opened for                      
+          reading                                           [Verilog-SFCOR]
