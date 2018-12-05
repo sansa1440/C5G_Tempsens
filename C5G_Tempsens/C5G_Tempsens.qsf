@@ -5,8 +5,8 @@
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CGXFC5C6F27C7
 set_global_assignment -name TOP_LEVEL_ENTITY "C5G_Tempsens"
-set_global_assignment -name ORIGINAL_QUARTUS_VERSION "14.0"
-set_global_assignment -name LAST_QUARTUS_VERSION "14.0"
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 14.0
+set_global_assignment -name LAST_QUARTUS_VERSION 14.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:47:16 DECEMBER 03,2018"
 set_global_assignment -name DEVICE_FILTER_PACKAGE FBGA
 set_global_assignment -name DEVICE_FILTER_PIN_COUNT 672
@@ -17,7 +17,7 @@ set_global_assignment -name SDC_FILE C5G_Tempsens.SDC
 # CLOCK
 #============================================================
 set_location_assignment PIN_U12 -to CLOCK_125_p
-set_instance_assignment -name IO_STANDARD "LVDS" -to CLOCK_125_p
+set_instance_assignment -name IO_STANDARD LVDS -to CLOCK_125_p
 set_location_assignment PIN_R20 -to CLOCK_50_B5B
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50_B5B
 set_location_assignment PIN_N20 -to CLOCK_50_B6A
@@ -329,25 +329,25 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SRAM_WE_n
 # LPDDR2
 #============================================================
 set_location_assignment PIN_N10 -to DDR2LP_CK_p
-set_instance_assignment -name IO_STANDARD "Differential 1.2-V HSUL" -to DDR2LP_CK_p
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.2-V HSUL" -to DDR2LP_CK_p
 set_location_assignment PIN_P10 -to DDR2LP_CK_n
-set_instance_assignment -name IO_STANDARD "Differential 1.2-V HSUL" -to DDR2LP_CK_n
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.2-V HSUL" -to DDR2LP_CK_n
 set_location_assignment PIN_V13 -to DDR2LP_DQS_p[0]
-set_instance_assignment -name IO_STANDARD "Differential 1.2-V HSUL" -to DDR2LP_DQS_p[0]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.2-V HSUL" -to DDR2LP_DQS_p[0]
 set_location_assignment PIN_W13 -to DDR2LP_DQS_n[0]
-set_instance_assignment -name IO_STANDARD "Differential 1.2-V HSUL" -to DDR2LP_DQS_n[0]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.2-V HSUL" -to DDR2LP_DQS_n[0]
 set_location_assignment PIN_U14 -to DDR2LP_DQS_p[1]
-set_instance_assignment -name IO_STANDARD "Differential 1.2-V HSUL" -to DDR2LP_DQS_p[1]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.2-V HSUL" -to DDR2LP_DQS_p[1]
 set_location_assignment PIN_V14 -to DDR2LP_DQS_n[1]
-set_instance_assignment -name IO_STANDARD "Differential 1.2-V HSUL" -to DDR2LP_DQS_n[1]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.2-V HSUL" -to DDR2LP_DQS_n[1]
 set_location_assignment PIN_V15 -to DDR2LP_DQS_p[2]
-set_instance_assignment -name IO_STANDARD "Differential 1.2-V HSUL" -to DDR2LP_DQS_p[2]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.2-V HSUL" -to DDR2LP_DQS_p[2]
 set_location_assignment PIN_W15 -to DDR2LP_DQS_n[2]
-set_instance_assignment -name IO_STANDARD "Differential 1.2-V HSUL" -to DDR2LP_DQS_n[2]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.2-V HSUL" -to DDR2LP_DQS_n[2]
 set_location_assignment PIN_W16 -to DDR2LP_DQS_p[3]
-set_instance_assignment -name IO_STANDARD "Differential 1.2-V HSUL" -to DDR2LP_DQS_p[3]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.2-V HSUL" -to DDR2LP_DQS_p[3]
 set_location_assignment PIN_W17 -to DDR2LP_DQS_n[3]
-set_instance_assignment -name IO_STANDARD "Differential 1.2-V HSUL" -to DDR2LP_DQS_n[3]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.2-V HSUL" -to DDR2LP_DQS_n[3]
 set_location_assignment PIN_AF14 -to DDR2LP_CKE[0]
 set_instance_assignment -name IO_STANDARD "1.2-V HSUL" -to DDR2LP_CKE[0]
 set_location_assignment PIN_AE13 -to DDR2LP_CKE[1]

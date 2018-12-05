@@ -9,7 +9,7 @@ module C5G_Tempsens(
 	input 		          		CLOCK_125_p,
 	input 		          		CLOCK_50_B5B,
 	input 		          		CLOCK_50_B6A,
-	input 		          		CLOCK_50_B7A, // This clock use Tempsens
+	input 		          		CLOCK_50_B7A,
 	input 		          		CLOCK_50_B8A,
 
 	//////////// LED //////////
@@ -91,27 +91,7 @@ module C5G_Tempsens(
 //=======================================================
 //  Structural coding
 //=======================================================
-reg LCD_clk []
-CLOCK_50_B7A
 
-module lcdctrl(
-	.clk(LCD_clk),
-	.reset(CPU_RESET_n),
-	.lcd_e(GPIO[0]),
-	.lcd_rs(GPIO[1]),
-	.lcd_rw(GPIO[2]),
-	.sf_d(),
-	.data0,
-	.data1,
-	.data2,
-	.data3,
-	.data4,
-	.data5
-	);
-	
-	
-	
-	)
 
 
 endmodule
