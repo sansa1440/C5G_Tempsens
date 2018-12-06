@@ -86,7 +86,8 @@ module C5G_Tempsens(
 //=======================================================
 
 wire clk_270kHz;
-
+wire [3:0] STATE_7seg;
+reg [3:0] counter;
 
 //=======================================================
 //  Structural coding
@@ -113,14 +114,25 @@ lcdctrl_init lcdctrl_init(
 	.LCD_RW(GPIO[27]),  		// out			
 	.LCD_RS(GPIO[25]),			// out			 		 
 	.LCD_E(GPIO[26]),  			// out			
-	.LCD_DB(GPIO[35:32]),  		// out			
+	.LCD_DB(GPIO[35:28]),  		// out			
 	.RDY(LEDR[0]), 				// out
 	.DATA(2'h45),				// in
 	.OPER(1'b0), 				// in
 	.ENB(SW[0]), 				// in
-	.RST(~KEY[3])				// in
+	.RST(~KEY[3]),				// in
+	.STATE_7seg(STATE_7seg)
 );
-	
+
+hexto7segment hto7seg(
+	STATE_7seg,
+	HEX0
+);	
+hexto7segment hto7seg_2(
+	counter,
+	HEX1
+);	
+
+
 slowClock clock_generate(
 	.clk(CLOCK_50_B7A),
 	.reset(SW[0]),
@@ -132,5 +144,9 @@ slowClock clock_generate(
 assign LEDG[0] = clk_270kHz;	
 assign LEDG[1] = ~clk_270kHz;
 assign LEDG[2] = 1'b1;
+
+always @(negedge KEY[1]) begin
+	counter <= counter + 1;
+end
 
 endmodule

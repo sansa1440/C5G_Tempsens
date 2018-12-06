@@ -1,0 +1,1 @@
+Warning (10268): Verilog HDL information at LCDModule_init.v(150): always construct contains both blocking and non-blocking assignments File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 150
