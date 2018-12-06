@@ -108,14 +108,18 @@ wire clk_270kHz;
 //	);
 
 
-lcdctrl lcdctrl(
-	.clk(clk_270),
-	.reset(CPU_RESET_n),
-	.lcd_e(GPIO[26]),
-	.lcd_rs(GPIO[25]),
-	.lcd_rw(GPIO[27]),
-	.sf_d({GPIO[35:28]}),
-	);
+lcdctrl_init lcdctrl_init(
+	.CLK(CLOCK_50_B7A), 		// in
+	.LCD_RW(GPIO[27]),  		// out			
+	.LCD_RS(GPIO[25]),			// out			 		 
+	.LCD_E(GPIO[26]),  			// out			
+	.LCD_DB(GPIO[35:32]),  		// out			
+	.RDY(LEDG[0]), 				// out
+	.DATA(2'h45),				// in
+	.OPER(1'b1), 				// in
+	.ENB(SW[0]), 				// in
+	.RST(KEY[3])				// in
+);
 	
 slowClock clock_generate(
 	.clk(CLOCK_50_B7A),

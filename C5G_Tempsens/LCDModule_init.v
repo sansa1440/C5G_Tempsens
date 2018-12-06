@@ -240,7 +240,7 @@ always @(posedge CLK) begin
 		3: begin //-----------------DISPLAY, Display OFF, Cursor OFF, Blinking OFF------------------
 			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
 			LCD_RW				<=	1'b0;						//Indicate a write operation	
-			RDY					<= 1'b0;						//Indicate that the module is busy
+			RDY					<= 	1'b0;						//Indicate that the module is busy
 			if(SUBSTATE==0)begin	 		
 				LCD_E				<=	1'b0;					//Disable Bus
 				LCD_DB 				<=	LCD_DB;					//Maintain Previous Data on the Bus
@@ -470,7 +470,7 @@ always @(posedge CLK) begin
 			LCD_RW				<=	1'b0;						//Indicate a write operation	
 			RDY					<= 	1'b0;						//Indicate that the module is busy
 			if(SUBSTATE==0)begin	 		
-				LCD_E				<=	1'b0;						//Disable Bus
+				LCD_E				<=	1'b0;					//Disable Bus
 				LCD_DB 				<=	LCD_DB;					//Maintain Previous Data on the Bus
 				STATE				<=	STATE;				
 				SUBSTATE			<=	1;
@@ -504,11 +504,11 @@ always @(posedge CLK) begin
 		end
 		//---------------------------------------------------------------------------------------
 		default: begin//----------This is the IDLE STATE, DO NOTHING UNTIL OPER is set-----------
-			LCD_RS	<=		LCD_RS;								//Indicate an instruction is to be sent soon
-			LCD_RW	<= 	1'b0;									//Indicate a write operation
+			LCD_RS	<=	LCD_RS;								//Indicate an instruction is to be sent soon
+			LCD_RW	<= 	1'b0;								//Indicate a write operation
 			LCD_DB 	<= 	LCD_DB;								//Maintain Data Bus
-			LCD_E		<=		1'b0;									//Disable Bus
-			RDY		<=		1'b1;									//Indicate that the system is ready to taking in data
+			LCD_E	<=	1'b0;								//Disable Bus
+			RDY		<=	1'b1;								//Indicate that the system is ready to taking in data
 			if(ENB==1 && RST==0)begin
 				case(OPER)
 					0:STATE<=STATE; 	//IDLE
