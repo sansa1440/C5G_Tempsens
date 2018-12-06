@@ -116,7 +116,7 @@ lcdctrl_init lcdctrl_init(
 	.LCD_DB(GPIO[35:32]),  		// out			
 	.RDY(LEDR[0]), 				// out
 	.DATA(2'h45),				// in
-	.OPER(1'b1), 				// in
+	.OPER(1'b0), 				// in
 	.ENB(SW[0]), 				// in
 	.RST(~KEY[3])				// in
 );

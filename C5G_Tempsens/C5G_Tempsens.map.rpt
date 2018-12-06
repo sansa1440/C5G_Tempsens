@@ -1,5 +1,5 @@
 Analysis & Synthesis report for C5G_Tempsens
-Thu Dec  6 12:11:41 2018
+Thu Dec  6 12:22:44 2018
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
 
 
@@ -48,7 +48,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu Dec  6 12:11:40 2018       ;
+; Analysis & Synthesis Status     ; Successful - Thu Dec  6 12:22:44 2018       ;
 ; Quartus Prime Version           ; 18.0.0 Build 614 04/24/2018 SJ Lite Edition ;
 ; Revision Name                   ; C5G_Tempsens                                ;
 ; Top-level Entity Name           ; C5G_Tempsens                                ;
@@ -188,14 +188,14 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+--------------------+
 ; Resource                                    ; Usage              ;
 +---------------------------------------------+--------------------+
-; Estimate of Logic utilization (ALMs needed) ; 59                 ;
+; Estimate of Logic utilization (ALMs needed) ; 62                 ;
 ;                                             ;                    ;
-; Combinational ALUT usage for logic          ; 86                 ;
-;     -- 7 input functions                    ; 4                  ;
-;     -- 6 input functions                    ; 28                 ;
+; Combinational ALUT usage for logic          ; 90                 ;
+;     -- 7 input functions                    ; 2                  ;
+;     -- 6 input functions                    ; 31                 ;
 ;     -- 5 input functions                    ; 11                 ;
 ;     -- 4 input functions                    ; 10                 ;
-;     -- <=3 input functions                  ; 33                 ;
+;     -- <=3 input functions                  ; 36                 ;
 ;                                             ;                    ;
 ; Dedicated logic registers                   ; 41                 ;
 ;                                             ;                    ;
@@ -205,8 +205,8 @@ refer to the applicable agreement for further details.
 ;                                             ;                    ;
 ; Maximum fan-out node                        ; CLOCK_50_B7A~input ;
 ; Maximum fan-out                             ; 41                 ;
-; Total fan-out                               ; 710                ;
-; Average fan-out                             ; 1.35               ;
+; Total fan-out                               ; 720                ;
+; Average fan-out                             ; 1.36               ;
 +---------------------------------------------+--------------------+
 
 
@@ -215,8 +215,8 @@ refer to the applicable agreement for further details.
 +--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-----------------------------------------+--------------+--------------+
 ; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                     ; Entity Name  ; Library Name ;
 +--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-----------------------------------------+--------------+--------------+
-; |C5G_Tempsens                  ; 86 (0)              ; 41 (0)                    ; 0                 ; 0          ; 170  ; 0            ; |C5G_Tempsens                           ; C5G_Tempsens ; work         ;
-;    |lcdctrl_init:lcdctrl_init| ; 86 (86)             ; 41 (41)                   ; 0                 ; 0          ; 0    ; 0            ; |C5G_Tempsens|lcdctrl_init:lcdctrl_init ; lcdctrl_init ; work         ;
+; |C5G_Tempsens                  ; 90 (0)              ; 41 (0)                    ; 0                 ; 0          ; 170  ; 0            ; |C5G_Tempsens                           ; C5G_Tempsens ; work         ;
+;    |lcdctrl_init:lcdctrl_init| ; 90 (90)             ; 41 (41)                   ; 0                 ; 0          ; 0    ; 0            ; |C5G_Tempsens|lcdctrl_init:lcdctrl_init ; lcdctrl_init ; work         ;
 +--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-----------------------------------------+--------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -241,7 +241,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 6     ;
+; Number of registers using Clock Enable       ; 4     ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -251,7 +251,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------+---------+
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
-; lcdctrl_init:lcdctrl_init|flag_rst     ; 32      ;
+; lcdctrl_init:lcdctrl_init|flag_rst     ; 30      ;
 ; Total number of inverted registers = 1 ;         ;
 +----------------------------------------+---------+
 
@@ -322,26 +322,26 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; arriav_ff             ; 41                          ;
-;     ENA               ; 6                           ;
+;     ENA               ; 4                           ;
 ;     SCLR              ; 27                          ;
-;     plain             ; 8                           ;
+;     plain             ; 10                          ;
 ; arriav_io_obuf        ; 58                          ;
-; arriav_lcell_comb     ; 88                          ;
+; arriav_lcell_comb     ; 92                          ;
 ;     arith             ; 22                          ;
 ;         1 data inputs ; 22                          ;
-;     extend            ; 4                           ;
-;         7 data inputs ; 4                           ;
-;     normal            ; 62                          ;
+;     extend            ; 2                           ;
+;         7 data inputs ; 2                           ;
+;     normal            ; 68                          ;
 ;         0 data inputs ; 2                           ;
-;         2 data inputs ; 7                           ;
-;         3 data inputs ; 4                           ;
+;         2 data inputs ; 8                           ;
+;         3 data inputs ; 6                           ;
 ;         4 data inputs ; 10                          ;
 ;         5 data inputs ; 11                          ;
-;         6 data inputs ; 28                          ;
+;         6 data inputs ; 31                          ;
 ; boundary_port         ; 170                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 4.00                        ;
-; Average LUT depth     ; 1.74                        ;
+; Max LUT depth         ; 3.10                        ;
+; Average LUT depth     ; 1.72                        ;
 +-----------------------+-----------------------------+
 
 
@@ -360,7 +360,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
-    Info: Processing started: Thu Dec  6 12:11:15 2018
+    Info: Processing started: Thu Dec  6 12:22:17 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off C5G_Tempsens -c C5G_Tempsens
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -408,17 +408,17 @@ Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(135): trunca
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(160): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 160
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(183): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 183
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(196): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 196
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(258): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 258
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(271): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 271
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(296): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 296
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(309): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 309
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(334): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 334
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(347): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 347
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(372): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 372
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(385): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 385
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(410): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 410
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(448): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 448
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(486): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 486
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(221): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 221
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(234): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 234
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(259): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 259
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(272): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 272
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(297): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 297
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(310): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 310
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(335): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 335
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(348): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 348
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(373): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 373
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(411): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 411
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(449): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 449
 Info (12128): Elaborating entity "slowClock" for hierarchy "slowClock:clock_generate" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 128
 Warning (10230): Verilog HDL assignment warning at clock_generator.v(23): truncated value with size 32 to match size of target (28) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/clock_generator.v Line: 23
 Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
@@ -603,15 +603,15 @@ Warning (21074): Design contains 20 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "HDMI_TX_INT" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 35
     Warning (15610): No output dependent on input pin "ADC_SDO" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 42
     Warning (15610): No output dependent on input pin "UART_RX" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 54
-Info (21057): Implemented 257 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 261 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 23 input pins
     Info (21059): Implemented 89 output pins
     Info (21060): Implemented 58 bidirectional pins
-    Info (21061): Implemented 87 logic cells
+    Info (21061): Implemented 91 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 225 warnings
-    Info: Peak virtual memory: 1117 megabytes
-    Info: Processing ended: Thu Dec  6 12:11:41 2018
-    Info: Elapsed time: 00:00:26
-    Info: Total CPU time (on all processors): 00:00:44
+    Info: Peak virtual memory: 1119 megabytes
+    Info: Processing ended: Thu Dec  6 12:22:44 2018
+    Info: Elapsed time: 00:00:27
+    Info: Total CPU time (on all processors): 00:00:43
 
 

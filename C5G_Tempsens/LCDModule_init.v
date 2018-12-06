@@ -365,7 +365,7 @@ always @(posedge CLK) begin
 			if(SUBSTATE==1)begin				
 				LCD_E				<=	1'b1;					//Enable Bus		
 				LCD_DB 				<= CLEAR;					//Data Valid
-				if(!flag_250ns) begin							//WAIT at least 250ns (required for LCD_E)
+				if(!flag_42us) begin							//WAIT at least 42us (required for LCD_E)
 					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
 					flag_rst		<=	1'b0; 					//Start or Continue counting									
 				end
@@ -378,7 +378,7 @@ always @(posedge CLK) begin
 				LCD_E				<=	1'b0;					//Disable Bus, Triggers LCD to read BUS
 				LCD_DB 				<= LCD_DB;					//Keep Data Valid
 				if(!flag_1640us) begin							//WAIT at least 1640us (required for operation to process)
-					STATE			<=	STATE;					//Maintain current STATE
+					STATE			<=	STATE+1;//STATE;					//Maintain current STATE
 					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
 					flag_rst		<=	1'b0; 					//Start or Continue counting									
 				end
@@ -390,7 +390,7 @@ always @(posedge CLK) begin
 			end
 		end
 		//---------------------------------------------------------------------------------------
-		9: begin//----------------------------- WRITE DATA -------------------------------------
+		8: begin//----------------------------- WRITE DATA -------------------------------------
 			LCD_RS				<=	1'b1;						//Indicate an instruction is to be sent soon
 			LCD_RW				<=	1'b0;						//Indicate a write operation	
 			RDY					<= 1'b0;						//Indicate that the module is busy
@@ -403,7 +403,7 @@ always @(posedge CLK) begin
 			if(SUBSTATE==1)begin				
 				LCD_E				<=	1'b1;					//Enable Bus		
 				LCD_DB 			<= DATA;						//WRITE THE CHARACTER
-				if(!flag_250ns) begin							//WAIT at least 250ns (required for LCD_E)
+				if(!flag_42us) begin							//WAIT at least 42us (required for LCD_E)
 					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
 					flag_rst		<=	1'b0; 					//Start or Continue counting									
 				end
@@ -415,7 +415,7 @@ always @(posedge CLK) begin
 			if(SUBSTATE==2)begin
 				LCD_E				<=	1'b0;						//Disable Bus, Triggers LCD to read BUS
 				LCD_DB 			<= LCD_DB;						//Keep Data Valid
-				if(!flag_250ns) begin							//WAIT at least 250ns (required for LCD_E)
+				if(!flag_42us) begin							//WAIT at least 42us (required for LCD_E)
 					STATE			<=	STATE;					//Maintain current STATE
 					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
 					flag_rst		<=	1'b0; 					//Start or Continue counting									
@@ -428,7 +428,7 @@ always @(posedge CLK) begin
 			end		
 		end	
 		//---------------------------------------------------------------------------------------
-		10: begin//----------------------- WRITE INSTRUCTION ------------------------------------
+		9: begin//----------------------- WRITE INSTRUCTION ------------------------------------
 			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
 			LCD_RW				<=	1'b0;						//Indicate a write operation	
 			RDY					<= 	1'b0;						//Indicate that the module is busy
@@ -475,8 +475,8 @@ always @(posedge CLK) begin
 			if(ENB==1 && RST==0)begin
 				case(OPER)
 					0:STATE<=STATE; 	//IDLE
-					1:STATE<=10;		//WRITE CHARACTER
-					2:STATE<=11;		//WRITE INSTRUCTION (assumes 49us or less time to process instr)
+					1:STATE<=8;		//WRITE CHARACTER
+					2:STATE<=9;		//WRITE INSTRUCTION (assumes 49us or less time to process instr)
 					3:STATE<=0;			//RESET
 				endcase
 			end
