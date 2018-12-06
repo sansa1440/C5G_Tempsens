@@ -44,13 +44,13 @@ reg LCD_E=0;
 //===============================================================================================
 //------------------------------Define the Timing Parameters-------------------------------------
 //===============================================================================================
-parameter [21:0] t_40ns 	= 21'd2;		//40ns 		== ~2clk
-parameter [21:0] t_250ns 	= 21'd12;		//250ns 	== ~12clks
-parameter [21:0] t_42us 	= 21'd2016;		//42us 		== ~2016clks
-parameter [21:0] t_100us 	= 21'd4800;		//100us		== ~4800clks
-parameter [21:0] t_1640us 	= 21'd78720;	//1.64ms 	== ~78720clks
-parameter [21:0] t_4100us 	= 21'd393600;	//4.1ms    	== ~393600clks
-parameter [21:0] t_15000us	= 21'd720000;	//15ms 		== ~720000clks
+parameter [22:0] t_40ns 	= 22'd2;		//40ns 		== ~2clk
+parameter [22:0] t_250ns 	= 22'd12;		//250ns 	== ~12clks
+parameter [22:0] t_42us 	= 22'd2016;		//42us 		== ~2016clks
+parameter [22:0] t_100us 	= 22'd4800;		//100us		== ~4800clks
+parameter [22:0] t_1640us 	= 22'd78720;	//1.64ms 	== ~78720clks
+parameter [22:0] t_4100us 	= 22'd393600;	//4.1ms    	== ~393600clks
+parameter [22:0] t_15000us	= 22'd720000;	//15ms 		== ~720000clks
 parameter [22:0] t_50000us	= 22'd2500000;	//50ms 		== ~2500000clks
 
 //===============================================================================================
@@ -77,70 +77,37 @@ reg flag_250ns=0,flag_42us=0,flag_100us=0,flag_1640us=0,flag_4100us=0,flag_15000
 reg flag_rst=1;					//Start with flag RST set. so that the counting has not started
 
 always @(posedge CLK) begin
-	if(flag_rst) begin
-		flag_250ns	<=	1'b0;		//Unlatch the flag
-		flag_42us	<=	1'b0;		//Unlatch the flag
-		flag_100us	<=	1'b0;		//Unlatch the flag
-		flag_1640us	<=	1'b0;		//Unlatch the flag
-		flag_4100us	<=	1'b0;		//Unlatch the flag
-		flag_15000us    <=	1'b0;		//Unlatch the flag
-		flag_50000us	<=	1'b0;		//Unlatch the flag
-		cnt_timer	<=	21'b0;		
+	if(flag_rst) begin //unlatch the frag
+		flag_250ns	<=	1'b0;		
+		flag_42us	<=	1'b0;		
+		flag_100us	<=	1'b0;		
+		flag_1640us	<=	1'b0;		
+		flag_4100us	<=	1'b0;		
+		flag_15000us    <=	1'b0;	
+		flag_50000us	<=	1'b0;	
+		cnt_timer	<=	21'b0;	
 	end
-	else begin
-		if(cnt_timer>=t_250ns) begin			
-			flag_250ns	<=	1'b1;
-		end
-		else begin			
-			flag_250ns	<=	flag_250ns;
-		end
-		//----------------------------
-		if(cnt_timer>=t_42us) begin			
-			flag_42us	<=	1'b1;
-		end
-		else begin			
-			flag_42us	<=	flag_42us;
-		end
-		//----------------------------
-		if(cnt_timer>=t_100us) begin			
-			flag_100us	<=	1'b1;
-		end
-		else begin			
-			flag_100us	<=	flag_100us;
-		end
-		//----------------------------
-		if(cnt_timer>=t_1640us) begin			
-			flag_1640us	<=	1'b1;
-		end
-		else begin			
-			flag_1640us	<=	flag_1640us;
-		end
-		//----------------------------
-		if(cnt_timer>=t_4100us) begin			
-			flag_4100us	<=	1'b1;
-		end
-		else begin			
-			flag_4100us	<=	flag_4100us;
-		end
-		//----------------------------
-		if(cnt_timer>=t_15000us) begin			
-			flag_15000us	<=	1'b1;
-		end
-		else begin			
-			flag_15000us	<=	flag_15000us;
-		end
-		//----------------------------
-		if(cnt_timer>=t_50000us) begin			
-			flag_50000us	<=	1'b1;
-		end
-		else begin			
-			flag_50000us	<=	flag_50000us;
-		end
-		//----------------------------		
-		cnt_timer	<= cnt_timer + 1;
+	else begin //latch the frag
+		flag_250ns	<=	cnt_latch(cnt_timer, t_40ns );		
+		flag_42us	<=	cnt_latch(cnt_timer, t_250ns);		
+		flag_100us	<=	cnt_latch(cnt_timer, t_42us );		
+		flag_1640us	<=	cnt_latch(cnt_timer, t_100us);		
+		flag_4100us	<=	cnt_latch(cnt_timer, t_640us);		
+		flag_15000us    <=	cnt_latch(cnt_timer, t_15000us );	
+		flag_50000us	<=	cnt_latch(cnt_timer, t_50000us );
+
+		cnt_timer	<= cnt_timer + 1;//timer increment
 	end
 end
 
+function cnt_latch(input [22:0] cnt_timer, input [22:0] t_xs);// input timer , latch timing 
+	if(cnt_timer>=t_xs) begin			
+		cnt_latch	<=	1'b1;
+	end
+	else begin			
+		cnt_latch	<=	cnt_latch;
+	end
+endfunction
 //##########################################################################################
 //-----------------------------Create the STATE MACHINE------------------------------------
 //##########################################################################################
