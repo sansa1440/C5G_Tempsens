@@ -1,5 +1,5 @@
 Analysis & Synthesis report for C5G_Tempsens
-Thu Dec  6 11:40:45 2018
+Thu Dec  6 12:11:41 2018
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
 
 
@@ -10,10 +10,19 @@ Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Parameter Settings for User Entity Instance: lcdctrl_init:lcdctrl_init
-  6. Port Connectivity Checks: "slowClock:clock_generate"
-  7. Port Connectivity Checks: "lcdctrl_init:lcdctrl_init"
-  8. Analysis & Synthesis Messages
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Registers Removed During Synthesis
+  9. General Register Statistics
+ 10. Inverted Register Statistics
+ 11. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 12. Parameter Settings for User Entity Instance: lcdctrl_init:lcdctrl_init
+ 13. Port Connectivity Checks: "slowClock:clock_generate"
+ 14. Port Connectivity Checks: "lcdctrl_init:lcdctrl_init"
+ 15. Post-Synthesis Netlist Statistics for Top Partition
+ 16. Elapsed Time Per Partition
+ 17. Analysis & Synthesis Messages
 
 
 
@@ -36,22 +45,27 @@ refer to the applicable agreement for further details.
 
 
 
-+---------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                              ;
-+-----------------------------+---------------------------------------------+
-; Analysis & Synthesis Status ; Failed - Thu Dec  6 11:40:45 2018           ;
-; Quartus Prime Version       ; 18.0.0 Build 614 04/24/2018 SJ Lite Edition ;
-; Revision Name               ; C5G_Tempsens                                ;
-; Top-level Entity Name       ; C5G_Tempsens                                ;
-; Family                      ; Cyclone V                                   ;
-; Logic utilization (in ALMs) ; N/A until Partition Merge                   ;
-; Total registers             ; N/A until Partition Merge                   ;
-; Total pins                  ; N/A until Partition Merge                   ;
-; Total virtual pins          ; N/A until Partition Merge                   ;
-; Total block memory bits     ; N/A until Partition Merge                   ;
-; Total PLLs                  ; N/A until Partition Merge                   ;
-; Total DLLs                  ; N/A until Partition Merge                   ;
-+-----------------------------+---------------------------------------------+
++-------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                  ;
++---------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Thu Dec  6 12:11:40 2018       ;
+; Quartus Prime Version           ; 18.0.0 Build 614 04/24/2018 SJ Lite Edition ;
+; Revision Name                   ; C5G_Tempsens                                ;
+; Top-level Entity Name           ; C5G_Tempsens                                ;
+; Family                          ; Cyclone V                                   ;
+; Logic utilization (in ALMs)     ; N/A                                         ;
+; Total registers                 ; 41                                          ;
+; Total pins                      ; 170                                         ;
+; Total virtual pins              ; 0                                           ;
+; Total block memory bits         ; 0                                           ;
+; Total DSP Blocks                ; 0                                           ;
+; Total HSSI RX PCSs              ; 0                                           ;
+; Total HSSI PMA RX Deserializers ; 0                                           ;
+; Total HSSI TX PCSs              ; 0                                           ;
+; Total HSSI PMA TX Serializers   ; 0                                           ;
+; Total PLLs                      ; 0                                           ;
+; Total DLLs                      ; 0                                           ;
++---------------------------------+---------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
@@ -150,11 +164,105 @@ refer to the applicable agreement for further details.
 ; Maximum allowed            ; 2           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Maximum used               ; 2           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.0%      ;
 +----------------------------+-------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                         ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                     ; Library ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------+---------+
+; clock_generator.v                ; yes             ; User Verilog HDL File        ; /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/clock_generator.v ;         ;
+; LCDModule_init.v                 ; yes             ; User Verilog HDL File        ; /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v  ;         ;
+; C5G_Tempsens.v                   ; yes             ; Auto-Found Verilog HDL File  ; /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v    ;         ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------+---------+
+
+
++------------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                      ;
++---------------------------------------------+--------------------+
+; Resource                                    ; Usage              ;
++---------------------------------------------+--------------------+
+; Estimate of Logic utilization (ALMs needed) ; 59                 ;
+;                                             ;                    ;
+; Combinational ALUT usage for logic          ; 86                 ;
+;     -- 7 input functions                    ; 4                  ;
+;     -- 6 input functions                    ; 28                 ;
+;     -- 5 input functions                    ; 11                 ;
+;     -- 4 input functions                    ; 10                 ;
+;     -- <=3 input functions                  ; 33                 ;
+;                                             ;                    ;
+; Dedicated logic registers                   ; 41                 ;
+;                                             ;                    ;
+; I/O pins                                    ; 170                ;
+;                                             ;                    ;
+; Total DSP Blocks                            ; 0                  ;
+;                                             ;                    ;
+; Maximum fan-out node                        ; CLOCK_50_B7A~input ;
+; Maximum fan-out                             ; 41                 ;
+; Total fan-out                               ; 710                ;
+; Average fan-out                             ; 1.35               ;
++---------------------------------------------+--------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                             ;
++--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-----------------------------------------+--------------+--------------+
+; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                     ; Entity Name  ; Library Name ;
++--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-----------------------------------------+--------------+--------------+
+; |C5G_Tempsens                  ; 86 (0)              ; 41 (0)                    ; 0                 ; 0          ; 170  ; 0            ; |C5G_Tempsens                           ; C5G_Tempsens ; work         ;
+;    |lcdctrl_init:lcdctrl_init| ; 86 (86)             ; 41 (41)                   ; 0                 ; 0          ; 0    ; 0            ; |C5G_Tempsens|lcdctrl_init:lcdctrl_init ; lcdctrl_init ; work         ;
++--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-----------------------------------------+--------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++--------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                             ;
++---------------------------------------+----------------------------------------+
+; Register name                         ; Reason for Removal                     ;
++---------------------------------------+----------------------------------------+
+; lcdctrl_init:lcdctrl_init|LCD_RW      ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 1 ;                                        ;
++---------------------------------------+----------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 41    ;
+; Number of registers using Synchronous Clear  ; 27    ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 6     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------+
+; Inverted Register Statistics                     ;
++----------------------------------------+---------+
+; Inverted Register                      ; Fan out ;
++----------------------------------------+---------+
+; lcdctrl_init:lcdctrl_init|flag_rst     ; 32      ;
+; Total number of inverted registers = 1 ;         ;
++----------------------------------------+---------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                    ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
+; 21:1               ; 2 bits    ; 28 LEs        ; 4 LEs                ; 24 LEs                 ; Yes        ; |C5G_Tempsens|lcdctrl_init:lcdctrl_init|SUBSTATE[0] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
 
 
 +------------------------------------------------------------------------+
@@ -208,13 +316,51 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
 
 
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; arriav_ff             ; 41                          ;
+;     ENA               ; 6                           ;
+;     SCLR              ; 27                          ;
+;     plain             ; 8                           ;
+; arriav_io_obuf        ; 58                          ;
+; arriav_lcell_comb     ; 88                          ;
+;     arith             ; 22                          ;
+;         1 data inputs ; 22                          ;
+;     extend            ; 4                           ;
+;         7 data inputs ; 4                           ;
+;     normal            ; 62                          ;
+;         0 data inputs ; 2                           ;
+;         2 data inputs ; 7                           ;
+;         3 data inputs ; 4                           ;
+;         4 data inputs ; 10                          ;
+;         5 data inputs ; 11                          ;
+;         6 data inputs ; 28                          ;
+; boundary_port         ; 170                         ;
+;                       ;                             ;
+; Max LUT depth         ; 4.00                        ;
+; Average LUT depth     ; 1.74                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:01     ;
++----------------+--------------+
+
+
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
-    Info: Processing started: Thu Dec  6 11:40:18 2018
+    Info: Processing started: Thu Dec  6 12:11:15 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off C5G_Tempsens -c C5G_Tempsens
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -237,7 +383,7 @@ Info (12127): Elaborating entity "C5G_Tempsens" for the top level hierarchy
 Warning (10858): Verilog HDL warning at C5G_Tempsens.v(88): object clk_270kHz used but never assigned File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 88
 Warning (10030): Net "clk_270kHz" at C5G_Tempsens.v(88) has no driver or initial value, using a default initial value '0' File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 88
 Warning (10034): Output port "LEDG[7..3]" at C5G_Tempsens.v(16) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
-Warning (10034): Output port "LEDR" at C5G_Tempsens.v(17) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
+Warning (10034): Output port "LEDR[9..1]" at C5G_Tempsens.v(17) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
 Warning (10034): Output port "HEX0" at C5G_Tempsens.v(27) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 27
 Warning (10034): Output port "HEX1" at C5G_Tempsens.v(28) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 28
 Warning (10034): Output port "HDMI_TX_D" at C5G_Tempsens.v(32) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
@@ -262,8 +408,6 @@ Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(135): trunca
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(160): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 160
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(183): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 183
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(196): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 196
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(220): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 220
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(233): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 233
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(258): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 258
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(271): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 271
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(296): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 296
@@ -277,14 +421,197 @@ Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(448): trunca
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(486): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 486
 Info (12128): Elaborating entity "slowClock" for hierarchy "slowClock:clock_generate" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 128
 Warning (10230): Verilog HDL assignment warning at clock_generator.v(23): truncated value with size 32 to match size of target (28) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/clock_generator.v Line: 23
-Error (12014): Net "LEDG[0]", which fans out to "LEDG[0]", cannot be assigned more than one value File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
-    Error (12015): Net is fed by "GND"
-    Error (12015): Net is fed by "lcdctrl_init:lcdctrl_init|RDY" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 24
 Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 3 errors, 49 warnings
-    Error: Peak virtual memory: 1043 megabytes
-    Error: Processing ended: Thu Dec  6 11:40:45 2018
-    Error: Elapsed time: 00:00:27
-    Error: Total CPU time (on all processors): 00:00:42
+Warning (13034): The following nodes have both tri-state and non-tri-state drivers
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[25]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[26]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[32]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[33]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[34]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[35]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+Warning (13039): The following bidirectional pins have no drivers
+    Warning (13040): bidirectional pin "I2C_SDA" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 46
+    Warning (13040): bidirectional pin "SD_CMD" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 50
+    Warning (13040): bidirectional pin "SD_DAT[0]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 51
+    Warning (13040): bidirectional pin "SD_DAT[1]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 51
+    Warning (13040): bidirectional pin "SD_DAT[2]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 51
+    Warning (13040): bidirectional pin "SD_DAT[3]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 51
+    Warning (13040): bidirectional pin "SRAM_D[0]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[1]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[2]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[3]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[4]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[5]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[6]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[7]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[8]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[9]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[10]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[11]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[12]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[13]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[14]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "SRAM_D[15]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
+    Warning (13040): bidirectional pin "GPIO[0]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[1]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[2]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[3]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[4]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[5]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[6]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[7]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[8]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[9]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[10]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[11]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[12]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[13]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[14]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[15]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[16]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[17]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[18]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[19]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[20]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[21]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[22]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[23]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[24]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[28]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[29]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[30]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13040): bidirectional pin "GPIO[31]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+Warning (13032): The following tri-state nodes are fed by constants
+    Warning (13033): The pin "GPIO[27]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+Warning (13009): TRI or OPNDRN buffers permanently enabled
+    Warning (13010): Node "GPIO[25]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13010): Node "GPIO[26]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13010): Node "GPIO[32]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13010): Node "GPIO[33]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13010): Node "GPIO[34]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13010): Node "GPIO[35]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LEDG[0]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
+    Warning (13410): Pin "LEDG[1]" is stuck at VCC File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
+    Warning (13410): Pin "LEDG[2]" is stuck at VCC File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
+    Warning (13410): Pin "LEDG[3]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
+    Warning (13410): Pin "LEDG[4]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
+    Warning (13410): Pin "LEDG[5]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
+    Warning (13410): Pin "LEDG[6]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
+    Warning (13410): Pin "LEDG[7]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
+    Warning (13410): Pin "LEDR[1]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
+    Warning (13410): Pin "LEDR[2]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
+    Warning (13410): Pin "LEDR[3]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
+    Warning (13410): Pin "LEDR[4]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
+    Warning (13410): Pin "LEDR[5]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
+    Warning (13410): Pin "LEDR[6]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
+    Warning (13410): Pin "LEDR[7]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
+    Warning (13410): Pin "LEDR[8]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
+    Warning (13410): Pin "LEDR[9]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
+    Warning (13410): Pin "HEX0[0]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 27
+    Warning (13410): Pin "HEX0[1]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 27
+    Warning (13410): Pin "HEX0[2]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 27
+    Warning (13410): Pin "HEX0[3]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 27
+    Warning (13410): Pin "HEX0[4]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 27
+    Warning (13410): Pin "HEX0[5]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 27
+    Warning (13410): Pin "HEX0[6]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 27
+    Warning (13410): Pin "HEX1[0]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 28
+    Warning (13410): Pin "HEX1[1]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 28
+    Warning (13410): Pin "HEX1[2]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 28
+    Warning (13410): Pin "HEX1[3]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 28
+    Warning (13410): Pin "HEX1[4]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 28
+    Warning (13410): Pin "HEX1[5]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 28
+    Warning (13410): Pin "HEX1[6]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 28
+    Warning (13410): Pin "HDMI_TX_CLK" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 31
+    Warning (13410): Pin "HDMI_TX_D[0]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[1]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[2]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[3]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[4]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[5]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[6]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[7]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[8]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[9]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[10]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[11]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[12]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[13]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[14]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[15]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[16]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[17]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[18]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[19]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[20]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[21]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[22]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_D[23]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
+    Warning (13410): Pin "HDMI_TX_DE" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 33
+    Warning (13410): Pin "HDMI_TX_HS" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 34
+    Warning (13410): Pin "HDMI_TX_VS" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 36
+    Warning (13410): Pin "ADC_CONVST" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 39
+    Warning (13410): Pin "ADC_SCK" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 40
+    Warning (13410): Pin "ADC_SDI" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 41
+    Warning (13410): Pin "I2C_SCL" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 45
+    Warning (13410): Pin "SD_CLK" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 49
+    Warning (13410): Pin "UART_TX" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 55
+    Warning (13410): Pin "SRAM_A[0]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[1]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[2]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[3]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[4]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[5]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[6]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[7]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[8]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[9]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[10]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[11]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[12]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[13]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[14]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[15]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[16]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_A[17]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 58
+    Warning (13410): Pin "SRAM_CE_n" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 59
+    Warning (13410): Pin "SRAM_LB_n" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 61
+    Warning (13410): Pin "SRAM_OE_n" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 62
+    Warning (13410): Pin "SRAM_UB_n" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 63
+    Warning (13410): Pin "SRAM_WE_n" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 64
+Info (286030): Timing-Driven Synthesis is running
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 20 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "CLOCK_125_p" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 9
+    Warning (15610): No output dependent on input pin "CLOCK_50_B5B" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 10
+    Warning (15610): No output dependent on input pin "CLOCK_50_B6A" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 11
+    Warning (15610): No output dependent on input pin "CLOCK_50_B8A" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 13
+    Warning (15610): No output dependent on input pin "CPU_RESET_n" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 20
+    Warning (15610): No output dependent on input pin "KEY[0]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 21
+    Warning (15610): No output dependent on input pin "KEY[1]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 21
+    Warning (15610): No output dependent on input pin "KEY[2]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 21
+    Warning (15610): No output dependent on input pin "SW[1]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
+    Warning (15610): No output dependent on input pin "SW[2]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
+    Warning (15610): No output dependent on input pin "SW[3]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
+    Warning (15610): No output dependent on input pin "SW[4]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
+    Warning (15610): No output dependent on input pin "SW[5]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
+    Warning (15610): No output dependent on input pin "SW[6]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
+    Warning (15610): No output dependent on input pin "SW[7]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
+    Warning (15610): No output dependent on input pin "SW[8]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
+    Warning (15610): No output dependent on input pin "SW[9]" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 24
+    Warning (15610): No output dependent on input pin "HDMI_TX_INT" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 35
+    Warning (15610): No output dependent on input pin "ADC_SDO" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 42
+    Warning (15610): No output dependent on input pin "UART_RX" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 54
+Info (21057): Implemented 257 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 23 input pins
+    Info (21059): Implemented 89 output pins
+    Info (21060): Implemented 58 bidirectional pins
+    Info (21061): Implemented 87 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 225 warnings
+    Info: Peak virtual memory: 1117 megabytes
+    Info: Processing ended: Thu Dec  6 12:11:41 2018
+    Info: Elapsed time: 00:00:26
+    Info: Total CPU time (on all processors): 00:00:44
 
 

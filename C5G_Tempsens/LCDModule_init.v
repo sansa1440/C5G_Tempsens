@@ -162,7 +162,7 @@ always @(posedge CLK) begin
 			end		
 		end
 		//---------------------------------------------------------------------------------------
-		1: begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
+		1,2: begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
 			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
 			LCD_RW				<=	1'b0;						//Indicate a write operation
 			RDY					<= 	1'b0;						//Indicate that the module is busy
@@ -175,7 +175,7 @@ always @(posedge CLK) begin
 			if(SUBSTATE==1)begin				
 				LCD_E				<=	1'b1;					//Enable Bus		
 				LCD_DB 		    	<= SETUP;					//Data Valid
-				if(!flag_250ns) begin						    //WAIT at least 250ns (required for LCD_E)
+				if(!flag_42us) begin						    //WAIT at least 42us (required for LCD_E)
 					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
 					flag_rst		<=	1'b0; 					//Start or Continue counting									
 				end
@@ -199,43 +199,6 @@ always @(posedge CLK) begin
 				end
 			end	
 		end
-		2: begin //-----------SET FUNCTION #2, 8-bit interface, 2-line display, 5x11 dots---------
-			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
-			LCD_RW				<=	1'b0;						//Indicate a write operation	
-			RDY					<=  1'b0;						//Indicate that the module is busy
-			if(SUBSTATE==0)begin	 		
-				LCD_E				<=	1'b0;					//Disable Bus
-				LCD_DB 			    <=	LCD_DB;					//Maintain Previous Data on the Bus
-				STATE				<=	STATE;				
-				SUBSTATE			<=	1;
-			end			
-			if(SUBSTATE==1)begin				
-				LCD_E				<=	1'b1;					//Enable Bus		
-				LCD_DB 			    <= SETUP;					//Data Valid
-				if(!flag_250ns) begin						    //WAIT at least 250ns (required for LCD_E)
-					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end
-			if(SUBSTATE==2)begin
-				LCD_E				<=	1'b0;					//Disable Bus, Triggers LCD to read BUS
-				LCD_DB 			    <= LCD_DB;					//Keep Data Valid
-				if(!flag_100us) begin						    //WAIT at least 100us (required for Initialization)
-					STATE			<=	STATE;					//Maintain current STATE
-					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 		
-					STATE			<=	STATE+1;				//Go to next STATE
-					SUBSTATE		<=	0;						//Reset SUBSTATE
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end	
-		end
 		//---------------------------------------------------------------------------------------
 		3: begin //-----------------DISPLAY, Display OFF, Cursor OFF, Blinking OFF------------------
 			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
@@ -250,7 +213,7 @@ always @(posedge CLK) begin
 			if(SUBSTATE==1)begin				
 				LCD_E				<=	1'b1;					//Enable Bus		
 				LCD_DB 				<= ALL_OFF;					//Data Valid
-				if(!flag_250ns) begin							//WAIT at least 250ns (required for LCD_E)
+				if(!flag_42us) begin							//WAIT at least 42us (required for LCD_E)
 					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
 					flag_rst		<=	1'b0; 					//Start or Continue counting									
 				end
@@ -288,7 +251,7 @@ always @(posedge CLK) begin
 			if(SUBSTATE==1)begin				
 				LCD_E				<=	1'b1;					//Enable Bus		
 				LCD_DB 				<= CLEAR;					//Data Valid
-				if(!flag_250ns) begin							//WAIT at least 250ns (required for LCD_E)
+				if(!flag_42us) begin							//WAIT at least 42us (required for LCD_E)
 					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
 					flag_rst		<=	1'b0; 					//Start or Continue counting									
 				end
@@ -326,7 +289,7 @@ always @(posedge CLK) begin
 			if(SUBSTATE==1)begin				
 				LCD_E				<=	1'b1;						//Enable Bus		
 				LCD_DB 				<= ENTRY_N;					//Data Valid
-				if(!flag_250ns) begin						//WAIT at least 250ns (required for LCD_E)
+				if(!flag_42us) begin						//WAIT at least 42us (required for LCD_E)
 					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
 					flag_rst		<=	1'b0; 					//Start or Continue counting									
 				end
@@ -364,7 +327,7 @@ always @(posedge CLK) begin
 			if(SUBSTATE==1)begin				
 				LCD_E				<=	1'b1;					//Enable Bus		
 				LCD_DB 				<= 	ALL_ON;					//Data Valid
-				if(!flag_250ns) begin							//WAIT at least 250ns (required for LCD_E)
+				if(!flag_42us) begin							//WAIT at least 42us (required for LCD_E)
 					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
 					flag_rst		<=	1'b0; 					//Start or Continue counting									
 				end
@@ -476,9 +439,9 @@ always @(posedge CLK) begin
 				SUBSTATE			<=	1;
 			end			
 			if(SUBSTATE==1)begin				
-				LCD_E				<=	1'b1;						//Enable Bus		
+				LCD_E				<=	1'b1;					//Enable Bus		
 				LCD_DB 			<= DATA;						//Data Valid
-				if(!flag_250ns) begin						//WAIT at least 250ns (required for LCD_E)
+				if(!flag_42us) begin							//WAIT at least 42us (required for LCD_E)
 					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
 					flag_rst		<=	1'b0; 					//Start or Continue counting									
 				end
@@ -488,8 +451,8 @@ always @(posedge CLK) begin
 				end
 			end
 			if(SUBSTATE==2)begin
-				LCD_E				<=	1'b0;						//Disable Bus, Triggers LCD to read BUS
-				LCD_DB 			<= LCD_DB;					//Keep Data Valid
+				LCD_E				<=	1'b0;					//Disable Bus, Triggers LCD to read BUS
+				LCD_DB 				<= LCD_DB;						//Keep Data Valid
 				if(!flag_42us) begin							//WAIT at least 49us (required for operation to process)
 					STATE			<=	STATE;					//Maintain current STATE
 					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
@@ -497,7 +460,7 @@ always @(posedge CLK) begin
 				end
 				else begin 		
 					STATE			<=	15;//STATE+1;			//Go to next STATE
-					SUBSTATE		<=	0;							//Reset SUBSTATE
+					SUBSTATE		<=	0;						//Reset SUBSTATE
 					flag_rst		<=	1'b1; 					//Stop counting					
 				end
 			end

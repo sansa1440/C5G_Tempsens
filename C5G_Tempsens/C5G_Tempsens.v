@@ -118,7 +118,7 @@ lcdctrl_init lcdctrl_init(
 	.DATA(2'h45),				// in
 	.OPER(1'b1), 				// in
 	.ENB(SW[0]), 				// in
-	.RST(KEY[3])				// in
+	.RST(~KEY[3])				// in
 );
 	
 slowClock clock_generate(
