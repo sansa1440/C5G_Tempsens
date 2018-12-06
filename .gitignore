@@ -1,2 +1,21 @@
 db
 
+/db/
+/incremental_db/
+/simulation/
+/timing/
+/testbench/
+/*_sim/
+
+/C5G_Tempsens/db/
+/C5G_Tempsens/incremental_db/
+/C5G_Tempsens/simulation/
+/C5G_Tempsens/timing/
+/C5G_Tempsens/testbench/
+/C5G_Tempsens/*_sim/
+/C5G_Tempsens/.simvision/
+/C5G_Tempsens/simulation/
+/C5G_Tempsens/.qsys_edit/
+/C5G_Tempsens/*.bak/
+/C5G_Tempsens/*.log
+/C5G_Tempsens/*.summary
