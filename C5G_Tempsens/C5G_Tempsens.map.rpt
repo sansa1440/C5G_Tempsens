@@ -1,5 +1,5 @@
 Analysis & Synthesis report for C5G_Tempsens
-Thu Dec  6 18:56:01 2018
+Fri Dec  7 17:11:24 2018
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
 
 
@@ -23,7 +23,6 @@ Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
  15. Post-Synthesis Netlist Statistics for Top Partition
  16. Elapsed Time Per Partition
  17. Analysis & Synthesis Messages
- 18. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -49,13 +48,13 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu Dec  6 18:56:00 2018       ;
+; Analysis & Synthesis Status     ; Successful - Fri Dec  7 17:11:23 2018       ;
 ; Quartus Prime Version           ; 18.0.0 Build 614 04/24/2018 SJ Lite Edition ;
 ; Revision Name                   ; C5G_Tempsens                                ;
 ; Top-level Entity Name           ; C5G_Tempsens                                ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 45                                          ;
+; Total registers                 ; 36                                          ;
 ; Total pins                      ; 170                                         ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0                                           ;
@@ -190,25 +189,25 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+--------------------+
 ; Resource                                    ; Usage              ;
 +---------------------------------------------+--------------------+
-; Estimate of Logic utilization (ALMs needed) ; 74                 ;
+; Estimate of Logic utilization (ALMs needed) ; 33                 ;
 ;                                             ;                    ;
-; Combinational ALUT usage for logic          ; 110                ;
-;     -- 7 input functions                    ; 2                  ;
-;     -- 6 input functions                    ; 36                 ;
-;     -- 5 input functions                    ; 11                 ;
-;     -- 4 input functions                    ; 24                 ;
-;     -- <=3 input functions                  ; 37                 ;
+; Combinational ALUT usage for logic          ; 58                 ;
+;     -- 7 input functions                    ; 1                  ;
+;     -- 6 input functions                    ; 7                  ;
+;     -- 5 input functions                    ; 4                  ;
+;     -- 4 input functions                    ; 13                 ;
+;     -- <=3 input functions                  ; 33                 ;
 ;                                             ;                    ;
-; Dedicated logic registers                   ; 45                 ;
+; Dedicated logic registers                   ; 36                 ;
 ;                                             ;                    ;
 ; I/O pins                                    ; 170                ;
 ;                                             ;                    ;
 ; Total DSP Blocks                            ; 0                  ;
 ;                                             ;                    ;
 ; Maximum fan-out node                        ; CLOCK_50_B7A~input ;
-; Maximum fan-out                             ; 41                 ;
-; Total fan-out                               ; 834                ;
-; Average fan-out                             ; 1.51               ;
+; Maximum fan-out                             ; 32                 ;
+; Total fan-out                               ; 536                ;
+; Average fan-out                             ; 1.09               ;
 +---------------------------------------------+--------------------+
 
 
@@ -217,27 +216,30 @@ refer to the applicable agreement for further details.
 +--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-----------------------------------------+---------------+--------------+
 ; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                     ; Entity Name   ; Library Name ;
 +--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-----------------------------------------+---------------+--------------+
-; |C5G_Tempsens                  ; 110 (4)             ; 45 (4)                    ; 0                 ; 0          ; 170  ; 0            ; |C5G_Tempsens                           ; C5G_Tempsens  ; work         ;
+; |C5G_Tempsens                  ; 58 (4)              ; 36 (4)                    ; 0                 ; 0          ; 170  ; 0            ; |C5G_Tempsens                           ; C5G_Tempsens  ; work         ;
 ;    |hexto7segment:hto7seg_2|   ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |C5G_Tempsens|hexto7segment:hto7seg_2   ; hexto7segment ; work         ;
-;    |hexto7segment:hto7seg|     ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |C5G_Tempsens|hexto7segment:hto7seg     ; hexto7segment ; work         ;
-;    |lcdctrl_init:lcdctrl_init| ; 92 (92)             ; 41 (41)                   ; 0                 ; 0          ; 0    ; 0            ; |C5G_Tempsens|lcdctrl_init:lcdctrl_init ; lcdctrl_init  ; work         ;
+;    |hexto7segment:hto7seg|     ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |C5G_Tempsens|hexto7segment:hto7seg     ; hexto7segment ; work         ;
+;    |lcdctrl_init:lcdctrl_init| ; 45 (45)             ; 32 (32)                   ; 0                 ; 0          ; 0    ; 0            ; |C5G_Tempsens|lcdctrl_init:lcdctrl_init ; lcdctrl_init  ; work         ;
 +--------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-----------------------------------------+---------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+-----------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                      ;
-+---------------------------------------+-------------------------------------------------+
-; Register name                         ; Reason for Removal                              ;
-+---------------------------------------+-------------------------------------------------+
-; lcdctrl_init:lcdctrl_init|LCD_RS      ; Stuck at GND due to stuck port data_in          ;
-; lcdctrl_init:lcdctrl_init|LCD_RW      ; Stuck at GND due to stuck port data_in          ;
-; lcdctrl_init:lcdctrl_init|RDY         ; Stuck at GND due to stuck port data_in          ;
-; lcdctrl_init:lcdctrl_init|LCD_DB[5]   ; Merged with lcdctrl_init:lcdctrl_init|LCD_DB[4] ;
-; lcdctrl_init:lcdctrl_init|LCD_DB[7]   ; Merged with lcdctrl_init:lcdctrl_init|LCD_DB[6] ;
-; lcdctrl_init:lcdctrl_init|LCD_DB[6]   ; Stuck at GND due to stuck port data_in          ;
-; Total Number of Removed Registers = 6 ;                                                 ;
-+---------------------------------------+-------------------------------------------------+
++-------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                              ;
++--------------------------------------------+----------------------------------------------------+
+; Register name                              ; Reason for Removal                                 ;
++--------------------------------------------+----------------------------------------------------+
+; lcdctrl_init:lcdctrl_init|RDY              ; Stuck at GND due to stuck port data_in             ;
+; lcdctrl_init:lcdctrl_init|LCD_RW           ; Stuck at GND due to stuck port data_in             ;
+; lcdctrl_init:lcdctrl_init|LCD_RS           ; Stuck at GND due to stuck port data_in             ;
+; lcdctrl_init:lcdctrl_init|GPIO_TEST[1,6,7] ; Merged with lcdctrl_init:lcdctrl_init|GPIO_TEST[0] ;
+; lcdctrl_init:lcdctrl_init|GPIO_TEST[3..5]  ; Merged with lcdctrl_init:lcdctrl_init|GPIO_TEST[2] ;
+; lcdctrl_init:lcdctrl_init|STATE[3]         ; Merged with lcdctrl_init:lcdctrl_init|STATE[2]     ;
+; lcdctrl_init:lcdctrl_init|GPIO_TEST[0]     ; Stuck at GND due to stuck port data_in             ;
+; lcdctrl_init:lcdctrl_init|STATE[2]         ; Stuck at GND due to stuck port data_in             ;
+; lcdctrl_init:lcdctrl_init|GPIO_TEST[8]     ; Stuck at GND due to stuck port data_in             ;
+; Total Number of Removed Registers = 13     ;                                                    ;
++--------------------------------------------+----------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -245,12 +247,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 45    ;
-; Number of registers using Synchronous Clear  ; 28    ;
+; Total registers                              ; 36    ;
+; Number of registers using Synchronous Clear  ; 26    ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 6     ;
+; Number of registers using Clock Enable       ; 3     ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -260,19 +262,19 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------+---------+
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
-; lcdctrl_init:lcdctrl_init|flag_rst     ; 30      ;
+; lcdctrl_init:lcdctrl_init|flag_rst     ; 27      ;
 ; Total number of inverted registers = 1 ;         ;
 +----------------------------------------+---------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                    ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                          ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
-; 13:1               ; 2 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |C5G_Tempsens|lcdctrl_init:lcdctrl_init|STATE[2]    ;
-; 17:1               ; 2 bits    ; 22 LEs        ; 4 LEs                ; 18 LEs                 ; Yes        ; |C5G_Tempsens|lcdctrl_init:lcdctrl_init|SUBSTATE[0] ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
+; 6:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |C5G_Tempsens|lcdctrl_init:lcdctrl_init|STATE[1] ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |C5G_Tempsens|lcdctrl_init:lcdctrl_init|SUBSTATE ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
 
 
 +------------------------------------------------------------------------+
@@ -280,13 +282,13 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------+-------------------------+-----------------------------+
 ; Parameter Name ; Value                   ; Type                        ;
 +----------------+-------------------------+-----------------------------+
-; t_40ns         ; 0000000000000000000010  ; Unsigned Binary             ;
-; t_250ns        ; 0000000000000000001100  ; Unsigned Binary             ;
-; t_42us         ; 0000000000011111100000  ; Unsigned Binary             ;
-; t_100us        ; 0000000001001011000000  ; Unsigned Binary             ;
-; t_1640us       ; 0000010011001110000000  ; Unsigned Binary             ;
-; t_4100us       ; 0001100000000110000000  ; Unsigned Binary             ;
-; t_15000us      ; 0010101111110010000000  ; Unsigned Binary             ;
+; t_40ns         ; 00000000000000000000010 ; Unsigned Binary             ;
+; t_250ns        ; 00000000000000000001100 ; Unsigned Binary             ;
+; t_42us         ; 00000000000011111100000 ; Unsigned Binary             ;
+; t_100us        ; 00000000001001011000000 ; Unsigned Binary             ;
+; t_1640us       ; 00000010011001110000000 ; Unsigned Binary             ;
+; t_4100us       ; 00001100000000110000000 ; Unsigned Binary             ;
+; t_15000us      ; 00010101111110010000000 ; Unsigned Binary             ;
 ; t_50000us      ; 01001100010010110100000 ; Unsigned Binary             ;
 ; SETUP          ; 00111100                ; Unsigned Binary             ;
 ; DISP_ON        ; 00001100                ; Unsigned Binary             ;
@@ -330,28 +332,28 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 45                          ;
-;     ENA               ; 6                           ;
-;     SCLR              ; 28                          ;
-;     plain             ; 11                          ;
+; arriav_ff             ; 36                          ;
+;     ENA               ; 3                           ;
+;     SCLR              ; 26                          ;
+;     plain             ; 7                           ;
 ; arriav_io_obuf        ; 58                          ;
-; arriav_lcell_comb     ; 114                         ;
+; arriav_lcell_comb     ; 63                          ;
 ;     arith             ; 23                          ;
 ;         1 data inputs ; 23                          ;
-;     extend            ; 2                           ;
-;         7 data inputs ; 2                           ;
-;     normal            ; 89                          ;
+;     extend            ; 1                           ;
+;         7 data inputs ; 1                           ;
+;     normal            ; 39                          ;
 ;         0 data inputs ; 2                           ;
-;         1 data inputs ; 3                           ;
-;         2 data inputs ; 5                           ;
-;         3 data inputs ; 8                           ;
-;         4 data inputs ; 24                          ;
-;         5 data inputs ; 11                          ;
-;         6 data inputs ; 36                          ;
+;         1 data inputs ; 5                           ;
+;         2 data inputs ; 6                           ;
+;         3 data inputs ; 2                           ;
+;         4 data inputs ; 13                          ;
+;         5 data inputs ; 4                           ;
+;         6 data inputs ; 7                           ;
 ; boundary_port         ; 170                         ;
 ;                       ;                             ;
 ; Max LUT depth         ; 3.20                        ;
-; Average LUT depth     ; 1.68                        ;
+; Average LUT depth     ; 1.46                        ;
 +-----------------------+-----------------------------+
 
 
@@ -370,7 +372,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
-    Info: Processing started: Thu Dec  6 18:55:34 2018
+    Info: Processing started: Fri Dec  7 17:10:57 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off C5G_Tempsens -c C5G_Tempsens
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -380,17 +382,17 @@ Info (12021): Found 1 design units, including 1 entities, in source file clock_g
     Info (12023): Found entity 1: slowClock File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/clock_generator.v Line: 7
 Info (12021): Found 1 design units, including 1 entities, in source file LCDModule_init.v
     Info (12023): Found entity 1: lcdctrl_init File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 6
-Warning (10227): Verilog HDL Port Declaration warning at LCDModule_init.v(34): data type declaration for "DATA" declares packed dimensions but the port declaration declaration does not File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 34
-Info (10499): HDL info at LCDModule_init.v(20): see declaration for object "DATA" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 20
-Warning (10227): Verilog HDL Port Declaration warning at LCDModule_init.v(35): data type declaration for "OPER" declares packed dimensions but the port declaration declaration does not File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 35
-Info (10499): HDL info at LCDModule_init.v(21): see declaration for object "OPER" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 21
+Warning (10227): Verilog HDL Port Declaration warning at LCDModule_init.v(36): data type declaration for "DATA" declares packed dimensions but the port declaration declaration does not File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 36
+Info (10499): HDL info at LCDModule_init.v(21): see declaration for object "DATA" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 21
+Warning (10227): Verilog HDL Port Declaration warning at LCDModule_init.v(37): data type declaration for "OPER" declares packed dimensions but the port declaration declaration does not File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 37
+Info (10499): HDL info at LCDModule_init.v(22): see declaration for object "OPER" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 22
 Warning (10229): Verilog HDL Expression warning at C5G_Tempsens.v(119): truncated literal to match 2 bits File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 119
 Warning (12125): Using design file C5G_Tempsens.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
     Info (12023): Found entity 1: C5G_Tempsens File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 6
-Warning (10236): Verilog HDL Implicit Net warning at C5G_Tempsens.v(139): created implicit net for "clk_270Hz" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 139
+Warning (10236): Verilog HDL Implicit Net warning at C5G_Tempsens.v(140): created implicit net for "clk_270Hz" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 140
 Info (12127): Elaborating entity "C5G_Tempsens" for the top level hierarchy
 Warning (10858): Verilog HDL warning at C5G_Tempsens.v(88): object clk_270kHz used but never assigned File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 88
-Warning (10230): Verilog HDL assignment warning at C5G_Tempsens.v(149): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 149
+Warning (10230): Verilog HDL assignment warning at C5G_Tempsens.v(150): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 150
 Warning (10030): Net "clk_270kHz" at C5G_Tempsens.v(88) has no driver or initial value, using a default initial value '0' File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 88
 Warning (10034): Output port "LEDG[7..3]" at C5G_Tempsens.v(16) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
 Warning (10034): Output port "LEDR[9..1]" at C5G_Tempsens.v(17) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
@@ -411,46 +413,27 @@ Warning (10034): Output port "SRAM_LB_n" at C5G_Tempsens.v(61) has no driver Fil
 Warning (10034): Output port "SRAM_OE_n" at C5G_Tempsens.v(62) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 62
 Warning (10034): Output port "SRAM_UB_n" at C5G_Tempsens.v(63) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 63
 Warning (10034): Output port "SRAM_WE_n" at C5G_Tempsens.v(64) has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 64
-Info (12128): Elaborating entity "lcdctrl_init" for hierarchy "lcdctrl_init:lcdctrl_init" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 124
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(140): truncated value with size 32 to match size of target (23) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 140
+Info (12128): Elaborating entity "lcdctrl_init" for hierarchy "lcdctrl_init:lcdctrl_init" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 125
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(142): truncated value with size 32 to match size of target (23) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 142
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(165): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 165
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(182): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 182
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(194): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 194
+Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(193): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 193
 Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(204): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 204
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(217): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 217
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(228): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 228
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(238): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 238
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(252): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 252
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(263): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 263
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(274): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 274
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(287): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 287
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(297): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 297
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(308): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 308
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(321): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 321
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(331): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 331
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(342): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 342
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(355): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 355
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(365): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 365
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(376): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 376
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(390): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 390
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(400): truncated value with size 32 to match size of target (2) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 400
-Warning (10230): Verilog HDL assignment warning at LCDModule_init.v(411): truncated value with size 32 to match size of target (4) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/LCDModule_init.v Line: 411
 Warning (12125): Using design file hexto7segment.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
     Info (12023): Found entity 1: hexto7segment File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/hexto7segment.v Line: 5
-Info (12128): Elaborating entity "hexto7segment" for hierarchy "hexto7segment:hto7seg" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 129
-Info (12128): Elaborating entity "slowClock" for hierarchy "slowClock:clock_generate" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 140
+Info (12128): Elaborating entity "hexto7segment" for hierarchy "hexto7segment:hto7seg" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 130
+Info (12128): Elaborating entity "slowClock" for hierarchy "slowClock:clock_generate" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 141
 Warning (10230): Verilog HDL assignment warning at clock_generator.v(23): truncated value with size 32 to match size of target (28) File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/clock_generator.v Line: 23
 Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13034): The following nodes have both tri-state and non-tri-state drivers
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[26]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[28]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[29]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[2]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[3]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[4]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[5]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[30]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[31]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[32]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[33]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[34]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[35]" and its non-tri-state driver. File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
 Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "I2C_SDA" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 46
     Warning (13040): bidirectional pin "SD_CMD" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 50
@@ -474,15 +457,6 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "SRAM_D[13]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
     Warning (13040): bidirectional pin "SRAM_D[14]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
     Warning (13040): bidirectional pin "SRAM_D[15]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 60
-    Warning (13040): bidirectional pin "GPIO[0]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[1]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[2]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[3]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[4]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[5]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[6]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[7]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13040): bidirectional pin "GPIO[8]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[9]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[10]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[11]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
@@ -500,18 +474,27 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO[23]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13040): bidirectional pin "GPIO[24]" has no driver File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
 Warning (13032): The following tri-state nodes are fed by constants
+    Warning (13033): The pin "GPIO[0]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[1]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[6]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[7]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[8]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13033): The pin "GPIO[25]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[26]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13033): The pin "GPIO[27]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[28]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[29]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[34]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13033): The pin "GPIO[35]" is fed by GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
 Warning (13009): TRI or OPNDRN buffers permanently enabled
-    Warning (13010): Node "GPIO[26]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13010): Node "GPIO[28]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13010): Node "GPIO[29]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13010): Node "GPIO[2]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13010): Node "GPIO[3]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13010): Node "GPIO[4]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
+    Warning (13010): Node "GPIO[5]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13010): Node "GPIO[30]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13010): Node "GPIO[31]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13010): Node "GPIO[32]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
     Warning (13010): Node "GPIO[33]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13010): Node "GPIO[34]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
-    Warning (13010): Node "GPIO[35]~synth" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 80
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "LEDG[0]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
     Warning (13410): Pin "LEDG[1]" is stuck at VCC File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 16
@@ -531,6 +514,7 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "LEDR[7]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
     Warning (13410): Pin "LEDR[8]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
     Warning (13410): Pin "LEDR[9]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 17
+    Warning (13410): Pin "HEX0[1]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 27
     Warning (13410): Pin "HDMI_TX_CLK" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 31
     Warning (13410): Pin "HDMI_TX_D[0]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
     Warning (13410): Pin "HDMI_TX_D[1]" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 32
@@ -589,7 +573,6 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "SRAM_UB_n" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 63
     Warning (13410): Pin "SRAM_WE_n" is stuck at GND File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 64
 Info (286030): Timing-Driven Synthesis is running
-Info (144001): Generated suppressed messages file /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 20 input pin(s) that do not drive logic
@@ -613,21 +596,15 @@ Warning (21074): Design contains 20 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "HDMI_TX_INT" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 35
     Warning (15610): No output dependent on input pin "ADC_SDO" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 42
     Warning (15610): No output dependent on input pin "UART_RX" File: /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.v Line: 54
-Info (21057): Implemented 280 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 228 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 23 input pins
     Info (21059): Implemented 89 output pins
     Info (21060): Implemented 58 bidirectional pins
-    Info (21061): Implemented 110 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 222 warnings
-    Info: Peak virtual memory: 1118 megabytes
-    Info: Processing ended: Thu Dec  6 18:56:01 2018
+    Info (21061): Implemented 58 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 204 warnings
+    Info: Peak virtual memory: 1119 megabytes
+    Info: Processing ended: Fri Dec  7 17:11:24 2018
     Info: Elapsed time: 00:00:27
     Info: Total CPU time (on all processors): 00:00:43
-
-
-+------------------------------------------+
-; Analysis & Synthesis Suppressed Messages ;
-+------------------------------------------+
-The suppressed messages can be found in /home/saqata/quartus/C5G_Tempsens/C5G_Tempsens/C5G_Tempsens.map.smsg.
 
 

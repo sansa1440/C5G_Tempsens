@@ -120,7 +120,8 @@ lcdctrl_init lcdctrl_init(
 	.OPER(1'b0), 				// in
 	.ENB(SW[0]), 				// in
 	.RST(~KEY[3]),				// in
-	.STATE_7seg(STATE_7seg)
+	.STATE_7seg(STATE_7seg),
+	.GPIO_TEST(GPIO[8:0])
 );
 
 hexto7segment hto7seg(

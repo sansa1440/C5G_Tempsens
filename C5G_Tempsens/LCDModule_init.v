@@ -14,7 +14,8 @@ module lcdctrl_init(
 	OPER, 			// in
 	ENB, 			// in
 	RST,			// in
-	STATE_7seg
+	STATE_7seg,
+	GPIO_TEST
 );
 input CLK;			// For this code to work without modification, CLK should equal 24MHz
 input DATA;			// The Data to send to the LCD Module
@@ -26,9 +27,10 @@ output RDY;			// Indicates that the module is Idle and ready to take more data
 output LCD_RS, LCD_RW, LCD_E;
 output [7:0] LCD_DB;
 output [3:0] STATE_7seg;
+output [8:0] GPIO_TEST;
 
 assign STATE_7seg = STATE;
-
+assign GPIO_TEST = {LCD_E,LCD_DB};
 
 
 wire [7:0] DATA;
@@ -50,7 +52,7 @@ parameter [22:0] t_42us 	= 22'd2016;		//42us 		== ~2016clks
 parameter [22:0] t_100us 	= 22'd4800;		//100us		== ~4800clks
 parameter [22:0] t_1640us 	= 22'd78720;	//1.64ms 	== ~78720clks
 parameter [22:0] t_4100us 	= 22'd393600;	//4.1ms    	== ~393600clks
-parameter [22:0] t_15000us	= 22'd720000;	//15ms 		== ~720000clks
+parameter [22:0] t_15000us	= 22'd720000;	//14.4ms 	== ~720000clks
 parameter [22:0] t_50000us	= 22'd2500000;	//50ms 		== ~2500000clks
 
 //===============================================================================================
@@ -77,37 +79,69 @@ reg flag_250ns=0,flag_42us=0,flag_100us=0,flag_1640us=0,flag_4100us=0,flag_15000
 reg flag_rst=1;					//Start with flag RST set. so that the counting has not started
 
 always @(posedge CLK) begin
-	if(flag_rst) begin //unlatch the frag
-		flag_250ns	<=	1'b0;		
-		flag_42us	<=	1'b0;		
-		flag_100us	<=	1'b0;		
-		flag_1640us	<=	1'b0;		
-		flag_4100us	<=	1'b0;		
-		flag_15000us    <=	1'b0;	
-		flag_50000us	<=	1'b0;	
-		cnt_timer	<=	21'b0;	
+	if(flag_rst) begin
+		flag_250ns	<=	1'b0;		//Unlatch the flag
+		flag_42us	<=	1'b0;		//Unlatch the flag
+		flag_100us	<=	1'b0;		//Unlatch the flag
+		flag_1640us	<=	1'b0;		//Unlatch the flag
+		flag_4100us	<=	1'b0;		//Unlatch the flag
+		flag_15000us    <=	1'b0;		//Unlatch the flag
+		flag_50000us	<=	1'b0;		//Unlatch the flag
+		cnt_timer	<=	21'b0;		
 	end
-	else begin //latch the frag
-		flag_250ns	<=	cnt_latch(cnt_timer, t_40ns );		
-		flag_42us	<=	cnt_latch(cnt_timer, t_250ns);		
-		flag_100us	<=	cnt_latch(cnt_timer, t_42us );		
-		flag_1640us	<=	cnt_latch(cnt_timer, t_100us);		
-		flag_4100us	<=	cnt_latch(cnt_timer, t_640us);		
-		flag_15000us    <=	cnt_latch(cnt_timer, t_15000us );	
-		flag_50000us	<=	cnt_latch(cnt_timer, t_50000us );
-
-		cnt_timer	<= cnt_timer + 1;//timer increment
+	else begin
+		if(cnt_timer>=t_250ns) begin			
+			flag_250ns	<=	1'b1;
+		end
+		else begin			
+			flag_250ns	<=	flag_250ns;
+		end
+		//----------------------------
+		if(cnt_timer>=t_42us) begin			
+			flag_42us	<=	1'b1;
+		end
+		else begin			
+			flag_42us	<=	flag_42us;
+		end
+		//----------------------------
+		if(cnt_timer>=t_100us) begin			
+			flag_100us	<=	1'b1;
+		end
+		else begin			
+			flag_100us	<=	flag_100us;
+		end
+		//----------------------------
+		if(cnt_timer>=t_1640us) begin			
+			flag_1640us	<=	1'b1;
+		end
+		else begin			
+			flag_1640us	<=	flag_1640us;
+		end
+		//----------------------------
+		if(cnt_timer>=t_4100us) begin			
+			flag_4100us	<=	1'b1;
+		end
+		else begin			
+			flag_4100us	<=	flag_4100us;
+		end
+		//----------------------------
+		if(cnt_timer>=t_15000us) begin			
+			flag_15000us	<=	1'b1;
+		end
+		else begin			
+			flag_15000us	<=	flag_15000us;
+		end
+		//----------------------------
+		if(cnt_timer>=t_50000us) begin			
+			flag_50000us	<=	1'b1;
+		end
+		else begin			
+			flag_50000us	<=	flag_50000us;
+		end
+		//----------------------------		
+		cnt_timer	<= cnt_timer + 1;
 	end
 end
-
-function cnt_latch(input [22:0] cnt_timer, input [22:0] t_xs);// input timer , latch timing 
-	if(cnt_timer>=t_xs) begin			
-		cnt_latch	<=	1'b1;
-	end
-	else begin			
-		cnt_latch	<=	cnt_latch;
-	end
-endfunction
 //##########################################################################################
 //-----------------------------Create the STATE MACHINE------------------------------------
 //##########################################################################################
@@ -125,7 +159,6 @@ always @(posedge CLK) begin
 			RDY		<= 	1'b0;										//Indicate that the module is busy
 			SUBSTATE	<=	0;
 			if(!flag_50000us) begin									//WAIT 50ms...worst case scenario
-				STATE				<=	STATE;						//Remain in current STATE
 				flag_rst			<=	1'b0; 						//Start or Continue counting				
 			end
 			else begin 				
@@ -137,13 +170,13 @@ always @(posedge CLK) begin
 		1: begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
 			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
 			LCD_RW				<=	1'b0;						//Indicate a write operation
-			RDY					<= 	1'b0;						//Indicate that the module is busy
+			RDY					<= 	1'b0;						//Indicate that the module is bus
 			if(SUBSTATE==0)begin	//set up command
                 LCD_E				<=	1'b0;					//Disable Bus
 
 				if(!flag_42us) begin						    //WAIT at least 250ns (required for LCD_E)
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-					LCD_DB 				<=	SETUP;				//hold data before switching enable ON
+					flag_rst		<=	1'b0; 					//Start or Continue counting
+					LCD_DB 				<=	SETUP;									
 				end
 				else begin 				
 					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (enable ON)
@@ -151,11 +184,10 @@ always @(posedge CLK) begin
 				end
 			end			
 			if(SUBSTATE==1)begin	//write command (turn enable on)
-				LCD_E				<=	1'b1;					//Enable Bus		
-				LCD_DB 		    	<= SETUP;					//Data Valid
+				LCD_E				<=	1'b0;					//Enable Bus		
 				if(!flag_42us) begin						    //Hold enable for 250 ns
-					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
+					flag_rst		<=	1'b0; 					//Start or Continue counting
+					LCD_DB 				<=	8'b00000000;									
 				end
 				else begin 				
 					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (disable bus, wait)
@@ -165,7 +197,8 @@ always @(posedge CLK) begin
 			if(SUBSTATE==2)begin	//wait for LCD to process
                 LCD_E				<=	1'b0;					//Disable Bus, Triggers LCD to read BUS
 				if(!flag_4100us) begin						    //WAIT at least 4100us (required for Initialization)
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
+					flag_rst		<=	1'b0; 					//Start or Continue counting		
+					LCD_DB 				<=	SETUP;							
 				end
 				else begin 		
 					STATE			<=	STATE+1;				//Go to next STATE (next special function set)
@@ -174,217 +207,11 @@ always @(posedge CLK) begin
 				end
 			end	
 		end
-		2,3: begin //-----------2 special case function sets (for initialization)---------
-			if(SUBSTATE==0)begin	//set up command
-				if(!flag_42us) begin						    //WAIT at least 250ns (required for LCD_E)
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-					LCD_DB 				<=	SETUP;				//hold data before switching enable ON
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (enable ON)
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end	
-			if(SUBSTATE==1) begin	// write command
-				LCD_DB <= LCD_DB;									//because reasons
-				LCD_E <= 1'b1;										//enable bus
-				if(!flag_42us) begin								//Hold enable for 250 ns
-					flag_rst <= 1'b0;
-				end
-				else begin
-					SUBSTATE <= SUBSTATE+1;							//Go to next SUBSTATE (wait for the LCD to process)
-					flag_rst <= 1'b1;								//Stop counting
-				end
-			end
-			if(SUBSTATE==2) begin //wait for LCD to process
-			  	LCD_E <= 1'b0;										//disable bus (start processing)
-			  	if(!flag_100us) begin
-					flag_rst <= 1'b0;									//start or continue counting
-				end
-				else begin
-					STATE = STATE+1;								//Go to next STATE
-					SUBSTATE <= 0;									//Reset SUBSTATE
-					flag_rst <= 1'b1;								//Stop counting
-				end
-			end	
-		end
-		//---------------------------------------------------------------------------------------
-		4: begin //-----------------Function Set------------------
-			if (SUBSTATE==0) begin 	//setup command
-				if(!flag_42us) begin						    //WAIT at least 250ns (required for LCD_E)
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-					LCD_DB 			<=	SETUP;				//hold data before switching enable ON
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (enable ON)
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end
-			if(SUBSTATE==1)begin	//write command (turn enable on)
-				LCD_E				<=	1'b1;					//Enable Bus	
-				if(!flag_42us) begin						    //Hold enable for 250 ns
-					SUBSTATE		<=	SUBSTATE;				//Maintain current SUBSTATE
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (disable bus, wait)
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end
-			if(SUBSTATE==2)begin	//wait for LCD to process
-                LCD_E				<=	1'b0;					//Disable Bus, Triggers LCD to read BUS
-				LCD_DB 			    <= LCD_DB;					//Keep Data Valid
-				if(!flag_42us) begin						    //WAIT at least 42us 
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 		
-					STATE			<=	STATE+1;				//Go to next STATE (display on/off control)
-					SUBSTATE		<=	0;					    //Reset SUBSTATE
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end	
-		end
-		5: begin //-----------------DISPLAY control (ALL OFF)------------------
-			if (SUBSTATE==0) begin 	//setup command
-				if(!flag_42us) begin						    //WAIT at least 250ns (required for LCD_E)
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-					LCD_DB 			<=	ALL_OFF;				//hold data before switching enable ON
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (enable ON)
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end
-			if(SUBSTATE==1)begin	//write command (turn enable on)
-				LCD_E				<=	1'b1;					//Enable Bus	
-				if(!flag_42us) begin						    //Hold enable for 250 ns
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (disable bus, wait)
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end
-			if(SUBSTATE==2)begin	//wait for LCD to process
-                LCD_E				<=	1'b0;					//Disable Bus, Triggers LCD to read BUS
-				LCD_DB 			    <= LCD_DB;					//Keep Data Valid
-				if(!flag_42us) begin						    //WAIT at least 42us 
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 		
-					STATE			<=	STATE+1;				//Go to next STATE (display on/off control)
-					SUBSTATE		<=	0;					    //Reset SUBSTATE
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end	
-		end
-		6: begin //-----------------CLEAR DISPLAY------------------
-			if (SUBSTATE==0) begin 	//setup command
-				if(!flag_42us) begin						    //WAIT at least 250ns (required for LCD_E)
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-					LCD_DB 			<=	CLEAR;				//hold data before switching enable ON
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (enable ON)
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end
-			if(SUBSTATE==1)begin	//write command (turn enable on)
-				LCD_E				<=	1'b1;					//Enable Bus	
-				if(!flag_42us) begin						    //Hold enable for 250 ns
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (disable bus, wait)
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end
-			if(SUBSTATE==2)begin	//wait for LCD to process
-                LCD_E				<=	1'b0;					//Disable Bus, Triggers LCD to read BUS
-				LCD_DB 			    <= LCD_DB;					//Keep Data Valid
-				if(!flag_1640us) begin						    //WAIT at least 1640us 
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 		
-					STATE			<=	STATE+1;				//Go to next STATE (display on/off control)
-					SUBSTATE		<=	0;					    //Reset SUBSTATE
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end	
-		end
-		7: begin //-----------------Entry Mode Set------------------
-			if (SUBSTATE==0) begin 	//setup command
-				if(!flag_42us) begin						    //WAIT at least 250ns (required for LCD_E)
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-					LCD_DB 			<=	ENTRY_N;				//hold data before switching enable ON
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (enable ON)
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end
-			if(SUBSTATE==1)begin	//write command (turn enable on)
-				LCD_E				<=	1'b1;					//Enable Bus	
-				if(!flag_42us) begin						    //Hold enable for 250 ns
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (disable bus, wait)
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end
-			if(SUBSTATE==2)begin	//wait for LCD to process
-                LCD_E				<=	1'b0;					//Disable Bus, Triggers LCD to read BUS
-				LCD_DB 			    <= LCD_DB;					//Keep Data Valid
-				if(!flag_42us) begin						    //WAIT at least 42us 
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 		
-					STATE			<=	STATE+1;				//Go to next STATE (display on/off control)
-					SUBSTATE		<=	0;					    //Reset SUBSTATE
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end	
-		end
-		//----------------------INITIALIZATION Ends-----------------------------
-		8: begin //-----------------DISPLAY control (ALL ON)------------------
-			if (SUBSTATE==0) begin 	//setup command
-				if(!flag_42us) begin						    //WAIT at least 250ns (required for LCD_E)
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-					LCD_DB 			<=	ALL_ON;				//hold data before switching enable ON
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (enable ON)
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end
-			if(SUBSTATE==1)begin	//write command (turn enable on)
-				LCD_E				<=	1'b1;					//Enable Bus	
-				if(!flag_42us) begin						    //Hold enable for 250 ns
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (disable bus, wait)
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end
-			if(SUBSTATE==2)begin	//wait for LCD to process
-                LCD_E				<=	1'b0;					//Disable Bus, Triggers LCD to read BUS
-				LCD_DB 			    <= LCD_DB;					//Keep Data Valid
-				if(!flag_42us) begin						    //WAIT at least 42us 
-					flag_rst		<=	1'b0; 					//Start or Continue counting									
-				end
-				else begin 		
-					STATE			<=	STATE+1;				//Go to next STATE (display on/off control)
-					SUBSTATE		<=	0;					    //Reset SUBSTATE
-					flag_rst		<=	1'b1; 					//Stop counting					
-				end
-			end	
 
-		end
-		//---------------------------------------------------------------------------------------
 		default: begin//----------This is the IDLE STATE, DO NOTHING UNTIL OPER is set-----------
+			LCD_DB 				<=	8'b00000000;
 			if(ENB==1 && RST==0)begin
+
 				case(OPER)
 					0:STATE<=STATE; 	//IDLE
 					1:STATE<=8;		//WRITE CHARACTER
