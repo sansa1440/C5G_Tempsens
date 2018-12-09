@@ -21,7 +21,7 @@ begin
     else
         begin
             counter <= counter + 1;
-            if ( counter == 135_000)
+            if ( counter == 250_000_000)
                 begin
                     counter <= 0;
                     clk_270kHz <= ~clk_270kHz;

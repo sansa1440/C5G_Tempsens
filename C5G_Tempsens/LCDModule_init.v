@@ -48,11 +48,11 @@ reg LCD_E=0;
 //===============================================================================================
 parameter [22:0] t_40ns 	= 22'd2;		//40ns 		== ~2clk
 parameter [22:0] t_250ns 	= 22'd12;		//250ns 	== ~12clks
-parameter [22:0] t_42us 	= 22'd2016;		//42us 		== ~2016clks
-parameter [22:0] t_100us 	= 22'd4800;		//100us		== ~4800clks
+parameter [22:0] t_42us 	= 22'd2100;		//42us 		== ~2016clks
+parameter [22:0] t_100us 	= 22'd5000;		//100us		== ~4800clks
 parameter [22:0] t_1640us 	= 22'd78720;	//1.64ms 	== ~78720clks
-parameter [22:0] t_4100us 	= 22'd393600;	//4.1ms    	== ~393600clks
-parameter [22:0] t_15000us	= 22'd720000;	//14.4ms 	== ~720000clks
+parameter [22:0] t_4100us 	= 22'd205000;	//4.1ms    	== ~393600clks
+parameter [22:0] t_15000us	= 22'd750000;	//15ms 		== ~720000clks
 parameter [22:0] t_50000us	= 22'd2500000;	//50ms 		== ~2500000clks
 
 //===============================================================================================
@@ -145,8 +145,9 @@ end
 //##########################################################################################
 //-----------------------------Create the STATE MACHINE------------------------------------
 //##########################################################################################
-reg [3:0] STATE=0;
+reg [3:0] STATE=0, DELAY_STATE = 0;
 reg [1:0] SUBSTATE=0;
+
 
 always @(posedge CLK) begin
 	case(STATE)
@@ -157,7 +158,6 @@ always @(posedge CLK) begin
 			LCD_E	<=	1'b0;										//We are in the initial setup, keep low until 250ns has past
 			LCD_DB 	<= 	8'b00000000;
 			RDY		<= 	1'b0;										//Indicate that the module is busy
-			SUBSTATE	<=	0;
 			if(!flag_50000us) begin									//WAIT 50ms...worst case scenario
 				flag_rst			<=	1'b0; 						//Start or Continue counting				
 			end
@@ -167,51 +167,468 @@ always @(posedge CLK) begin
 			end		
 		end
 		//---------------------------------------------------------------------------------------
-		1: begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
+		1:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
 			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
 			LCD_RW				<=	1'b0;						//Indicate a write operation
-			RDY					<= 	1'b0;						//Indicate that the module is bus
-			if(SUBSTATE==0)begin	//set up command
-                LCD_E				<=	1'b0;					//Disable Bus
-
-				if(!flag_42us) begin						    //WAIT at least 250ns (required for LCD_E)
-					flag_rst		<=	1'b0; 					//Start or Continue counting
-					LCD_DB 				<=	SETUP;									
+			RDY					<= 	1'b0;						//Indicate that the module is busy
+			LCD_DB 				<=	SETUP;	
+			case(DELAY_STATE)				
+				0:begin//write command (turn enable on)					
+					LCD_E <= 1'b0;
+					DELAY_STATE			<=	DELAY_STATE+1;
 				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (enable ON)
-					flag_rst		<=	1'b1; 					//Stop counting					
+				1:begin//write command (turn enable on)					
+					if(!flag_42us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1; 					//Stop counting					
+					end
 				end
-			end			
-			if(SUBSTATE==1)begin	//write command (turn enable on)
-				LCD_E				<=	1'b0;					//Enable Bus		
-				if(!flag_42us) begin						    //Hold enable for 250 ns
-					flag_rst		<=	1'b0; 					//Start or Continue counting
-					LCD_DB 				<=	8'b00000000;									
+				2:begin //wait for LCD to process
+					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
+					DELAY_STATE			<=	DELAY_STATE+1;	
 				end
-				else begin 				
-					SUBSTATE		<=	SUBSTATE+1;				//Go to next SUBSTATE (disable bus, wait)
-					flag_rst		<=	1'b1; 					//Stop counting					
+				3:begin
+					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 		
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+						flag_rst		<=	1'b1; 					//Stop counting	
+					end		  
 				end
-			end
-			if(SUBSTATE==2)begin	//wait for LCD to process
-                LCD_E				<=	1'b0;					//Disable Bus, Triggers LCD to read BUS
-				if(!flag_4100us) begin						    //WAIT at least 4100us (required for Initialization)
-					flag_rst		<=	1'b0; 					//Start or Continue counting		
-					LCD_DB 				<=	SETUP;							
+				4:begin
+					LCD_E			<=	1'b0;					//Enable Bus						
+					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
 				end
-				else begin 		
-					STATE			<=	STATE+1;				//Go to next STATE (next special function set)
-					SUBSTATE		<=	0;					    //Reset SUBSTATE
-					flag_rst		<=	1'b1; 					//Stop counting					
+				5:begin
+					if(!flag_4100us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1;					//Stop counting					
+					end
 				end
-			end	
+				default:begin
+					STATE			<=	STATE+1;
+					DELAY_STATE		<= 1'b0;	
+				end
+			endcase
 		end
+		2,3,4:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
+			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
+			LCD_RW				<=	1'b0;						//Indicate a write operation
+			RDY					<= 	1'b0;						//Indicate that the module is busy
+			LCD_DB 				<=	SETUP;	
+			case(DELAY_STATE)				
+				0:begin//write command (turn enable on)					
+					LCD_E <= 1'b0;
+					DELAY_STATE			<=	DELAY_STATE+1;
+				end
+				1:begin//write command (turn enable on)					
+					if(!flag_42us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1; 					//Stop counting					
+					end
+				end
+				2:begin //wait for LCD to process
+					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
+					DELAY_STATE			<=	DELAY_STATE+1;	
+				end
+				3:begin
+					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 		
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+						flag_rst		<=	1'b1; 					//Stop counting	
+					end		  
+				end
+				4:begin
+					LCD_E			<=	1'b0;					//Enable Bus						
+					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+				end
+				5:begin
+					if(!flag_1640us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1;					//Stop counting					
+					end
+				end
+				default:begin
+					STATE			<=	STATE+1;
+					DELAY_STATE		<= 1'b0;	
+				end
+			endcase
+		end
+		5:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
+			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
+			LCD_RW				<=	1'b0;						//Indicate a write operation
+			RDY					<= 	1'b0;						//Indicate that the module is busy
+			LCD_DB 				<=	ALL_OFF;	
+			case(DELAY_STATE)				
+				0:begin//write command (turn enable on)					
+					LCD_E <= 1'b0;
+					DELAY_STATE			<=	DELAY_STATE+1;
+				end
+				1:begin//write command (turn enable on)					
+					if(!flag_42us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1; 					//Stop counting					
+					end
+				end
+				2:begin //wait for LCD to process
+					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
+					DELAY_STATE			<=	DELAY_STATE+1;	
+				end
+				3:begin
+					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 		
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+						flag_rst		<=	1'b1; 					//Stop counting	
+					end		  
+				end
+				4:begin
+					LCD_E			<=	1'b0;					//Enable Bus						
+					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+				end
+				5:begin
+					if(!flag_1640us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1;					//Stop counting					
+					end
+				end
+				default:begin
+					STATE			<=	STATE+1;
+					DELAY_STATE		<= 1'b0;	
+				end
+			endcase
+		end
+		6:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
+			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
+			LCD_RW				<=	1'b0;						//Indicate a write operation
+			RDY					<= 	1'b0;						//Indicate that the module is busy
+			LCD_DB 				<=	CLEAR;	
+			case(DELAY_STATE)				
+				0:begin//write command (turn enable on)					
+					LCD_E <= 1'b0;
+					DELAY_STATE			<=	DELAY_STATE+1;
+				end
+				1:begin//write command (turn enable on)					
+					if(!flag_42us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1; 					//Stop counting					
+					end
+				end
+				2:begin //wait for LCD to process
+					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
+					DELAY_STATE			<=	DELAY_STATE+1;	
+				end
+				3:begin
+					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 		
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+						flag_rst		<=	1'b1; 					//Stop counting	
+					end		  
+				end
+				4:begin
+					LCD_E			<=	1'b0;					//Enable Bus						
+					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+				end
+				5:begin
+					if(!flag_4100us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1;					//Stop counting					
+					end
+				end
+				default:begin
+					STATE			<=	STATE+1;
+					DELAY_STATE		<= 1'b0;	
+				end
+			endcase
+		end
+		7:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
+			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
+			LCD_RW				<=	1'b0;						//Indicate a write operation
+			RDY					<= 	1'b0;						//Indicate that the module is busy
+			LCD_DB 				<=	ENTRY_N;	
+			case(DELAY_STATE)				
+				0:begin//write command (turn enable on)					
+					LCD_E <= 1'b0;
+					DELAY_STATE			<=	DELAY_STATE+1;
+				end
+				1:begin//write command (turn enable on)					
+					if(!flag_42us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1; 					//Stop counting					
+					end
+				end
+				2:begin //wait for LCD to process
+					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
+					DELAY_STATE			<=	DELAY_STATE+1;	
+				end
+				3:begin
+					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 		
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+						flag_rst		<=	1'b1; 					//Stop counting	
+					end		  
+				end
+				4:begin
+					LCD_E			<=	1'b0;					//Enable Bus						
+					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+				end
+				5:begin
+					if(!flag_1640us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1;					//Stop counting					
+					end
+				end
+				default:begin
+					STATE			<=	STATE+1;
+					DELAY_STATE		<= 1'b0;	
+				end
+			endcase
+		end
+		8:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
+			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
+			LCD_RW				<=	1'b0;						//Indicate a write operation
+			RDY					<= 	1'b0;						//Indicate that the module is busy
+			LCD_DB 				<=	DISP_ON;	
+			case(DELAY_STATE)				
+				0:begin//write command (turn enable on)					
+					LCD_E <= 1'b0;
+					DELAY_STATE			<=	DELAY_STATE+1;
+				end
+				1:begin//write command (turn enable on)					
+					if(!flag_42us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1; 					//Stop counting					
+					end
+				end
+				2:begin //wait for LCD to process
+					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
+					DELAY_STATE			<=	DELAY_STATE+1;	
+				end
+				3:begin
+					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 		
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+						flag_rst		<=	1'b1; 					//Stop counting	
+					end		  
+				end
+				4:begin
+					LCD_E			<=	1'b0;					//Enable Bus						
+					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+				end
+				5:begin
+					if(!flag_4100us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1;					//Stop counting					
+					end
+				end
+				default:begin
+					STATE			<=	STATE+1;
+					DELAY_STATE		<= 1'b0;	
+				end
+			endcase
+		end	
+		9:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
+			LCD_RS				<=	1'b1;						//Indicate an instruction is to be sent soon
+			LCD_RW				<=	1'b0;						//Indicate a write operation
+			RDY					<= 	1'b0;						//Indicate that the module is busy
+			LCD_DB 				<=	8'h66;	
+			case(DELAY_STATE)				
+				0:begin//write command (turn enable on)					
+					LCD_E <= 1'b0;
+					DELAY_STATE			<=	DELAY_STATE+1;
+				end
+				1:begin//write command (turn enable on)					
+					if(!flag_42us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1; 					//Stop counting					
+					end
+				end
+				2:begin //wait for LCD to process
+					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
+					DELAY_STATE			<=	DELAY_STATE+1;	
+				end
+				3:begin
+					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 		
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+						flag_rst		<=	1'b1; 					//Stop counting	
+					end		  
+				end
+				4:begin
+					LCD_E			<=	1'b0;					//Enable Bus						
+					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+				end
+				5:begin
+					if(!flag_4100us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1;					//Stop counting					
+					end
+				end
+				default:begin
+					STATE			<=	STATE+1;
+					DELAY_STATE		<= 1'b0;	
+				end
+			endcase
+		end
+		10,11:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
+			LCD_RS				<=	1'b1;						//Indicate an instruction is to be sent soon
+			LCD_RW				<=	1'b0;						//Indicate a write operation
+			RDY					<= 	1'b0;						//Indicate that the module is busy
+			LCD_DB 				<=	8'h78;	
+			case(DELAY_STATE)				
+				0:begin//write command (turn enable on)					
+					LCD_E <= 1'b0;
+					DELAY_STATE			<=	DELAY_STATE+1;
+				end
+				1:begin//write command (turn enable on)					
+					if(!flag_42us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1; 					//Stop counting					
+					end
+				end
+				2:begin //wait for LCD to process
+					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
+					DELAY_STATE			<=	DELAY_STATE+1;	
+				end
+				3:begin
+					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 		
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+						flag_rst		<=	1'b1; 					//Stop counting	
+					end		  
+				end
+				4:begin
+					LCD_E			<=	1'b0;					//Enable Bus						
+					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+				end
+				5:begin
+					if(!flag_4100us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1;					//Stop counting					
+					end
+				end
+				default:begin
+					STATE			<=	STATE+1;
+					DELAY_STATE		<= 1'b0;	
+				end
+			endcase
+		end
+		12:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
+			LCD_RS				<=	1'b1;						//Indicate an instruction is to be sent soon
+			LCD_RW				<=	1'b0;						//Indicate a write operation
+			RDY					<= 	1'b0;						//Indicate that the module is busy
+			LCD_DB 				<=	8'h6B;	
+			case(DELAY_STATE)				
+				0:begin//write command (turn enable on)					
+					LCD_E <= 1'b0;
+					DELAY_STATE			<=	DELAY_STATE+1;
+				end
+				1:begin//write command (turn enable on)					
+					if(!flag_42us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1; 					//Stop counting					
+					end
+				end
+				2:begin //wait for LCD to process
+					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
+					DELAY_STATE			<=	DELAY_STATE+1;	
+				end
+				3:begin
+					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 		
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+						flag_rst		<=	1'b1; 					//Stop counting	
+					end		  
+				end
+				4:begin
+					LCD_E			<=	1'b0;					//Enable Bus						
+					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+				end
+				5:begin
+					if(!flag_4100us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1;					//Stop counting					
+					end
+				end
+				default:begin
+					STATE			<=	STATE+1;
+					DELAY_STATE		<= 1'b0;	
+				end
+			endcase
+		end		
 
 		default: begin//----------This is the IDLE STATE, DO NOTHING UNTIL OPER is set-----------
-			LCD_DB 				<=	8'b00000000;
-			if(ENB==1 && RST==0)begin
-
+			if(RST==0)begin
 				case(OPER)
 					0:STATE<=STATE; 	//IDLE
 					1:STATE<=8;		//WRITE CHARACTER
@@ -219,11 +636,16 @@ always @(posedge CLK) begin
 					3:STATE<=0;			//RESET
 				endcase
 			end
-			else if(RST==1)begin
+			else begin
 				STATE<=0;
 			end
 		end
 	endcase
+
+
+
+
+
 end
 endmodule
 

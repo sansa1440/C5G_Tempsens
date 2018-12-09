@@ -19,3 +19,7 @@ db
 /C5G_Tempsens/*.bak/
 /C5G_Tempsens/*.log
 /C5G_Tempsens/*.summary
+
+*.sof
+*.rpt
+*.done

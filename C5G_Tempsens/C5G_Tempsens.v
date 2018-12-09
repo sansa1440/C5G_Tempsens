@@ -111,14 +111,14 @@ reg [3:0] counter;
 
 lcdctrl_init lcdctrl_init(
 	.CLK(CLOCK_50_B7A), 		// in
-	.LCD_RW(GPIO[27]),  		// out			
-	.LCD_RS(GPIO[25]),			// out			 		 
-	.LCD_E(GPIO[26]),  			// out			
-	.LCD_DB(GPIO[35:28]),  		// out			
+	.LCD_RW(GPIO[23]),  		// out			
+	.LCD_RS(GPIO[24]),			// out			 		 
+	.LCD_E(GPIO[22]),  			// out			
+	.LCD_DB({GPIO[14],GPIO[15],GPIO[16],GPIO[17],GPIO[18],GPIO[19],GPIO[20],GPIO[21]}),  		// out			
 	.RDY(LEDR[0]), 				// out
 	.DATA(2'h45),				// in
 	.OPER(1'b0), 				// in
-	.ENB(SW[0]), 				// in
+	.ENB(1'b1), 				// in
 	.RST(~KEY[3]),				// in
 	.STATE_7seg(STATE_7seg),
 	.GPIO_TEST(GPIO[8:0])
@@ -145,6 +145,7 @@ slowClock clock_generate(
 assign LEDG[0] = clk_270kHz;	
 assign LEDG[1] = ~clk_270kHz;
 assign LEDG[2] = 1'b1;
+assign GPIO[25]= 1'b0;
 
 always @(negedge KEY[1]) begin
 	counter <= counter + 1;
