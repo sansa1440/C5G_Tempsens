@@ -1,0 +1,25 @@
+module delay_enable(
+    input [22:0] wait_time,
+
+    output [3:0] STATE
+);
+
+always @(posedge CLK) begin
+    case(DELAY_STATE)				
+        0:begin//write command (turn enable on)					
+            LCD_E <= 1'b0;
+            DELAY_STATE			<=	DELAY_STATE+1;
+        end
+        1:begin//write command (turn enable on)					
+            if(!flag_42us) begin						    //Hold enable for 250 ns
+                flag_rst		<=	1'b0; 					//Start or Continue counting									
+            end
+            else begin 				
+                DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+                flag_rst		<=	1'b1; 					//Stop counting					
+            end
+        end
+    endcase
+end 
+
+endmodule
