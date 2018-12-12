@@ -1,73 +1,77 @@
 module enable_delay(
-    wait_time,
-    flag_rst,
+    wait_time_enable,
+    flag_rst_enable,
     CLK,
     
-    flag_xs,
+    flag_xs_enable,
     LCD_E
 );
 
 
-input   [22:0]  wait_time;
-input           flag_rst, CLK;
+input   [22:0]  wait_time_enable;
+input           flag_rst_enable, CLK;
 
-output flag_xs, LCD_E;
+output flag_xs_enable, LCD_E;
+
+reg [2:0] DELAY_STATE = 0; // STATE register 3bit
+reg flag_xs_enable = 0;
+
 
 delay delay(wait_time, flag_rst, CLK, flag_xs);
 
-
-
 always @(CLK) begin
-
-case(DELAY_STATE)				
-    if(flag_rst) begin //unlatch the frag and clear the timer
-		flag_xs 	<=	1'b0;	
+    if(flag_rst_enable) begin //unlatch the frag and clear the timer
+		flag_xs_enable	<=	1'b0;
+        DELAY_STATE <=  1'b0;	
 		cnt_timer	<=	21'b0;	
 	end
 	else begin //latch the frag
-        0:begin				
-            LCD_E <= 1'b0;                                  //turn LCD_enable off
-            DELAY_STATE			<=	DELAY_STATE+1;		    //Go to next SUBSTATE (wait)
-        end
-        1:begin					
-            if(!flag_42us) begin						    //WAIT at least 42us (required for data)
-                flag_rst		<=	1'b0; 					//Start or Continue counting									
+        case(DELAY_STATE)				
+            0:begin				
+                LCD_E <= 1'b0;                                  //turn LCD_enable off
+                wait_time           <=  22'd2016;               //decide wait_time at 42us 	
+                DELAY_STATE			<=	DELAY_STATE+1;		    //Go to next SUBSTATE (wait)	
             end
-            else begin 				
-                DELAY_STATE		<=	DELAY_STATE+1;		    //Go to next SUBSTATE (turn enable on)
-                flag_rst		<=	1'b1; 					//Stop counting					
+            1:begin
+                if(!flag_xs) begin						        //WAIT at least 42us (required for data)
+                    flag_rst		<=	1'b0; 					//Start or Continue counting									
+                end
+                else begin 				
+                    DELAY_STATE		<=	DELAY_STATE+1;		    //Go to next SUBSTATE (turn enable on)
+                    flag_rst		<=	1'b1; 					//Stop counting					
+                end
             end
-        end
-        2:begin
-            LCD_E				<=	1'b1;					//turn LCD_enable on
-            DELAY_STATE			<=	DELAY_STATE+1;          //Go to next SUBSTATE (wait)
-        end
-        3:begin
-            if(!flag_1640us) begin						    //WAIT at least 1640us (required for data_valid)
-                flag_rst		<=	1'b0; 					//Start or Continue counting									
+            2:begin
+                LCD_E				<=	1'b1;					//turn LCD_enable on
+                wait_time           <=  22'd78720;              //decide wait_time at 1620us 
+                DELAY_STATE			<=	DELAY_STATE+1;          //Go to next SUBSTATE (wait)  
             end
-            else begin 		
-                DELAY_STATE			<=	DELAY_STATE+1;		//Go to next STATE (turn enable on)
-                flag_rst		<=	1'b1; 					//Stop counting	
-            end		  
-        end
-        4:begin
-            LCD_E			<=	1'b0;					    //Enable Bus						
-            DELAY_STATE			<=	DELAY_STATE+1;			//Go to next STATE (next special function set)
-        end
-        5:begin
-            if(!flag_4100us) begin						    //Hold enable for 250 ns
-                flag_rst		<=	1'b0; 					//Start or Continue counting									
+            3:begin
+                if(!flag_xs) begin						        //WAIT at least 1640us (required for data_valid)
+                    flag_rst		<=	1'b0; 					//Start or Continue counting									
+                end
+                else begin 		
+                    DELAY_STATE			<=	DELAY_STATE+1;		//Go to next STATE (turn enable on)
+                    flag_rst		<=	1'b1; 					//Stop counting	
+                end		  
             end
-            else begin 				
-                DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
-                flag_rst		<=	1'b1;					//Stop counting					
+            4:begin
+                LCD_E               <=	1'b0;					//Enable Bus	
+                wait_time           <=  wait_time_enable;       //decide wait_time at input "wait_time_inable"					
+                DELAY_STATE			<=	DELAY_STATE+1;			//Go to next STATE (turn enable off)
             end
-        end
-        default:begin
-            STATE			<=	STATE+1;
-            DELAY_STATE		<= 1'b0;	
-        end
+            5:begin
+                if(!flag_xs) begin						        //WAIT at least "wait_time" (required for execution time)
+                    flag_rst		<=	1'b0; 					//Start or Continue counting									
+                end
+                else begin 				
+                    DELAY_STATE		<=	DELAY_STATE+1;			//Go to next SUBSTATE (end state)
+                    flag_rst		<=	1'b1;					//Stop counting					
+                end
+            end
+            default:begin
+                DELAY_STATE		<= DELAY_STATE;	
+            end
+        endcase
     end
-end
 endmodule // 

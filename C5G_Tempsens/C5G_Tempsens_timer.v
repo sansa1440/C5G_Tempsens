@@ -29,7 +29,7 @@ always @(posedge CLK) begin
 		end
 		else begin			
 			flag_xs 	<=	flag_xs;
-		end	
+		end
 		cnt_timer	<= cnt_timer + 1;//The positive-edge-triggered clock increment cnt_timer by 1
 	end
 end
