@@ -1,5 +1,5 @@
 Timing Analyzer report for C5G_Tempsens
-Sun Dec  9 18:49:33 2018
+Wed Dec 12 19:06:30 2018
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
 
 
@@ -46,15 +46,17 @@ Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
  38. Signal Integrity Metrics (Fast 1100mv 85c Model)
  39. Setup Transfers
  40. Hold Transfers
- 41. Report TCCS
- 42. Report RSKM
- 43. Unconstrained Paths Summary
- 44. Clock Status Summary
- 45. Unconstrained Input Ports
- 46. Unconstrained Output Ports
+ 41. Recovery Transfers
+ 42. Removal Transfers
+ 43. Report TCCS
+ 44. Report RSKM
+ 45. Unconstrained Paths Summary
+ 46. Clock Status Summary
  47. Unconstrained Input Ports
  48. Unconstrained Output Ports
- 49. Timing Analyzer Messages
+ 49. Unconstrained Input Ports
+ 50. Unconstrained Output Ports
+ 51. Timing Analyzer Messages
 
 
 
@@ -99,23 +101,24 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 4           ;
 ; Maximum allowed            ; 2           ;
 ;                            ;             ;
-; Average used               ; 1.03        ;
+; Average used               ; 1.05        ;
 ; Maximum used               ; 2           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   2.8%      ;
+;     Processor 2            ;   4.6%      ;
 +----------------------------+-------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Clocks                                                                                                                                                                                     ;
-+--------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+------------------+
-; Clock Name   ; Type ; Period ; Frequency  ; Rise  ; Fall  ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source ; Targets          ;
-+--------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+------------------+
-; CLOCK_50_B7A ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { CLOCK_50_B7A } ;
-; KEY[1]       ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { KEY[1] }       ;
-+--------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                                                                       ;
++-------------------------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------------------------------+
+; Clock Name                    ; Type ; Period ; Frequency  ; Rise  ; Fall  ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source ; Targets                           ;
++-------------------------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------------------------------+
+; CLOCK_50_B7A                  ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { CLOCK_50_B7A }                  ;
+; DeBounce:DeBounce_OPER|DB_out ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { DeBounce:DeBounce_OPER|DB_out } ;
+; KEY[1]                        ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { KEY[1] }                        ;
++-------------------------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------------------------------+
 
 
 +----------------------------------------------------+
@@ -123,8 +126,8 @@ refer to the applicable agreement for further details.
 +------------+-----------------+--------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name   ; Note ;
 +------------+-----------------+--------------+------+
-; 298.42 MHz ; 298.42 MHz      ; CLOCK_50_B7A ;      ;
-; 600.6 MHz  ; 600.6 MHz       ; KEY[1]       ;      ;
+; 200.4 MHz  ; 200.4 MHz       ; CLOCK_50_B7A ;      ;
+; 609.38 MHz ; 609.38 MHz      ; KEY[1]       ;      ;
 +------------+-----------------+--------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
@@ -140,8 +143,8 @@ HTML report is unavailable in plain text report export.
 +--------------+--------+---------------+
 ; Clock        ; Slack  ; End Point TNS ;
 +--------------+--------+---------------+
-; CLOCK_50_B7A ; -2.351 ; -77.318       ;
-; KEY[1]       ; -0.665 ; -3.362        ;
+; CLOCK_50_B7A ; -3.990 ; -126.761      ;
+; KEY[1]       ; -0.641 ; -3.981        ;
 +--------------+--------+---------------+
 
 
@@ -151,30 +154,37 @@ HTML report is unavailable in plain text report export.
 ; Clock        ; Slack ; End Point TNS ;
 +--------------+-------+---------------+
 ; KEY[1]       ; 0.222 ; 0.000         ;
-; CLOCK_50_B7A ; 0.443 ; 0.000         ;
+; CLOCK_50_B7A ; 0.419 ; 0.000         ;
 +--------------+-------+---------------+
 
 
-------------------------------------------
-; Slow 1100mV 85C Model Recovery Summary ;
-------------------------------------------
-No paths to report.
++--------------------------------------------------------+
+; Slow 1100mV 85C Model Recovery Summary                 ;
++-------------------------------+--------+---------------+
+; Clock                         ; Slack  ; End Point TNS ;
++-------------------------------+--------+---------------+
+; DeBounce:DeBounce_OPER|DB_out ; -2.756 ; -5.506        ;
++-------------------------------+--------+---------------+
 
 
------------------------------------------
-; Slow 1100mV 85C Model Removal Summary ;
------------------------------------------
-No paths to report.
++-------------------------------------------------------+
+; Slow 1100mV 85C Model Removal Summary                 ;
++-------------------------------+-------+---------------+
+; Clock                         ; Slack ; End Point TNS ;
++-------------------------------+-------+---------------+
+; DeBounce:DeBounce_OPER|DB_out ; 2.078 ; 0.000         ;
++-------------------------------+-------+---------------+
 
 
-+---------------------------------------------------+
-; Slow 1100mV 85C Model Minimum Pulse Width Summary ;
-+--------------+--------+---------------------------+
-; Clock        ; Slack  ; End Point TNS             ;
-+--------------+--------+---------------------------+
-; CLOCK_50_B7A ; -0.538 ; -40.120                   ;
-; KEY[1]       ; -0.538 ; -4.710                    ;
-+--------------+--------+---------------------------+
++--------------------------------------------------------+
+; Slow 1100mV 85C Model Minimum Pulse Width Summary      ;
++-------------------------------+--------+---------------+
+; Clock                         ; Slack  ; End Point TNS ;
++-------------------------------+--------+---------------+
+; CLOCK_50_B7A                  ; -0.606 ; -54.316       ;
+; KEY[1]                        ; -0.538 ; -5.495        ;
+; DeBounce:DeBounce_OPER|DB_out ; -0.538 ; -1.918        ;
++-------------------------------+--------+---------------+
 
 
 -----------------------------------------------
@@ -188,8 +198,8 @@ No synchronizer chains to report.
 +------------+-----------------+--------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name   ; Note ;
 +------------+-----------------+--------------+------+
-; 286.86 MHz ; 286.86 MHz      ; CLOCK_50_B7A ;      ;
-; 603.5 MHz  ; 603.5 MHz       ; KEY[1]       ;      ;
+; 191.24 MHz ; 191.24 MHz      ; CLOCK_50_B7A ;      ;
+; 604.96 MHz ; 604.96 MHz      ; KEY[1]       ;      ;
 +------------+-----------------+--------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
@@ -199,8 +209,8 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +--------------+--------+---------------+
 ; Clock        ; Slack  ; End Point TNS ;
 +--------------+--------+---------------+
-; CLOCK_50_B7A ; -2.486 ; -80.327       ;
-; KEY[1]       ; -0.657 ; -3.209        ;
+; CLOCK_50_B7A ; -4.229 ; -131.279      ;
+; KEY[1]       ; -0.653 ; -3.833        ;
 +--------------+--------+---------------+
 
 
@@ -209,31 +219,38 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +--------------+-------+---------------+
 ; Clock        ; Slack ; End Point TNS ;
 +--------------+-------+---------------+
+; CLOCK_50_B7A ; 0.033 ; 0.000         ;
 ; KEY[1]       ; 0.310 ; 0.000         ;
-; CLOCK_50_B7A ; 0.427 ; 0.000         ;
 +--------------+-------+---------------+
 
 
------------------------------------------
-; Slow 1100mV 0C Model Recovery Summary ;
------------------------------------------
-No paths to report.
++--------------------------------------------------------+
+; Slow 1100mV 0C Model Recovery Summary                  ;
++-------------------------------+--------+---------------+
+; Clock                         ; Slack  ; End Point TNS ;
++-------------------------------+--------+---------------+
+; DeBounce:DeBounce_OPER|DB_out ; -2.903 ; -5.799        ;
++-------------------------------+--------+---------------+
 
 
-----------------------------------------
-; Slow 1100mV 0C Model Removal Summary ;
-----------------------------------------
-No paths to report.
++-------------------------------------------------------+
+; Slow 1100mV 0C Model Removal Summary                  ;
++-------------------------------+-------+---------------+
+; Clock                         ; Slack ; End Point TNS ;
++-------------------------------+-------+---------------+
+; DeBounce:DeBounce_OPER|DB_out ; 2.243 ; 0.000         ;
++-------------------------------+-------+---------------+
 
 
-+--------------------------------------------------+
-; Slow 1100mV 0C Model Minimum Pulse Width Summary ;
-+--------------+--------+--------------------------+
-; Clock        ; Slack  ; End Point TNS            ;
-+--------------+--------+--------------------------+
-; CLOCK_50_B7A ; -0.538 ; -41.645                  ;
-; KEY[1]       ; -0.538 ; -4.698                   ;
-+--------------+--------+--------------------------+
++--------------------------------------------------------+
+; Slow 1100mV 0C Model Minimum Pulse Width Summary       ;
++-------------------------------+--------+---------------+
+; Clock                         ; Slack  ; End Point TNS ;
++-------------------------------+--------+---------------+
+; CLOCK_50_B7A                  ; -0.650 ; -57.355       ;
+; KEY[1]                        ; -0.538 ; -5.486        ;
+; DeBounce:DeBounce_OPER|DB_out ; -0.538 ; -1.846        ;
++-------------------------------+--------+---------------+
 
 
 ----------------------------------------------
@@ -247,8 +264,8 @@ No synchronizer chains to report.
 +--------------+--------+---------------+
 ; Clock        ; Slack  ; End Point TNS ;
 +--------------+--------+---------------+
-; CLOCK_50_B7A ; -0.598 ; -9.748        ;
-; KEY[1]       ; 0.208  ; 0.000         ;
+; CLOCK_50_B7A ; -3.137 ; -32.268       ;
+; KEY[1]       ; 0.207  ; 0.000         ;
 +--------------+--------+---------------+
 
 
@@ -257,31 +274,38 @@ No synchronizer chains to report.
 +--------------+-------+---------------+
 ; Clock        ; Slack ; End Point TNS ;
 +--------------+-------+---------------+
+; CLOCK_50_B7A ; 0.139 ; 0.000         ;
 ; KEY[1]       ; 0.146 ; 0.000         ;
-; CLOCK_50_B7A ; 0.178 ; 0.000         ;
 +--------------+-------+---------------+
 
 
-------------------------------------------
-; Fast 1100mV 85C Model Recovery Summary ;
-------------------------------------------
-No paths to report.
++--------------------------------------------------------+
+; Fast 1100mV 85C Model Recovery Summary                 ;
++-------------------------------+--------+---------------+
+; Clock                         ; Slack  ; End Point TNS ;
++-------------------------------+--------+---------------+
+; DeBounce:DeBounce_OPER|DB_out ; -0.850 ; -1.699        ;
++-------------------------------+--------+---------------+
 
 
------------------------------------------
-; Fast 1100mV 85C Model Removal Summary ;
------------------------------------------
-No paths to report.
++-------------------------------------------------------+
+; Fast 1100mV 85C Model Removal Summary                 ;
++-------------------------------+-------+---------------+
+; Clock                         ; Slack ; End Point TNS ;
++-------------------------------+-------+---------------+
+; DeBounce:DeBounce_OPER|DB_out ; 0.734 ; 0.000         ;
++-------------------------------+-------+---------------+
 
 
-+---------------------------------------------------+
-; Fast 1100mV 85C Model Minimum Pulse Width Summary ;
-+--------------+--------+---------------------------+
-; Clock        ; Slack  ; End Point TNS             ;
-+--------------+--------+---------------------------+
-; CLOCK_50_B7A ; -0.106 ; -5.261                    ;
-; KEY[1]       ; 0.036  ; 0.000                     ;
-+--------------+--------+---------------------------+
++--------------------------------------------------------+
+; Fast 1100mV 85C Model Minimum Pulse Width Summary      ;
++-------------------------------+--------+---------------+
+; Clock                         ; Slack  ; End Point TNS ;
++-------------------------------+--------+---------------+
+; CLOCK_50_B7A                  ; -0.555 ; -7.255        ;
+; DeBounce:DeBounce_OPER|DB_out ; -0.067 ; -0.133        ;
+; KEY[1]                        ; 0.036  ; 0.000         ;
++-------------------------------+--------+---------------+
 
 
 -----------------------------------------------
@@ -295,41 +319,48 @@ No synchronizer chains to report.
 +--------------+--------+---------------+
 ; Clock        ; Slack  ; End Point TNS ;
 +--------------+--------+---------------+
-; CLOCK_50_B7A ; -0.479 ; -6.975        ;
-; KEY[1]       ; 0.283  ; 0.000         ;
+; CLOCK_50_B7A ; -2.669 ; -26.782       ;
+; KEY[1]       ; 0.281  ; 0.000         ;
 +--------------+--------+---------------+
 
 
-+--------------------------------------+
-; Fast 1100mV 0C Model Hold Summary    ;
-+--------------+-------+---------------+
-; Clock        ; Slack ; End Point TNS ;
-+--------------+-------+---------------+
-; KEY[1]       ; 0.148 ; 0.000         ;
-; CLOCK_50_B7A ; 0.170 ; 0.000         ;
-+--------------+-------+---------------+
++---------------------------------------+
+; Fast 1100mV 0C Model Hold Summary     ;
++--------------+--------+---------------+
+; Clock        ; Slack  ; End Point TNS ;
++--------------+--------+---------------+
+; CLOCK_50_B7A ; -0.066 ; -0.066        ;
+; KEY[1]       ; 0.148  ; 0.000         ;
++--------------+--------+---------------+
 
 
------------------------------------------
-; Fast 1100mV 0C Model Recovery Summary ;
------------------------------------------
-No paths to report.
++--------------------------------------------------------+
+; Fast 1100mV 0C Model Recovery Summary                  ;
++-------------------------------+--------+---------------+
+; Clock                         ; Slack  ; End Point TNS ;
++-------------------------------+--------+---------------+
+; DeBounce:DeBounce_OPER|DB_out ; -0.846 ; -1.690        ;
++-------------------------------+--------+---------------+
 
 
-----------------------------------------
-; Fast 1100mV 0C Model Removal Summary ;
-----------------------------------------
-No paths to report.
++-------------------------------------------------------+
+; Fast 1100mV 0C Model Removal Summary                  ;
++-------------------------------+-------+---------------+
+; Clock                         ; Slack ; End Point TNS ;
++-------------------------------+-------+---------------+
+; DeBounce:DeBounce_OPER|DB_out ; 0.746 ; 0.000         ;
++-------------------------------+-------+---------------+
 
 
-+--------------------------------------------------+
-; Fast 1100mV 0C Model Minimum Pulse Width Summary ;
-+--------------+--------+--------------------------+
-; Clock        ; Slack  ; End Point TNS            ;
-+--------------+--------+--------------------------+
-; CLOCK_50_B7A ; -0.100 ; -5.112                   ;
-; KEY[1]       ; 0.038  ; 0.000                    ;
-+--------------+--------+--------------------------+
++--------------------------------------------------------+
+; Fast 1100mV 0C Model Minimum Pulse Width Summary       ;
++-------------------------------+--------+---------------+
+; Clock                         ; Slack  ; End Point TNS ;
++-------------------------------+--------+---------------+
+; CLOCK_50_B7A                  ; -0.534 ; -7.130        ;
+; DeBounce:DeBounce_OPER|DB_out ; -0.013 ; -0.025        ;
+; KEY[1]                        ; 0.038  ; 0.000         ;
++-------------------------------+--------+---------------+
 
 
 ----------------------------------------------
@@ -338,18 +369,20 @@ No paths to report.
 No synchronizer chains to report.
 
 
-+-------------------------------------------------------------------------------+
-; Multicorner Timing Analysis Summary                                           ;
-+------------------+---------+-------+----------+---------+---------------------+
-; Clock            ; Setup   ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
-+------------------+---------+-------+----------+---------+---------------------+
-; Worst-case Slack ; -2.486  ; 0.146 ; N/A      ; N/A     ; -0.538              ;
-;  CLOCK_50_B7A    ; -2.486  ; 0.170 ; N/A      ; N/A     ; -0.538              ;
-;  KEY[1]          ; -0.665  ; 0.146 ; N/A      ; N/A     ; -0.538              ;
-; Design-wide TNS  ; -83.536 ; 0.0   ; 0.0      ; 0.0     ; -46.343             ;
-;  CLOCK_50_B7A    ; -80.327 ; 0.000 ; N/A      ; N/A     ; -41.645             ;
-;  KEY[1]          ; -3.362  ; 0.000 ; N/A      ; N/A     ; -4.710              ;
-+------------------+---------+-------+----------+---------+---------------------+
++-----------------------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                                           ;
++--------------------------------+----------+--------+----------+---------+---------------------+
+; Clock                          ; Setup    ; Hold   ; Recovery ; Removal ; Minimum Pulse Width ;
++--------------------------------+----------+--------+----------+---------+---------------------+
+; Worst-case Slack               ; -4.229   ; -0.066 ; -2.903   ; 0.734   ; -0.650              ;
+;  CLOCK_50_B7A                  ; -4.229   ; -0.066 ; N/A      ; N/A     ; -0.650              ;
+;  DeBounce:DeBounce_OPER|DB_out ; N/A      ; N/A    ; -2.903   ; 0.734   ; -0.538              ;
+;  KEY[1]                        ; -0.653   ; 0.146  ; N/A      ; N/A     ; -0.538              ;
+; Design-wide TNS                ; -135.112 ; -0.066 ; -5.799   ; 0.0     ; -64.687             ;
+;  CLOCK_50_B7A                  ; -131.279 ; -0.066 ; N/A      ; N/A     ; -57.355             ;
+;  DeBounce:DeBounce_OPER|DB_out ; N/A      ; N/A    ; -5.799   ; 0.000   ; -1.918              ;
+;  KEY[1]                        ; -3.981   ; 0.000  ; N/A      ; N/A     ; -5.495              ;
++--------------------------------+----------+--------+----------+---------+---------------------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -518,15 +551,6 @@ No synchronizer chains to report.
 ; CLOCK_50_B8A   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
 ; CPU_RESET_n    ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; KEY[0]         ; 1.2 V        ; 960 ps          ; 960 ps          ;
-; KEY[2]         ; 1.2 V        ; 960 ps          ; 960 ps          ;
-; SW[0]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
-; SW[1]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
-; SW[2]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
-; SW[3]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
-; SW[4]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
-; SW[5]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
-; SW[6]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
-; SW[7]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
 ; SW[8]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
 ; SW[9]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
 ; HDMI_TX_INT    ; 1.2 V        ; 960 ps          ; 960 ps          ;
@@ -593,6 +617,15 @@ No synchronizer chains to report.
 ; KEY[3]         ; 1.2 V        ; 960 ps          ; 960 ps          ;
 ; CLOCK_50_B7A   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
 ; KEY[1]         ; 1.2 V        ; 960 ps          ; 960 ps          ;
+; SW[0]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
+; SW[1]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
+; SW[2]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
+; SW[3]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
+; SW[4]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
+; SW[5]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
+; SW[6]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
+; SW[7]          ; 1.2 V        ; 960 ps          ; 960 ps          ;
+; KEY[2]         ; 1.2 V        ; 960 ps          ; 960 ps          ;
 ; CLOCK_125_p(n) ; LVDS         ; 2000 ps         ; 2000 ps         ;
 +----------------+--------------+-----------------+-----------------+
 
@@ -1217,25 +1250,47 @@ No synchronizer chains to report.
 +---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
 
 
-+-------------------------------------------------------------------------+
-; Setup Transfers                                                         ;
-+--------------+--------------+----------+----------+----------+----------+
-; From Clock   ; To Clock     ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
-+--------------+--------------+----------+----------+----------+----------+
-; CLOCK_50_B7A ; CLOCK_50_B7A ; 720      ; 0        ; 0        ; 0        ;
-; KEY[1]       ; KEY[1]       ; 0        ; 0        ; 0        ; 13       ;
-+--------------+--------------+----------+----------+----------+----------+
++------------------------------------------------------------------------------------------+
+; Setup Transfers                                                                          ;
++-------------------------------+--------------+----------+----------+----------+----------+
+; From Clock                    ; To Clock     ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++-------------------------------+--------------+----------+----------+----------+----------+
+; CLOCK_50_B7A                  ; CLOCK_50_B7A ; 875      ; 0        ; 0        ; 0        ;
+; DeBounce:DeBounce_OPER|DB_out ; CLOCK_50_B7A ; 6        ; 1        ; 0        ; 0        ;
+; KEY[1]                        ; KEY[1]       ; 0        ; 0        ; 0        ; 16       ;
++-------------------------------+--------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
 
-+-------------------------------------------------------------------------+
-; Hold Transfers                                                          ;
-+--------------+--------------+----------+----------+----------+----------+
-; From Clock   ; To Clock     ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
-+--------------+--------------+----------+----------+----------+----------+
-; CLOCK_50_B7A ; CLOCK_50_B7A ; 720      ; 0        ; 0        ; 0        ;
-; KEY[1]       ; KEY[1]       ; 0        ; 0        ; 0        ; 13       ;
-+--------------+--------------+----------+----------+----------+----------+
++------------------------------------------------------------------------------------------+
+; Hold Transfers                                                                           ;
++-------------------------------+--------------+----------+----------+----------+----------+
+; From Clock                    ; To Clock     ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++-------------------------------+--------------+----------+----------+----------+----------+
+; CLOCK_50_B7A                  ; CLOCK_50_B7A ; 875      ; 0        ; 0        ; 0        ;
+; DeBounce:DeBounce_OPER|DB_out ; CLOCK_50_B7A ; 6        ; 1        ; 0        ; 0        ;
+; KEY[1]                        ; KEY[1]       ; 0        ; 0        ; 0        ; 16       ;
++-------------------------------+--------------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++------------------------------------------------------------------------------------------+
+; Recovery Transfers                                                                       ;
++--------------+-------------------------------+----------+----------+----------+----------+
+; From Clock   ; To Clock                      ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++--------------+-------------------------------+----------+----------+----------+----------+
+; CLOCK_50_B7A ; DeBounce:DeBounce_OPER|DB_out ; 2        ; 0        ; 0        ; 0        ;
++--------------+-------------------------------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++------------------------------------------------------------------------------------------+
+; Removal Transfers                                                                        ;
++--------------+-------------------------------+----------+----------+----------+----------+
+; From Clock   ; To Clock                      ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++--------------+-------------------------------+----------+----------+----------+----------+
+; CLOCK_50_B7A ; DeBounce:DeBounce_OPER|DB_out ; 2        ; 0        ; 0        ; 0        ;
++--------------+-------------------------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
 
@@ -1258,21 +1313,22 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 +---------------------------------+-------+------+
 ; Illegal Clocks                  ; 0     ; 0    ;
 ; Unconstrained Clocks            ; 0     ; 0    ;
-; Unconstrained Input Ports       ; 1     ; 1    ;
-; Unconstrained Input Port Paths  ; 4     ; 4    ;
-; Unconstrained Output Ports      ; 31    ; 31   ;
-; Unconstrained Output Port Paths ; 73    ; 73   ;
+; Unconstrained Input Ports       ; 10    ; 10   ;
+; Unconstrained Input Port Paths  ; 13    ; 13   ;
+; Unconstrained Output Ports      ; 33    ; 33   ;
+; Unconstrained Output Port Paths ; 75    ; 75   ;
 +---------------------------------+-------+------+
 
 
-+--------------------------------------------------+
-; Clock Status Summary                             ;
-+--------------+--------------+------+-------------+
-; Target       ; Clock        ; Type ; Status      ;
-+--------------+--------------+------+-------------+
-; CLOCK_50_B7A ; CLOCK_50_B7A ; Base ; Constrained ;
-; KEY[1]       ; KEY[1]       ; Base ; Constrained ;
-+--------------+--------------+------+-------------+
++------------------------------------------------------------------------------------+
+; Clock Status Summary                                                               ;
++-------------------------------+-------------------------------+------+-------------+
+; Target                        ; Clock                         ; Type ; Status      ;
++-------------------------------+-------------------------------+------+-------------+
+; CLOCK_50_B7A                  ; CLOCK_50_B7A                  ; Base ; Constrained ;
+; DeBounce:DeBounce_OPER|DB_out ; DeBounce:DeBounce_OPER|DB_out ; Base ; Constrained ;
+; KEY[1]                        ; KEY[1]                        ; Base ; Constrained ;
++-------------------------------+-------------------------------+------+-------------+
 
 
 +---------------------------------------------------------------------------------------------------+
@@ -1280,7 +1336,16 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 +------------+--------------------------------------------------------------------------------------+
 ; Input Port ; Comment                                                                              ;
 +------------+--------------------------------------------------------------------------------------+
+; KEY[2]     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; KEY[3]     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[0]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[1]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[2]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[3]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[4]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[5]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[6]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[7]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
 +------------+--------------------------------------------------------------------------------------+
 
 
@@ -1296,7 +1361,9 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; GPIO[4]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[5]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[6]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; GPIO[7]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[8]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; GPIO[14]    ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[15]    ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[16]    ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[17]    ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
@@ -1328,7 +1395,16 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 +------------+--------------------------------------------------------------------------------------+
 ; Input Port ; Comment                                                                              ;
 +------------+--------------------------------------------------------------------------------------+
+; KEY[2]     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; KEY[3]     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[0]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[1]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[2]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[3]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[4]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[5]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[6]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; SW[7]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
 +------------+--------------------------------------------------------------------------------------+
 
 
@@ -1344,7 +1420,9 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; GPIO[4]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[5]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[6]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; GPIO[7]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[8]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; GPIO[14]    ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[15]    ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[16]    ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; GPIO[17]    ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
@@ -1377,17 +1455,18 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime Timing Analyzer
     Info: Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
-    Info: Processing started: Sun Dec  9 18:49:21 2018
+    Info: Processing started: Wed Dec 12 19:06:17 2018
 Info: Command: quartus_sta C5G_Tempsens -c C5G_Tempsens
 Info: qsta_default_script.tcl version: #2
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
-Info (21076): High junction temperature operating condition is not set. Assuming a default value of '85'.
-Info (21076): Low junction temperature operating condition is not set. Assuming a default value of '0'.
+Info (21077): Low junction temperature is 0 degrees C
+Info (21077): High junction temperature is 85 degrees C
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'C5G_Tempsens.SDC'. A Synopsys Design Constraints File is required by the Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
 Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
 Info (332105): Deriving Clocks
     Info (332105): create_clock -period 1.000 -name CLOCK_50_B7A CLOCK_50_B7A
+    Info (332105): create_clock -period 1.000 -name DeBounce:DeBounce_OPER|DB_out DeBounce:DeBounce_OPER|DB_out
     Info (332105): create_clock -period 1.000 -name KEY[1] KEY[1]
 Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
@@ -1395,96 +1474,124 @@ Info: Found TIMING_ANALYZER_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
 Info: Analyzing Slow 1100mV 85C Model
 Critical Warning (332148): Timing requirements not met
     Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
-Info (332146): Worst-case setup slack is -2.351
+Info (332146): Worst-case setup slack is -3.990
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -2.351             -77.318 CLOCK_50_B7A 
-    Info (332119):    -0.665              -3.362 KEY[1] 
+    Info (332119):    -3.990            -126.761 CLOCK_50_B7A 
+    Info (332119):    -0.641              -3.981 KEY[1] 
 Info (332146): Worst-case hold slack is 0.222
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
     Info (332119):     0.222               0.000 KEY[1] 
-    Info (332119):     0.443               0.000 CLOCK_50_B7A 
-Info (332140): No Recovery paths to report
-Info (332140): No Removal paths to report
-Info (332146): Worst-case minimum pulse width slack is -0.538
+    Info (332119):     0.419               0.000 CLOCK_50_B7A 
+Info (332146): Worst-case recovery slack is -2.756
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.538             -40.120 CLOCK_50_B7A 
-    Info (332119):    -0.538              -4.710 KEY[1] 
+    Info (332119):    -2.756              -5.506 DeBounce:DeBounce_OPER|DB_out 
+Info (332146): Worst-case removal slack is 2.078
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     2.078               0.000 DeBounce:DeBounce_OPER|DB_out 
+Info (332146): Worst-case minimum pulse width slack is -0.606
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -0.606             -54.316 CLOCK_50_B7A 
+    Info (332119):    -0.538              -5.495 KEY[1] 
+    Info (332119):    -0.538              -1.918 DeBounce:DeBounce_OPER|DB_out 
 Info: Analyzing Slow 1100mV 0C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
     Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
-Info (332146): Worst-case setup slack is -2.486
+Info (332146): Worst-case setup slack is -4.229
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -2.486             -80.327 CLOCK_50_B7A 
-    Info (332119):    -0.657              -3.209 KEY[1] 
-Info (332146): Worst-case hold slack is 0.310
+    Info (332119):    -4.229            -131.279 CLOCK_50_B7A 
+    Info (332119):    -0.653              -3.833 KEY[1] 
+Info (332146): Worst-case hold slack is 0.033
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
+    Info (332119):     0.033               0.000 CLOCK_50_B7A 
     Info (332119):     0.310               0.000 KEY[1] 
-    Info (332119):     0.427               0.000 CLOCK_50_B7A 
-Info (332140): No Recovery paths to report
-Info (332140): No Removal paths to report
-Info (332146): Worst-case minimum pulse width slack is -0.538
+Info (332146): Worst-case recovery slack is -2.903
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.538             -41.645 CLOCK_50_B7A 
-    Info (332119):    -0.538              -4.698 KEY[1] 
+    Info (332119):    -2.903              -5.799 DeBounce:DeBounce_OPER|DB_out 
+Info (332146): Worst-case removal slack is 2.243
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     2.243               0.000 DeBounce:DeBounce_OPER|DB_out 
+Info (332146): Worst-case minimum pulse width slack is -0.650
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -0.650             -57.355 CLOCK_50_B7A 
+    Info (332119):    -0.538              -5.486 KEY[1] 
+    Info (332119):    -0.538              -1.846 DeBounce:DeBounce_OPER|DB_out 
 Info: Analyzing Fast 1100mV 85C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
     Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
-Info (332146): Worst-case setup slack is -0.598
+Info (332146): Worst-case setup slack is -3.137
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.598              -9.748 CLOCK_50_B7A 
-    Info (332119):     0.208               0.000 KEY[1] 
-Info (332146): Worst-case hold slack is 0.146
+    Info (332119):    -3.137             -32.268 CLOCK_50_B7A 
+    Info (332119):     0.207               0.000 KEY[1] 
+Info (332146): Worst-case hold slack is 0.139
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
+    Info (332119):     0.139               0.000 CLOCK_50_B7A 
     Info (332119):     0.146               0.000 KEY[1] 
-    Info (332119):     0.178               0.000 CLOCK_50_B7A 
-Info (332140): No Recovery paths to report
-Info (332140): No Removal paths to report
-Info (332146): Worst-case minimum pulse width slack is -0.106
+Info (332146): Worst-case recovery slack is -0.850
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.106              -5.261 CLOCK_50_B7A 
+    Info (332119):    -0.850              -1.699 DeBounce:DeBounce_OPER|DB_out 
+Info (332146): Worst-case removal slack is 0.734
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.734               0.000 DeBounce:DeBounce_OPER|DB_out 
+Info (332146): Worst-case minimum pulse width slack is -0.555
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -0.555              -7.255 CLOCK_50_B7A 
+    Info (332119):    -0.067              -0.133 DeBounce:DeBounce_OPER|DB_out 
     Info (332119):     0.036               0.000 KEY[1] 
 Info: Analyzing Fast 1100mV 0C Model
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
     Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
-Info (332146): Worst-case setup slack is -0.479
+Info (332146): Worst-case setup slack is -2.669
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.479              -6.975 CLOCK_50_B7A 
-    Info (332119):     0.283               0.000 KEY[1] 
-Info (332146): Worst-case hold slack is 0.148
+    Info (332119):    -2.669             -26.782 CLOCK_50_B7A 
+    Info (332119):     0.281               0.000 KEY[1] 
+Info (332146): Worst-case hold slack is -0.066
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
+    Info (332119):    -0.066              -0.066 CLOCK_50_B7A 
     Info (332119):     0.148               0.000 KEY[1] 
-    Info (332119):     0.170               0.000 CLOCK_50_B7A 
-Info (332140): No Recovery paths to report
-Info (332140): No Removal paths to report
-Info (332146): Worst-case minimum pulse width slack is -0.100
+Info (332146): Worst-case recovery slack is -0.846
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.100              -5.112 CLOCK_50_B7A 
+    Info (332119):    -0.846              -1.690 DeBounce:DeBounce_OPER|DB_out 
+Info (332146): Worst-case removal slack is 0.746
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.746               0.000 DeBounce:DeBounce_OPER|DB_out 
+Info (332146): Worst-case minimum pulse width slack is -0.534
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -0.534              -7.130 CLOCK_50_B7A 
+    Info (332119):    -0.013              -0.025 DeBounce:DeBounce_OPER|DB_out 
     Info (332119):     0.038               0.000 KEY[1] 
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime Timing Analyzer was successful. 0 errors, 6 warnings
-    Info: Peak virtual memory: 1301 megabytes
-    Info: Processing ended: Sun Dec  9 18:49:33 2018
-    Info: Elapsed time: 00:00:12
+    Info: Peak virtual memory: 1287 megabytes
+    Info: Processing ended: Wed Dec 12 19:06:30 2018
+    Info: Elapsed time: 00:00:13
     Info: Total CPU time (on all processors): 00:00:12
 
 

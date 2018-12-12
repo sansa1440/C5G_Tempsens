@@ -42,6 +42,7 @@ reg [7:0] LCD_DB=0;
 reg LCD_RW=0;			// always write to (and never read from) the LCD
 reg LCD_RS=0;			// HI means Data, LOW means Instruction/Command
 reg LCD_E=0;
+reg write_flag=0, written_flag=0;
 
 //===============================================================================================
 //------------------------------Define the Timing Parameters-------------------------------------
@@ -425,8 +426,8 @@ always @(posedge CLK) begin
 		8:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
 			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
 			LCD_RW				<=	1'b0;						//Indicate a write operation
-			RDY					<= 	1'b0;						//Indicate that the module is busy
-			LCD_DB 				<=	DISP_ON;	
+			RDY					<= 1'b0;						//Indicate that the module is busy
+			LCD_DB 				<=	ALL_ON;	
 			case(DELAY_STATE)				
 				0:begin//write command (turn enable on)					
 					LCD_E <= 1'b0;
@@ -468,16 +469,16 @@ always @(posedge CLK) begin
 					end
 				end
 				default:begin
-					STATE			<=	STATE+1;
+					STATE			<=	4'd15;//STATE+1;
 					DELAY_STATE		<= 1'b0;	
 				end
 			endcase
-		end	
+		end
 		9:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
-			LCD_RS				<=	1'b1;						//Indicate an instruction is to be sent soon
+			LCD_RS				<=	1'b0;						//Indicate an instruction is to be sent soon
 			LCD_RW				<=	1'b0;						//Indicate a write operation
 			RDY					<= 	1'b0;						//Indicate that the module is busy
-			LCD_DB 				<=	8'h66;	
+			LCD_DB 				<=	CLEAR;	
 			case(DELAY_STATE)				
 				0:begin//write command (turn enable on)					
 					LCD_E <= 1'b0;
@@ -519,133 +520,91 @@ always @(posedge CLK) begin
 					end
 				end
 				default:begin
-					STATE			<=	STATE+1;
-					DELAY_STATE		<= 1'b0;	
-				end
-			endcase
-		end
-		10,11:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
-			LCD_RS				<=	1'b1;						//Indicate an instruction is to be sent soon
-			LCD_RW				<=	1'b0;						//Indicate a write operation
-			RDY					<= 	1'b0;						//Indicate that the module is busy
-			LCD_DB 				<=	8'h78;	
-			case(DELAY_STATE)				
-				0:begin//write command (turn enable on)					
-					LCD_E <= 1'b0;
-					DELAY_STATE			<=	DELAY_STATE+1;
-				end
-				1:begin//write command (turn enable on)					
-					if(!flag_42us) begin						    //Hold enable for 250 ns
-						flag_rst		<=	1'b0; 					//Start or Continue counting									
-					end
-					else begin 				
-						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
-						flag_rst		<=	1'b1; 					//Stop counting					
-					end
-				end
-				2:begin //wait for LCD to process
-					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
-					DELAY_STATE			<=	DELAY_STATE+1;	
-				end
-				3:begin
-					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
-						flag_rst		<=	1'b0; 					//Start or Continue counting									
-					end
-					else begin 		
-						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
-						flag_rst		<=	1'b1; 					//Stop counting	
-					end		  
-				end
-				4:begin
-					LCD_E			<=	1'b0;					//Enable Bus						
-					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
-				end
-				5:begin
-					if(!flag_4100us) begin						    //Hold enable for 250 ns
-						flag_rst		<=	1'b0; 					//Start or Continue counting									
-					end
-					else begin 				
-						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
-						flag_rst		<=	1'b1;					//Stop counting					
-					end
-				end
-				default:begin
-					STATE			<=	STATE+1;
-					DELAY_STATE		<= 1'b0;	
-				end
-			endcase
-		end
-		12:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
-			LCD_RS				<=	1'b1;						//Indicate an instruction is to be sent soon
-			LCD_RW				<=	1'b0;						//Indicate a write operation
-			RDY					<= 	1'b0;						//Indicate that the module is busy
-			LCD_DB 				<=	8'h6B;	
-			case(DELAY_STATE)				
-				0:begin//write command (turn enable on)					
-					LCD_E <= 1'b0;
-					DELAY_STATE			<=	DELAY_STATE+1;
-				end
-				1:begin//write command (turn enable on)					
-					if(!flag_42us) begin						    //Hold enable for 250 ns
-						flag_rst		<=	1'b0; 					//Start or Continue counting									
-					end
-					else begin 				
-						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
-						flag_rst		<=	1'b1; 					//Stop counting					
-					end
-				end
-				2:begin //wait for LCD to process
-					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
-					DELAY_STATE			<=	DELAY_STATE+1;	
-				end
-				3:begin
-					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
-						flag_rst		<=	1'b0; 					//Start or Continue counting									
-					end
-					else begin 		
-						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
-						flag_rst		<=	1'b1; 					//Stop counting	
-					end		  
-				end
-				4:begin
-					LCD_E			<=	1'b0;					//Enable Bus						
-					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
-				end
-				5:begin
-					if(!flag_4100us) begin						    //Hold enable for 250 ns
-						flag_rst		<=	1'b0; 					//Start or Continue counting									
-					end
-					else begin 				
-						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
-						flag_rst		<=	1'b1;					//Stop counting					
-					end
-				end
-				default:begin
-					STATE			<=	STATE+1;
+					STATE			<=	4'd15;//STATE+1;
 					DELAY_STATE		<= 1'b0;	
 				end
 			endcase
 		end		
-
+		10:begin //-----------SET FUNCTION #1, 8-bit interface, 2-line display, 5x11 dots---------
+			LCD_RS				<=	1'b1;						//Indicate an instruction is to be sent soon
+			LCD_RW				<=	1'b0;						//Indicate a write operation
+			RDY					<= 1'b0;						//Indicate that the module is busy
+			LCD_DB 				<=	DATA;	
+			case(DELAY_STATE)				
+				0:begin//write command (turn enable on)					
+					LCD_E <= 1'b0;
+					DELAY_STATE			<=	DELAY_STATE+1;
+				end
+				1:begin//write command (turn enable on)					
+					if(!flag_42us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1; 					//Stop counting					
+					end
+				end
+				2:begin //wait for LCD to process
+					LCD_E				<=	1'b1;					//Disable Bus, Triggers LCD to read BUS
+					DELAY_STATE			<=	DELAY_STATE+1;	
+				end
+				3:begin
+					if(!flag_1640us) begin						    //WAIT at least 4100us (required for Initialization)
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 		
+						DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+						flag_rst		<=	1'b1; 					//Stop counting	
+					end		  
+				end
+				4:begin
+					LCD_E			<=	1'b0;					//Enable Bus						
+					DELAY_STATE			<=	DELAY_STATE+1;				//Go to next STATE (next special function set)
+				end
+				5:begin
+					if(!flag_4100us) begin						    //Hold enable for 250 ns
+						flag_rst		<=	1'b0; 					//Start or Continue counting									
+					end
+					else begin 				
+						DELAY_STATE		<=	DELAY_STATE+1;				//Go to next SUBSTATE (disable bus, wait)
+						flag_rst		<=	1'b1;					//Stop counting
+					end
+				end
+				default:begin
+					STATE			<=	4'd15;//STATE+1;
+					DELAY_STATE		 <= 1'b0;
+				end
+			endcase
+		end
 		default: begin//----------This is the IDLE STATE, DO NOTHING UNTIL OPER is set-----------
-			if(RST==0)begin
-				case(OPER)
-					0:STATE<=STATE; 	//IDLE
-					1:STATE<=8;		//WRITE CHARACTER
-					2:STATE<=9;		//WRITE INSTRUCTION (assumes 49us or less time to process instr)
-					3:STATE<=0;			//RESET
-				endcase
+			if(ENB)begin//CLEAR
+				STATE <= 9;
+			end 
+			else if(write_flag==1 && written_flag==0)begin
+				STATE <= 10;
+				written_flag <= 1;
+			end
+			else if (write_flag==0 && written_flag==1) begin
+				written_flag <=  0;
 			end
 			else begin
-				STATE<=0;
+				STATE<=STATE;
 			end
 		end
 	endcase
-
-
-
-
-
 end
+
+always @(posedge OPER or posedge written_flag) begin
+	if(written_flag)
+		write_flag <= 0;
+	else
+		write_flag <= 1;
+end
+
+
+
+
+
+
 endmodule
 

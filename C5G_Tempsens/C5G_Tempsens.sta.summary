@@ -3,96 +3,144 @@ Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1100mV 85C Model Setup 'CLOCK_50_B7A'
-Slack : -2.351
-TNS   : -77.318
+Slack : -3.990
+TNS   : -126.761
 
 Type  : Slow 1100mV 85C Model Setup 'KEY[1]'
-Slack : -0.665
-TNS   : -3.362
+Slack : -0.641
+TNS   : -3.981
 
 Type  : Slow 1100mV 85C Model Hold 'KEY[1]'
 Slack : 0.222
 TNS   : 0.000
 
 Type  : Slow 1100mV 85C Model Hold 'CLOCK_50_B7A'
-Slack : 0.443
+Slack : 0.419
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Recovery 'DeBounce:DeBounce_OPER|DB_out'
+Slack : -2.756
+TNS   : -5.506
+
+Type  : Slow 1100mV 85C Model Removal 'DeBounce:DeBounce_OPER|DB_out'
+Slack : 2.078
 TNS   : 0.000
 
 Type  : Slow 1100mV 85C Model Minimum Pulse Width 'CLOCK_50_B7A'
-Slack : -0.538
-TNS   : -40.120
+Slack : -0.606
+TNS   : -54.316
 
 Type  : Slow 1100mV 85C Model Minimum Pulse Width 'KEY[1]'
 Slack : -0.538
-TNS   : -4.710
+TNS   : -5.495
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'DeBounce:DeBounce_OPER|DB_out'
+Slack : -0.538
+TNS   : -1.918
 
 Type  : Slow 1100mV 0C Model Setup 'CLOCK_50_B7A'
-Slack : -2.486
-TNS   : -80.327
+Slack : -4.229
+TNS   : -131.279
 
 Type  : Slow 1100mV 0C Model Setup 'KEY[1]'
-Slack : -0.657
-TNS   : -3.209
+Slack : -0.653
+TNS   : -3.833
+
+Type  : Slow 1100mV 0C Model Hold 'CLOCK_50_B7A'
+Slack : 0.033
+TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Hold 'KEY[1]'
 Slack : 0.310
 TNS   : 0.000
 
-Type  : Slow 1100mV 0C Model Hold 'CLOCK_50_B7A'
-Slack : 0.427
+Type  : Slow 1100mV 0C Model Recovery 'DeBounce:DeBounce_OPER|DB_out'
+Slack : -2.903
+TNS   : -5.799
+
+Type  : Slow 1100mV 0C Model Removal 'DeBounce:DeBounce_OPER|DB_out'
+Slack : 2.243
 TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Minimum Pulse Width 'CLOCK_50_B7A'
-Slack : -0.538
-TNS   : -41.645
+Slack : -0.650
+TNS   : -57.355
 
 Type  : Slow 1100mV 0C Model Minimum Pulse Width 'KEY[1]'
 Slack : -0.538
-TNS   : -4.698
+TNS   : -5.486
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'DeBounce:DeBounce_OPER|DB_out'
+Slack : -0.538
+TNS   : -1.846
 
 Type  : Fast 1100mV 85C Model Setup 'CLOCK_50_B7A'
-Slack : -0.598
-TNS   : -9.748
+Slack : -3.137
+TNS   : -32.268
 
 Type  : Fast 1100mV 85C Model Setup 'KEY[1]'
-Slack : 0.208
+Slack : 0.207
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'CLOCK_50_B7A'
+Slack : 0.139
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Hold 'KEY[1]'
 Slack : 0.146
 TNS   : 0.000
 
-Type  : Fast 1100mV 85C Model Hold 'CLOCK_50_B7A'
-Slack : 0.178
+Type  : Fast 1100mV 85C Model Recovery 'DeBounce:DeBounce_OPER|DB_out'
+Slack : -0.850
+TNS   : -1.699
+
+Type  : Fast 1100mV 85C Model Removal 'DeBounce:DeBounce_OPER|DB_out'
+Slack : 0.734
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Minimum Pulse Width 'CLOCK_50_B7A'
-Slack : -0.106
-TNS   : -5.261
+Slack : -0.555
+TNS   : -7.255
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'DeBounce:DeBounce_OPER|DB_out'
+Slack : -0.067
+TNS   : -0.133
 
 Type  : Fast 1100mV 85C Model Minimum Pulse Width 'KEY[1]'
 Slack : 0.036
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Setup 'CLOCK_50_B7A'
-Slack : -0.479
-TNS   : -6.975
+Slack : -2.669
+TNS   : -26.782
 
 Type  : Fast 1100mV 0C Model Setup 'KEY[1]'
-Slack : 0.283
+Slack : 0.281
 TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Hold 'CLOCK_50_B7A'
+Slack : -0.066
+TNS   : -0.066
 
 Type  : Fast 1100mV 0C Model Hold 'KEY[1]'
 Slack : 0.148
 TNS   : 0.000
 
-Type  : Fast 1100mV 0C Model Hold 'CLOCK_50_B7A'
-Slack : 0.170
+Type  : Fast 1100mV 0C Model Recovery 'DeBounce:DeBounce_OPER|DB_out'
+Slack : -0.846
+TNS   : -1.690
+
+Type  : Fast 1100mV 0C Model Removal 'DeBounce:DeBounce_OPER|DB_out'
+Slack : 0.746
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Minimum Pulse Width 'CLOCK_50_B7A'
-Slack : -0.100
-TNS   : -5.112
+Slack : -0.534
+TNS   : -7.130
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'DeBounce:DeBounce_OPER|DB_out'
+Slack : -0.013
+TNS   : -0.025
 
 Type  : Fast 1100mV 0C Model Minimum Pulse Width 'KEY[1]'
 Slack : 0.038
