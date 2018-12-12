@@ -71,43 +71,12 @@ parameter [7:0] D_SHIFT_R 	= 8'b00011100; 	//Execution time = 42us, Display Shif
 
 //===============================================================================================
 //-----------------------------Create the counting mechanisms------------------------------------
+// input [22:0] wait_time, input flag_rst, input CLK, output flag_xs
 //===============================================================================================
-reg [22:0] cnt_timer=0; 			//39360 clks, used to delay the STATEmachine during a command execution (SEE above command set)
-reg flag_250ns=0,flag_42us=0,flag_100us=0,flag_1640us=0,flag_4100us=0,flag_15000us=0, flag_50000us=0;
-reg flag_rst=1;					//Start with flag RST set. so that the counting has not started
 
-always @(posedge CLK) begin
-	if(flag_rst) begin //unlatch the frag
-		flag_250ns	<=	1'b0;		
-		flag_42us	<=	1'b0;		
-		flag_100us	<=	1'b0;		
-		flag_1640us	<=	1'b0;		
-		flag_4100us	<=	1'b0;		
-		flag_15000us    <=	1'b0;	
-		flag_50000us	<=	1'b0;	
-		cnt_timer	<=	21'b0;	
-	end
-	else begin //latch the frag
-		flag_250ns	<=	cnt_latch(cnt_timer, t_40ns );		
-		flag_42us	<=	cnt_latch(cnt_timer, t_250ns);		
-		flag_100us	<=	cnt_latch(cnt_timer, t_42us );		
-		flag_1640us	<=	cnt_latch(cnt_timer, t_100us);		
-		flag_4100us	<=	cnt_latch(cnt_timer, t_640us);		
-		flag_15000us    <=	cnt_latch(cnt_timer, t_15000us );	
-		flag_50000us	<=	cnt_latch(cnt_timer, t_50000us );
+delay delay(wait_time, flag_rst, CLK, flag_xs);
+reg flag_xs = 1'b1;	//Start with flag RST set. so that the counting has not started
 
-		cnt_timer	<= cnt_timer + 1;//timer increment
-	end
-end
-
-function cnt_latch(input [22:0] cnt_timer, input [22:0] t_xs);// input timer , latch timing 
-	if(cnt_timer>=t_xs) begin			
-		cnt_latch	<=	1'b1;
-	end
-	else begin			
-		cnt_latch	<=	cnt_latch;
-	end
-endfunction
 //##########################################################################################
 //-----------------------------Create the STATE MACHINE------------------------------------
 //##########################################################################################
@@ -124,7 +93,8 @@ always @(posedge CLK) begin
 			LCD_DB 	<= 	8'b00000000;
 			RDY		<= 	1'b0;										//Indicate that the module is busy
 			SUBSTATE	<=	0;
-			if(!flag_50000us) begin									//WAIT 50ms...worst case scenario
+			wait_time	<= t_50000us;
+			if(!flag_xs) begin									//WAIT 50ms...worst case scenario
 				STATE				<=	STATE;						//Remain in current STATE
 				flag_rst			<=	1'b0; 						//Start or Continue counting				
 			end

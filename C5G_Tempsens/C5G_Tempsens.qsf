@@ -531,7 +531,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO[35]
 #============================================================
 
 
-set_global_assignment -name LAST_QUARTUS_VERSION "18.0.0 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "17.0.0 Lite Edition"
 set_global_assignment -name VERILOG_FILE LCDModule.v
 set_global_assignment -name VERILOG_FILE clock_generator.v
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
